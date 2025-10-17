@@ -1,0 +1,82 @@
+@extends('layouts.vertical')
+@section('title', 'Proveedores')
+@section('section', 'proveedores')
+
+@section('content')
+
+<div class="content-page">
+  <!-- Start content -->
+  <div class="content">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <h4 class="page-title fnt26 text-uppercase fntB">Proveedores</h4>
+                {{--
+                <div class="state-information d-none d-sm-block">
+                    <div class="state-graph">
+                        <div id="header-chart-1"></div>
+                        <div class="info">Balance $ 2,317</div>
+                    </div>
+                    <div class="state-graph">
+                        <div id="header-chart-2"></div>
+                        <div class="info">Item Sold 1230</div>
+                    </div>
+                </div>
+                --}}
+            </div>
+        </div>
+      </div>
+      <!-- end row -->
+
+      <div class="page-content-wrapper">
+          <div class="row justify-content-center">
+              <div class="col-12 col-md-10">
+                  <div class="card m-b-20">
+                      <div class="card-body table-responsive">
+                          <div class="clearfix pb-3">
+                            <h4 class="mt-0 text-uppercase fnt20 fntB float-left">Lista</h4>
+                            <a href="{{ route('provee.create') }}" class="btn btn-sm btn-primary float-right text-uppercase">Crear proveedor</a>
+                          </div>
+                          <table id='ProveeTable' class="table table-sm table-striped table-hover align-middle">
+                            <thead>
+                              <tr>
+                                  <th class="text-capitalize fnt_blue fntB">Identificador</th>
+                                  <th class="text-capitalize fnt_blue fntB">Razon social</th>
+                                  <th class="text-capitalize fnt_blue fntB">RFC</th>
+                                  <th class="text-capitalize fnt_blue fntB">telefono</th>
+                                  <th class="text-capitalize fnt_blue fntB">direccion</th>
+                                  <th class="text-capitalize fnt_blue fntB">correo</th>
+                                  <th class="text-capitalize fnt_blue fntB">acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($proveedores as $proveedor)
+                                <tr>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->identificador }}</td>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->razonsocial }}</td>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->rfc }}</td>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->telefono }}</td>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->direccion }}</td>
+                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->correo }}</td>
+                                  <td>
+                                    <a href="{{ route('provee.show', ['id' => $proveedor->id]) }}" class="btn btn-primary btn-sm text-uppercase fntB"> ver</a>
+                                  </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+
+
+                      </div>
+                  </div>
+              </div> <!-- end col -->
+          </div> <!-- end row -->
+
+    </div>
+  </div>
+</div>
+</div>
+
+@endsection

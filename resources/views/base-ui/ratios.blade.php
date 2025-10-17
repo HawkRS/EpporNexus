@@ -1,0 +1,67 @@
+@extends('layouts.vertical', ['title' => 'Ratio Video'])
+
+@section('content')
+@include('layouts.partials.page-title', ['subtitle' => 'Base UI', 'title' => 'Ratio Video'])
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="header-title">Responsive Ratio video 21:9</h5>
+                <p class="card-subtitle">Use class <code>.ratio-21x9</code>
+            </div>
+
+            <div class="card-body pt-2">
+                <!-- 21:9 aspect ratio -->
+                <div class="ratio ratio-21x9">
+                    <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="header-title">Responsive Ratio video 1:1</h5>
+                <p class="card-subtitle">Use class <code>.ratio-1x1</code></p>
+            </div>
+
+            <div class="card-body pt-2">
+                <!-- 1:1 aspect ratio -->
+                <div class="ratio ratio-1x1">
+                    <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="header-title">Responsive Ratio video 16:9</h5>
+                <p class="card-subtitle">Use class <code>.ratio-16x9</code>
+            </div>
+
+            <div class="card-body pt-2">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="header-title">Responsive Ratio video 4:3</h5>
+                <p class="card-subtitle">Use class <code>.ratio-4x3</code>
+            </div>
+
+            <div class="card-body pt-2">
+                <!-- 4:3 aspect ratio -->
+                <div class="ratio ratio-4x3">
+                    <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+@endsection

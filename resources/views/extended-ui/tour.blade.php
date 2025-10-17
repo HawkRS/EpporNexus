@@ -1,0 +1,93 @@
+@extends('layouts.vertical',['title' => 'Page Tour'])
+
+@section('css')
+@vite(['node_modules/hopscotch/dist/css/hopscotch.min.css'])
+@endsection
+
+@section('content')
+@include('layouts.partials.page-title', ['subtitle' => 'Extended UI', 'title' => 'Dashboard'])
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center mt-4 mb-5">
+                    <img src="/images/logo-dark.png" alt="" height="24" id="logo-tour">
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <h4 class="header-title mt-0 mb-4">Heading</h4>
+                        <h1 id="heading-title-tour">This is a Heading 1</h1>
+                        <p class="text-muted">Suspendisse vel quam malesuada, aliquet sem sit
+                            amet, fringilla elit.</p>
+
+                        <div class="clearfix"></div>
+
+                        <h2>This is a Heading 2</h2>
+                        <p class="text-muted">In nec rhoncus eros. Vestibulum eu mattis nisl magna nec purus.</p>
+
+                        <div class="clearfix"></div>
+
+                        <h3>This is a Heading 3</h3>
+                        <p class="text-muted">Vestibulum auctor tincidunt semper ut lacus mi eros.</p>
+
+                        <div class="clearfix"></div>
+
+                        <h4>This is a Heading 4</h4>
+                        <p class="text-muted">Nulla et mattis nunc scelerisque
+                            commodo.</p>
+
+                    </div>
+
+                    <div class="col-lg-5 offset-lg-1">
+                        <div class="mt-4 mt-lg-0">
+                            <h4 class="header-title mt-0 mb-4">Join With Adminox</h4>
+
+                            <div class="p-2">
+                                <ul class="list-unstyled activity-widget">
+                                    <li class="activity-list">
+                                        <div class="media d-flex align-items-start gap-3">
+                                            <i class="mdi mdi-square-edit-outline h2 text-success mt-0 me-3" id="register-tour"></i>
+                                            <div class="media-body">
+                                                <h5 class="font-16 mt-1">Free register</h5>
+                                                <p class="text-muted">Register your Account.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-list">
+                                        <div class="media d-flex align-items-start gap-3">
+                                            <i class="mdi mdi-account-star-outline h2 text-success mt-0 me-3"></i>
+                                            <div class="media-body">
+                                                <h5 class="font-16 mt-1">Log in account</h5>
+                                                <p class="text-muted">Log in your Account.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="activity-list">
+                                        <div class="media d-flex align-items-start gap-3">
+                                            <i class="mdi mdi-file-download-outline h2 text-success mt-0 me-3"></i>
+                                            <div class="media-body">
+                                                <h5 class="font-16 mt-1">Get Product</h5>
+                                                <p class="text-muted">Get your Product.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end row -->
+                <div class="text-center mt-5">
+                    <a href="javascript: void(0);" class="btn btn-success waves-effect waves-light" id="thankyou-tour">Thank you !</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+@vite(['resources/js/pages/extended-tour.js'])
+@endsection
