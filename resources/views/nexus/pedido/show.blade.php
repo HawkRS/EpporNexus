@@ -219,25 +219,25 @@
                   <span class=" fnt16 fntB  text-primary">
                     @switch($pedido->canaldeventa)
                     @case('1')
-                      Contacto directo
+                    Contacto directo
                     @break
                     @case('2')
-                      Facebook/Whats
+                    Facebook/Whats
                     @break
                     @case('3')
-                      Mercado Libre
+                    Mercado Libre
                     @break
                     @case('4')
-                      Vendedor externo
+                    Vendedor externo
                     @break
                     @case('5')
-                      Tradicional
+                    Tradicional
                     @break
                     @case('6')
-                      Otro
+                    Otro
                     @break
                     @default
-                      N/A
+                    N/A
                     @endswitch
                   </span>
                 </h5>
@@ -265,15 +265,15 @@
                     <table class="table table-sm">
                       <tbody>
                         <tr>
-                    @if($pedido->HasGuia() == null)
-                    <td>Sin Guia</td>
-                    <td>
-                      <button class="float-right btn btn-sm btn-primary" data-toggle="modal" data-target="#addGuiaModal">Agregar guia</button>
-                    </td>
-                    @else
-                    <td>{{$pedido->HasGuia()->paqueteria}}</td>
-                    <td>{{$pedido->HasGuia()->guia}}</td>
-                    @endif
+                          @if($pedido->HasGuia() == null)
+                          <td>Sin Guia</td>
+                          <td>
+                            <button class="float-right btn btn-sm btn-primary" data-toggle="modal" data-target="#addGuiaModal">Agregar guia</button>
+                          </td>
+                          @else
+                          <td>{{$pedido->HasGuia()->paqueteria}}</td>
+                          <td>{{$pedido->HasGuia()->guia}}</td>
+                          @endif
                         </tr>
                       </tbody>
                     </table>
@@ -288,55 +288,56 @@
                 <h5 class="fnt18 fntB fnt_blue">Acciones</h5>
                 <div class="row">
                   <div class="col-12 pt-2"> <a href="{{route('pedidos.edit', ['id'=>$pedido->id])}}" class="btn btn-block btn-primary">Editar pedido</a> </div>
-                  <div class="col-12 pt-2"> <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#staticBackdrop">Generar PDF </button> </div>
+                  <div class="col-12 pt-2"> <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#generarPDF">Generar PDF </button> </div>
                   <div class="col-12 pt-2"> <button type="button" class="btn btn-block btn-info" data-toggle="modal" data-target="#paqueteria">Paqueteria </button> </div>
                   <div class="col-12 pt-2"> <a href="#" class="btn btn-block btn-warning">Cambiar cliente</a> </div>
                 </div>
               </div>
             </div>
 
-            </div>
+          </div>
 
-            <div class="col-md-3">
-              <div class="card m-b-20">
-                <div class="card-body">
-                  <div class="invoice-title">
+          <div class="col-md-3">
+            <div class="card m-b-20">
+              <div class="card-body">
+                <div class="invoice-title">
 
-                    <h2 class="fntB fnt_blue">PEDIDO</h2>
+                  <h2 class="fntB fnt_blue">PEDIDO</h2>
 
-                    <div class="pt-3">
-                      <h5 class="fntB fnt_blue">
-                        <i class="fas fa-file-invoice"></i> &nbsp;  Folio:
-                        <span class="fntB  text-primary"># {{ $pedido->folio }}</span>
-                      </h5>
-                      <h5><strong class="fntB fnt_blue"><i class="fas fa-user-tag"></i> &nbsp;  Cliente:</strong> {{$cliente->identificador}}</h5>
-                      <p><strong class="fntB fnt_blue"><i class="fas fa-id-card"></i> &nbsp; RFC:</strong>
-                        {{$cliente->rfc}}
-                      </p>
-                      <p><strong class="fntB fnt_blue"><i class="fas fa-user"></i> &nbsp; Razon Social:</strong> {{$cliente->razonsocial}}</p>
-                      <p><strong class="fntB fnt_blue"><i class="fas fa-envelope"></i> &nbsp; E-mail:</strong> {{$cliente->correo}}</p>
-                      <p><strong class="fntB fnt_blue"><i class="fas fa-phone"></i> &nbsp; Telefono:</strong> {{$cliente->telefono}}</p>
-                      <p><strong class="fntB fnt_blue"><i class="fas fa-map-marker-alt"></i> &nbsp; Domicilio:</strong> {{$cliente->direccion}},CP: {{$cliente->codigopostal}}, {{$cliente->estado}}</p>
-                    </div>
-                    @if ( count( $errors ) > 0 )
-                    @foreach ($errors->all() as $error)
-                    <div class="pt-3 text-danger">{{ $error }}</div>
-                    @endforeach
-                    @endif
-                    <div class="pt-3">
-                      <div class="row justify-content-center">
-                        <div class="col-md-4  pt-xs-3 pt-md-0">
-                          <a href="{{route('pedidos.edit', ['id'=>$pedido->id])}}" class="btn btn-block btn-primary">Editar pedido</a>
-                        </div>
-                        <div class="col-md-4  pt-xs-3 pt-md-0">
-                          <a href="#" class="btn btn-block btn-warning">Cambiar cliente</a>
-                        </div>
-                        <div class="col-md-4  pt-xs-3 pt-md-0">
-                          <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#staticBackdrop">
-                            Generar PDF
-                          </button>
-                        </div>
-                        {{--
+                  <div class="pt-3">
+                    <h5 class="fntB fnt_blue">
+                      <i class="fas fa-file-invoice"></i> &nbsp;  Folio:
+                      <span class="fntB  text-primary"># {{ $pedido->folio }}</span>
+                    </h5>
+                    <h5><strong class="fntB fnt_blue"><i class="fas fa-user-tag"></i> &nbsp;  Cliente:</strong> {{$cliente->identificador}}</h5>
+                    <p><strong class="fntB fnt_blue"><i class="fas fa-id-card"></i> &nbsp; RFC:</strong>
+                      {{$cliente->rfc}}
+                    </p>
+                    <p><strong class="fntB fnt_blue"><i class="fas fa-user"></i> &nbsp; Razon Social:</strong> {{$cliente->razonsocial}}</p>
+                    <p><strong class="fntB fnt_blue"><i class="fas fa-envelope"></i> &nbsp; E-mail:</strong> {{$cliente->correo}}</p>
+                    <p><strong class="fntB fnt_blue"><i class="fas fa-phone"></i> &nbsp; Telefono:</strong> {{$cliente->telefono}}</p>
+                    <p><strong class="fntB fnt_blue"><i class="fas fa-map-marker-alt"></i> &nbsp; Domicilio:</strong> {{$cliente->direccion}},CP: {{$cliente->codigopostal}}, {{$cliente->estado}}</p>
+                  </div>
+                  @if ( count( $errors ) > 0 )
+                  @foreach ($errors->all() as $error)
+                  <div class="pt-3 text-danger">{{ $error }}</div>
+                  @endforeach
+                  @endif
+                  <div class="pt-3">
+                    <div class="row justify-content-center">
+                      <div class="col-md-4  pt-xs-3 pt-md-0">
+                        <a href="{{route('pedidos.edit', ['id'=>$pedido->id])}}" class="btn btn-block btn-primary">Editar pedido</a>
+                      </div>
+                      <div class="col-md-4  pt-xs-3 pt-md-0">
+                        <a href="#" class="btn btn-block btn-warning">Cambiar cliente</a>
+                      </div>
+                      <div class="col-md-4  pt-xs-3 pt-md-0">
+                        <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#generarpdf">
+                          Generar PDF
+                        </button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#PedidoModal">Nuevo pedido</button>
+                      </div>
+                      {{--
                         <div class="col-md-4  pt-3">
                           <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#paqueteria">
                             Paqueteria
@@ -412,25 +413,25 @@
                           <span class=" fnt16 fntB  text-primary">
                             @switch($pedido->canaldeventa)
                             @case('1')
-                              Contacto directo
+                            Contacto directo
                             @break
                             @case('2')
-                              Facebook/Whats
+                            Facebook/Whats
                             @break
                             @case('3')
-                              Mercado Libre
+                            Mercado Libre
                             @break
                             @case('4')
-                              Vendedor externo
+                            Vendedor externo
                             @break
                             @case('5')
-                              Tradicional
+                            Tradicional
                             @break
                             @case('6')
-                              Otro
+                            Otro
                             @break
                             @default
-                              N/A
+                            N/A
                             @endswitch
                           </span>
                         </div>
@@ -517,15 +518,15 @@
                           <table class="table table-sm">
                             <tbody>
                               <tr>
-                          @if($pedido->HasGuia() == null)
-                          <td>Sin Guia</td>
-                          <td>
-                            <button class="float-right btn btn-sm btn-primary" data-toggle="modal" data-target="#addGuiaModal">Agregar guia</button>
-                          </td>
-                          @else
-                          <td>{{$pedido->HasGuia()->paqueteria}}</td>
-                          <td>{{$pedido->HasGuia()->guia}}</td>
-                          @endif
+                                @if($pedido->HasGuia() == null)
+                                <td>Sin Guia</td>
+                                <td>
+                                  <button class="float-right btn btn-sm btn-primary" data-toggle="modal" data-target="#addGuiaModal">Agregar guia</button>
+                                </td>
+                                @else
+                                <td>{{$pedido->HasGuia()->paqueteria}}</td>
+                                <td>{{$pedido->HasGuia()->guia}}</td>
+                                @endif
                               </tr>
                             </tbody>
                           </table>
@@ -537,15 +538,15 @@
                 </div>
 
               </div>
+            </div>
+
           </div>
 
         </div>
-
       </div>
     </div>
-  </div>
 
-</div>
+  </div>
 </div>
 </div>
 
@@ -716,88 +717,39 @@
           </div>
         </div>
 
-        <!-- Modal PDF -->
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        @include('nexus.pedido.partials.modalpdf')
+
+        <!-- Modal Editar Pago -->
+        <div class="modal fade" id="addGuiaModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Generación PDF</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title">Agregar Guia</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-              <div class="modal-body">
-                <form action="{{route('pedidos.pdf', ['id'=>$pedido->id])}}" method="post">
-                  @csrf
-                  @method('POST')
+              <form action="{{ route('pedidos.addguia', ['id'=>$pedido->id]) }}" method="POST">
+                @csrf
+                <div class="modal-body">
                   <div class="form-group">
-                    <label>Datos personales</label>
-                    <select  name="datos" class="form-control">
-                      <option >Elige una opción</option disabled>
-                        <option value="1">GOMC</option>
-                        <option value="2">Eppor</option>
-                        <option value="3">Ambos</option>
-                        <option value="4">Ninguno</option>
-                      </select>
-                    </div>
-                    @if($pedido->saldo > 0)
-                    <div class="form-group">
-                      <label>¿Con información bancaria?</label>
-                      <select  name="bancoflag" class="form-control">
-                        <option >Elige una opción</option disabled>
-                          <option value="1">Si</option>
-                          <option value="2">No</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>Info bancaria</label>
-                        <select  name="banco" class="form-control">
-                          <option >Elige una opción</option disabled>
-                            <option value="1">Banamex GOMC</option>
-                            <option value="2">Banamex GOHC</option>
-                            <option value="3">HSBC DAGH</option>
-                            <option value="4">Otro</option>
-                          </select>
-                        </div>
-                        @else
-                        <input type="hidden" name="bancoflag" value="2">
-                        <input type="hidden" name="banco" value="4">
-                        @endif
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Generar</button>
-                      </form>
-                    </div>
+                    <label>Paqueteria</label>
+                    <input type="text" name="paqueteria" class="form-control" required>
                   </div>
-                </div>
-              </div>
 
-              <!-- Modal Editar Pago -->
-              <div class="modal fade" id="addGuiaModal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Agregar Guia</h5>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <form action="{{ route('pedidos.addguia', ['id'=>$pedido->id]) }}" method="POST">
-                      @csrf
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <label>Paqueteria</label>
-                          <input type="text" name="paqueteria" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                          <label>N° Guia</label>
-                          <input type="text" name="guia"  class="form-control" required>
-                        </div
-                      </div>
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </form>
+                  <div class="form-group">
+                    <label>N° Guia</label>
+                    <input type="text" name="guia"  class="form-control" required>
+                    </div
                   </div>
-                </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </form>
               </div>
-              @endsection
+            </div>
+          </div>
+          @endsection
+
+          @section('scripts')
+          @vite(['resources/js/nexus/pedidoshow.js'])
+          @endsection

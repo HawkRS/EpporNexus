@@ -31,9 +31,7 @@
                     <span class="text-right">
                       {{--<a href="{{route('pedidos.create')}}" class="btn btn-sm btn-success">Nuevo pedido</a>--}}
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#PedidoModal">
-                        Nuevo pedido
-                      </button>
+                      <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#PedidoModal">Nuevo pedido</button>
                     </span>
                   </div>
                 </div>
@@ -301,3 +299,6 @@
 
 @endsection
 
+@section('scripts')
+@vite(['resources/js/nexus/pedidos.js'])
+@endsection

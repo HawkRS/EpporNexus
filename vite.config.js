@@ -106,6 +106,11 @@ export default defineConfig({
                 "resources/js/maps/us-lcc-en.js",
                 "resources/js/maps/us-mill-en.js",
                 "resources/js/maps/in-mill-en.js",
+                "resources/js/nexus/clientes.js",
+                "resources/js/nexus/proveedores.js",
+                "resources/js/nexus/contadetail.js",
+                "resources/js/nexus/pedidos.js",
+                "resources/js/nexus/pedidoshow.js",
 
 
             ],

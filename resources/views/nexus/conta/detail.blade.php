@@ -3,6 +3,7 @@
 @section('section', 'contadet')
 
 @section('content')
+<?php use Carbon\Carbon; ?>
 <div class="content-page">
   <!-- Start content -->
   <div class="content">
@@ -174,7 +175,7 @@
                   </div>
                   <div class="modal-body">
                     <form class="col-12" method="POST" action="{{ route('conta.add.ingreso', ['rfc' => $rfc]) }}">
-                      @include('admin.conta.partials.add_ingreso')
+                      @include('nexus.conta.partials.add_ingreso')
                     </form>
                   </div>
                   <div class="modal-footer">
@@ -204,43 +205,58 @@
                   </tr>
                 </thead>
                 <tbody>
+
                   @foreach($ingresos as $ingreso)
-                  <?php
-                  //use Carbon\Carbon;
-                  $cliente =  $ingreso->cliente();
-                  dd($cliente);
-                  ?>
-                  @if($ingreso->estatus == 2)
-                    <tr class="table-warning">
-                  @elseif($ingreso->estatus == 3)
-                    <tr class="table-info">
-                  @else
-                    <tr>
-                  @endif
-                      <td>{{ date_format($ingreso->fecha,"d/m/Y") }}</td>
-                      @if($cliente) {{-- Verifica si $cliente no es null --}}
-                                      @if(isset($cliente->identificador) && !empty($cliente->identificador)) {{-- Verifica si 'identificador' existe y no está vacío --}}
-                                          {{ $cliente->identificador }}
-                                      @else
-                                          {{ $cliente->razonsocial }}
-                                      @endif
-                                  @else
-                                      N/A {{-- O cualquier texto que indique que no hay cliente asociado --}}
-                                  @endif
-                      <td>{{ $ingreso->folio }}</td>
-                      <td>$ {{ number_format($ingreso->subtotal, 2) }}</td>
-                      <td>$ {{ number_format($ingreso->iva, 2) }}</td>
-                      <td>$ {{ number_format($ingreso->total, 2) }}</td>
-                      @if($ingreso->test == 1)
-                        <td><span class="badge badge-success">Publico gral</span> </td>
+                      <?php
+                      // OJO: Si $ingreso->cliente() es una relación de Eloquent,
+                      // debes usar $ingreso->cliente en lugar de $ingreso->cliente()
+                      // para acceder al objeto relacionado.
+                      $cliente = $ingreso->cliente(); // Suponiendo que corregiste el modelo para usar la relación como propiedad
+                      ?>
+                      @if($ingreso->estatus == 2)
+                          <tr class="table-warning">
+                      @elseif($ingreso->estatus == 3)
+                          <tr class="table-info">
                       @else
-                        <td><span class="badge badge-success">Facturado</span> </td>
+                          <tr>
                       @endif
-                      <td>
-                        <a href="{{ route('conta.edit.ingreso', ['rfc' => $rfc, 'id' => $ingreso->id]) }}" class="btn btn-sm btn-warning fntB"><i class="fas fnt18 fa-pencil-alt"></i></a>
-                        <a href="#" class="btn btn-sm btn-danger fntB"><i class="fas fnt18 fa-trash-alt"></i></a>
-                      </td>
-                    </tr>
+                          {{-- 1. Celda de Fecha --}}
+                          <td>{{ Carbon::parse($ingreso->fecha)->format('d/m/Y') }}</td>
+
+                          {{-- 2. Celda del Cliente (CORREGIDA) --}}
+                          <td>
+                              @if($cliente)
+                                  @if(isset($cliente->identificador) && !empty($cliente->identificador))
+                                      {{ $cliente->identificador }}
+                                  @else
+                                      {{ ucwords(strtolower($cliente->razonsocial)) }}
+                                  @endif
+                              @else
+                                  N/A
+                              @endif
+                          </td>
+
+                          {{-- 3. Celda de Folio --}}
+                          <td>{{ $ingreso->folio }}</td>
+
+                          {{-- 4-6. Celdas de Totales --}}
+                          <td>$ {{ number_format($ingreso->subtotal, 2) }}</td>
+                          <td>$ {{ number_format($ingreso->iva, 2) }}</td>
+                          <td>$ {{ number_format($ingreso->total, 2) }}</td>
+
+                          {{-- 7. Celda de Estatus --}}
+                          @if($ingreso->test == 1)
+                              <td><span class="badge badge-success">Publico gral</span> </td>
+                          @else
+                              <td><span class="badge badge-success">Facturado</span> </td>
+                          @endif
+
+                          {{-- 8. Celda de Acciones --}}
+                          <td>
+                              <a href="{{ route('conta.edit.ingreso', ['rfc' => $rfc, 'id' => $ingreso->id]) }}" class="btn btn-sm btn-warning fntB"><i class="fas fnt18 fa-pencil-alt"></i></a>
+                              <a href="#" class="btn btn-sm btn-danger fntB"><i class="fas fnt18 fa-trash-alt"></i></a>
+                          </td>
+                      </tr>
                   @endforeach
                   </tbody>
                 </table>
@@ -270,7 +286,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="col-12" method="POST" action="{{ route('conta.add.egreso', ['rfc' => $rfc]) }}">
-                        @include('admin.conta.partials.add_egreso')
+                        @include('nexus.conta.partials.add_egreso')
                       </form>
                     </div>
                     <div class="modal-footer">
@@ -312,7 +328,7 @@
                       @else
                         <tr>
                       @endif
-                          <td>{{ date_format($egreso->fecha,"d/m/Y") }}</td>
+                          <td>{{ Carbon::parse($egreso->fecha)->format('d/m/Y') }}</td>
                           <td>{{ $proveedor->identificador }}</td>
                           <td>{{ $egreso->folio }}</td>
                           <td>$ {{ number_format($egreso->subtotal, 2) }}</td>
@@ -338,4 +354,9 @@
     </div>
   </div>
 </div>
+@endsection
+
+
+@section('scripts')
+@vite(['resources/js/nexus/contadetail.js'])
 @endsection

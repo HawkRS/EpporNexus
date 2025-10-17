@@ -10,6 +10,7 @@ File: Dashboard init js
 
 import * as c3 from 'c3';
 import * as echarts from 'echarts';
+import { Chart } from 'chart.js';
 
 jQuery(function ($) {
 

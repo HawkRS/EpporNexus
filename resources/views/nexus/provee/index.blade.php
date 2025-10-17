@@ -36,7 +36,6 @@
                   <div class="card m-b-20">
                       <div class="card-body table-responsive">
                           <div class="clearfix pb-3">
-                            <h4 class="mt-0 text-uppercase fnt20 fntB float-left">Lista</h4>
                             <a href="{{ route('provee.create') }}" class="btn btn-sm btn-primary float-right text-uppercase">Crear proveedor</a>
                           </div>
                           <table id='ProveeTable' class="table table-sm table-striped table-hover align-middle">
@@ -54,14 +53,17 @@
                             <tbody>
                               @foreach($proveedores as $proveedor)
                                 <tr>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->identificador }}</td>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->razonsocial }}</td>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->rfc }}</td>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->telefono }}</td>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->direccion }}</td>
-                                  <td class="text-uppercase fntB fnt14 fnt_dgrey">{{ $proveedor->correo }}</td>
-                                  <td>
-                                    <a href="{{ route('provee.show', ['id' => $proveedor->id]) }}" class="btn btn-primary btn-sm text-uppercase fntB"> ver</a>
+                                  <td class="text-secondary">{{ ucwords(strtolower($proveedor->identificador)) }}</td>
+                                  {{-- Aplica ucwords si el nombre completo necesita capitalización (ej. "Diego Gonzalez") --}}
+                                  <td class="text-secondary">{{ ucwords(strtolower($proveedor->razonsocial)) }}</td>
+                                  <td class="text-cappitalize text-secondary">{{ $proveedor->rfc }}</td>
+                                  <td class="text-secondary">{{ $proveedor->telefono }}</td>
+                                  {{-- Se usa ucwords para que cada palabra de la dirección inicie con mayúscula --}}
+                                  <td class="text-secondary">{{ ucwords(strtolower($proveedor->direccion)) }}</td>
+                                  <td class="text-secondary">{{ strtolower($proveedor->correo) }}</td>
+                                  <td>&nbsp;
+                                    <a class="text-info" href="{{ route('provee.show', ['id' => $proveedor->id]) }}"> <i class="fas fa-eye"></i> </a>&nbsp;&nbsp;
+                                    <a class="text-warning" href="{{ route('provee.edit', ['id' => $proveedor->id]) }}"> <i class="fas fa-edit"></i> </a>
                                   </td>
                                 </tr>
                               @endforeach
@@ -79,4 +81,9 @@
 </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+@vite(['resources/js/nexus/proveedores.js'])
 @endsection

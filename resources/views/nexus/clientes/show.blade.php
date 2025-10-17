@@ -39,7 +39,7 @@
               <div class="col-12">
                 <div class="card p-3">
                   <div class="card-body pb-0">
-                    <h4 class="fntB fnt24 fnt_blue"><i class="fas fa-file-invoice"></i> Datos fiscales
+                    <h4 class="header-title"><i class="fas fa-file-invoice"></i> Datos fiscales
                       <a href="{{ route('cliente.edit', ['id' => $cliente->id ]) }}" class="text-info"> &nbsp;<i class="fas fa-edit"></i> </a>
                     </h4>
                     <hr>
@@ -146,7 +146,7 @@
                 <div class="col-12 col-md-4">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="fntB fnt_blue fnt24">Pedidos</h4>
+                      <h4 class="header-title">Pedidos</h4>
                       <span class="float-right fnt30 fntB text-success">{{$pedidos->count()}}</span>
                     </div>
                   </div>
@@ -154,7 +154,7 @@
                 <div class="col-12 col-md-4">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="fntB fnt_blue fnt24">Cotizaciones</h4>
+                      <h4 class="header-title">Cotizaciones</h4>
                       <span class="float-right fnt30 fntB text-success">{{$pedidos->count()}}</span>
                     </div>
                   </div>
@@ -162,7 +162,7 @@
                 <div class="col-12 col-md-4">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="fntB fnt_blue fnt24">Saldo total</h4>
+                      <h4 class="header-title">Saldo total</h4>
                       <span class="float-right fnt30 fntB text-success">${{ number_format($saldo, 2) }}</span>
                     </div>
                   </div>
@@ -173,7 +173,7 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-8">
-                          <h4 class="fntB fnt_blueL fnt18">Pedidos</h4>
+                          <h4 class="header-title">Pedidos</h4>
                         </div>
                         <div class="col-md-4">
                           <span class="text-right">
@@ -252,7 +252,7 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-8">
-                          <h4 class="fntB fnt_blueL fnt18">Cotizaciones</h4>
+                          <h4 class="header-title">Cotizaciones</h4>
                         </div>
                         <div class="col-md-4">
                           <span class="text-right">

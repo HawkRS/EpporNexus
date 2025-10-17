@@ -60,7 +60,6 @@
                                   <td class="text-secondary">{{ $client->telefono }}</td>
                                   {{-- Se usa ucwords para que cada palabra de la dirección inicie con mayúscula --}}
                                   <td class="text-secondary">{{ ucwords(strtolower($client->direccion)) }}</td>
-
                                   <td class="text-secondary">{{ strtolower($client->correo) }}</td>
                                   <td>&nbsp;
                                     <a class="text-info" href="{{ route('cliente.show', ['id' => $client->id]) }}"> <i class="fas fa-eye"></i> </a>&nbsp;&nbsp;

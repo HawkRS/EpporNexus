@@ -12,7 +12,7 @@
 
         <form class="col-12" method="POST" action="{{ route('conta.update.ingreso', ['rfc' => $rfc,'id' => $ingreso->id]) }}">
 
-          @include('admin.conta.partials.add_ingreso')
+          @include('nexus.conta.partials.add_ingreso')
         </form>
 
       </div>
