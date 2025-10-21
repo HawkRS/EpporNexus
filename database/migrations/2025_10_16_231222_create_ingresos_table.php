@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ingresos', function (Blueprint $table) {
           $table->id();
           $table->date('fecha');
-          $table->foreignId('cliente_id')->constrained('clientes');
+          $table->foreignId('clientes_id')->constrained('clientes');
           $table->string('rfc');
           $table->string('estatus');
           $table->string('folio')->nullable();

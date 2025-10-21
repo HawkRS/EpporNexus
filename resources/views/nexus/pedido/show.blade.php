@@ -289,6 +289,7 @@
                 <div class="row">
                   <div class="col-12 pt-2"> <a href="{{route('pedidos.edit', ['id'=>$pedido->id])}}" class="btn btn-block btn-primary">Editar pedido</a> </div>
                   <div class="col-12 pt-2"> <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#generarPDF">Generar PDF </button> </div>
+                  <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#myModal">Standard Modal</button>
                   <div class="col-12 pt-2"> <button type="button" class="btn btn-block btn-info" data-toggle="modal" data-target="#paqueteria">Paqueteria </button> </div>
                   <div class="col-12 pt-2"> <a href="#" class="btn btn-block btn-warning">Cambiar cliente</a> </div>
                 </div>

@@ -5,9 +5,6 @@
 
     RewriteEngine On
 
-    # ¡Añade esta línea! Cambia '/eppor2/public/' por la URL exacta de tu subcarpeta.
-    RewriteBase /eppor2/public/
-
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

@@ -26,91 +26,8 @@
                 <i data-lucide="menu" class="font-22"></i>
             </button>
 
-            <form class="app-search d-none d-sm-flex align-items-center">
-                <div class="app-search-box">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button class="btn btn-icon" type="submit">
-                                <i data-lucide="search" class="font-16"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
 
-            <!-- Mega Menu Dropdown -->
-            <div class="topbar-item d-none d-md-flex">
-                <div class="dropdown">
-                    <a href="" class="topbar-link btn btn-link px-2 dropdown-toggle drop-arrow-none fw-medium" data-bs-toggle="dropdown" data-bs-trigger="hover" data-bs-offset="0,17" aria-haspopup="false" aria-expanded="false">
-                        Pages <i class="mdi mdi-chevron-down ms-1"></i>
-                    </a>
 
-                    <div class="dropdown-menu dropdown-menu-xxl p-0">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <div class="p-3">
-                                    <h5 class="mb-2 fw-semibold">UI Components</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="#!">Widgets</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="p-3">
-                                    <h5 class="mb-2 fw-semibold">Applications</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="#">eCommerce Pages</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Hospital</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Email</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route ('admin.dashboard') }}">Calendar</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Kanban Board</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Invoice Management</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 bg-light bg-opacity-50">
-                                <div class="p-3">
-                                    <h5 class="mb-2 fw-semibold">Extra Pages</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);">Left Sidebar with User</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Menu Collapsed</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Small Left Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">New Header Style</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">My Account</a>
-                                        </li>
-                                    </ul>
-                                </div> <!-- end .bg-light-->
-                            </div> <!-- end col-->
-                        </div> <!-- end row-->
-                    </div> <!-- .dropdown-menu-->
-                </div> <!-- .dropdown-->
-            </div> <!-- end topbar-item -->
         </div>
 
         <div class="d-flex align-items-center gap-1">
@@ -120,42 +37,6 @@
                     <i data-lucide="moon" class="font-22 light-mode"></i>
                     <i data-lucide="sun" class="font-22 dark-mode"></i>
                 </button>
-            </div>
-
-            <!-- Language Dropdown -->
-            <div class="topbar-item  d-none d-sm-flex">
-                <div class="dropdown">
-                    <button class="topbar-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="0,25" type="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="/images/flags/us.jpg" alt="user-image" class="w-100" height="16" id="selected-language-image">
-                    </button>
-
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item" data-translator-lang="en">
-                            <img src="/images/flags/us.jpg" alt="user-image" class="me-1" height="12" data-translator-image> <span class="align-middle">English</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item" data-translator-lang="hi">
-                            <img src="/images/flags/germany.jpg" alt="user-image" class="me-1" height="12" data-translator-image> <span class="align-middle">Germany</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                        </a>
-                    </div>
-                </div>
             </div>
 
             <!-- Notification Dropdown -->
@@ -317,65 +198,47 @@
             <div class="topbar-item nav-user">
                 <div class="dropdown">
                     <a class="topbar-link dropdown-toggle drop-arrow-none px-0" data-bs-toggle="dropdown" data-bs-offset="0,19" type="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="/images/users/avatar-1.jpg" width="32" class="rounded-circle me-lg-2 d-flex" alt="user-image">
+                      <?php
+                      $avatar = "img/avatars/avatar-".Auth::user()->id.".jpg";
+                      //$avatar = "img/avatars/avatar-0.jpg";
+                      ?>
+
+                        <img src="{{asset($avatar)}}" width="32" class="rounded-circle me-lg-2 d-flex" alt="user-image">
                         <span class="d-lg-flex flex-column gap-1 d-none">
-                            <span class="my-0">Maxine K</span>
+                            <span class="my-0">{{Auth::user()->name}} {{Auth::user()->last}}</span>
                         </span>
                         <i data-lucide="chevron-down" class="d-none d-sm-flex" height="12"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome !</h6>
+                            <h6 class="text-overflow m-0">Bienvenid@ !</h6>
                         </div>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">
                             <i class="mdi mdi-account-circle-outline me-1 font-17 align-middle"></i>
-                            <span class="align-middle">My Account</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class="mdi mdi-wallet-outline me-1 font-17 align-middle"></i>
-                            <span class="align-middle">Wallet : <span class="fw-semibold">$985.25</span></span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class="mdi mdi-cog-outline me-1 font-17 align-middle"></i>
-                            <span class="align-middle">Settings</span>
+                            <span class="align-middle">Mi cuenta</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">
                             <i class="mdi mdi-lifebuoy me-1 font-17 align-middle"></i>
-                            <span class="align-middle">Support</span>
+                            <span class="align-middle">Ayuda</span>
                         </a>
 
                         <div class="dropdown-divider"></div>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <i class="mdi mdi-lock-outline me-1 font-17 align-middle"></i>
-                            <span class="align-middle">Lock Screen</span>
-                        </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
                             <i class="mdi mdi-logout me-1 font-17 align-middle"></i>
-                            <span class="align-middle">Sign Out</span>
+                            <span class="align-middle">Cerrar sesión</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Button Trigger Customizer Offcanvas -->
-            <div class="topbar-item">
-                <button class="topbar-link" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" type="button">
-                    <i data-lucide="settings" class="font-22"></i>
-                </button>
-            </div>
         </div>
     </div>
 </header>

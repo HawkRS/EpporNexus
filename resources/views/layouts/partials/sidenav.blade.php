@@ -4,13 +4,13 @@
     <!-- Brand Logo -->
     <a href="{{ route ('admin.dashboard') }}" class="logo">
         <span class="logo-light">
-            <span class="logo-lg"><img src="{{ asset('img/EpporLogoC.png') }}" alt="logo"></span>
-            <span class="logo-sm"><img src="{{ asset('img/EpporLogoico.png') }}" alt="small logo"></span>
+            <span class="logo-lg"><img src="{{ asset('img/logo-light.png') }}" alt="logo"></span>
+            <span class="logo-sm"><img src="{{ asset('img/logo-sm.png') }}" alt="small logo"></span>
         </span>
 
         <span class="logo-dark">
-            <span class="logo-lg"><img src="{{ asset('img/EpporLogoC.png') }}" alt="dark logo"></span>
-            <span class="logo-sm"><img src="{{ asset('img/EpporLogoico.png') }}" alt="small logo"></span>
+            <span class="logo-lg"><img src="{{ asset('img/logo-dark.png') }}" alt="dark logo"></span>
+            <span class="logo-sm"><img src="{{ asset('img/logo-sm.png') }}" alt="small logo"></span>
         </span>
     </a>
 
