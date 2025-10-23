@@ -16,6 +16,8 @@
         </div>
       </div>
       <!-- end row -->
+      <!-- Button trigger modal -->
+
 
       <div class="page-content-wrapper">
         <div class="row justify-content-center">
@@ -31,7 +33,9 @@
                     <span class="text-right">
                       {{--<a href="{{route('pedidos.create')}}" class="btn btn-sm btn-success">Nuevo pedido</a>--}}
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#PedidoModal">Nuevo pedido</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PedidoModal">
+                        Nuevo pedido
+                      </button>
                     </span>
                   </div>
                 </div>
@@ -259,43 +263,52 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="PedidoModalLabel">Nuevo pedido</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h1 class="modal-title fs-5" id="PedidoModalLabel">Nuevo pedido</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="" action="{{ route('pedidos.create') }}" method="GET">
-          {{ csrf_field() }}
-          <div class="row">
+          @csrf
+          <div class="row g-3">
 
             <div class="col-12">
-              <label for="cliente_id" class="fntB">CLIENTE</label>
-              <select class="custom-select" name="cliente_id">
-                <option selected>Elige una opción</option>
-                @foreach($clientes as $cliente)
-                <option value="{{$cliente->id}}" class="text-uppercase">{{$cliente->identificador}}</option>
-                @endforeach
-              </select>
-              <small id="emailHelp" class="form-text text-muted">Elige el cliente.</small>
-              @error('cliente_id')
-              <div class="alert alert-danger">{{ $message }}</div>
-              @enderror
+                <!-- 'form-label' es el estándar de BS5. Usamos 'fw-bold' para simular 'fntB' si no es una clase personalizada. -->
+                <label for="cliente_id" class="form-label fw-bold">CLIENTE</label>
+
+                <!-- CLAVE BS5: 'custom-select' se convierte en 'form-select' -->
+                <select class="form-select" name="cliente_id" id="cliente_id">
+                    <option selected>Elige una opción</option>
+                    @foreach($clientes as $cliente)
+                    <option value="{{$cliente->id}}" class="text-uppercase">{{$cliente->identificador}}</option>
+                    @endforeach
+                </select>
+
+                <!-- 'form-text' se usa en cualquier elemento de bloque (div, p) para texto de ayuda -->
+                <div id="clienteHelp" class="form-text text-muted">Elige el cliente.</div>
+
+                @error('cliente_id')
+                <!-- El 'mt-2' añade margen superior si hay un error -->
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
-          </div>
+        </div>
 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Generar</button>
-          <a href="{{route('cliente.create')}}" class="btn btn-primary">Nuevo cliente</a>
+        <!-- Gestión de botones: separamos y usamos flex utilities de BS5 -->
+        <div class="mt-4 d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Generar</button>
+            <a href="{{route('cliente.create')}}" class="btn btn-primary">Nuevo cliente</a>
+        </div>
         </form>
       </div>
       <div class="modal-footer">
-
       </div>
     </div>
   </div>
 </div>
+
+
 
 @endsection
 

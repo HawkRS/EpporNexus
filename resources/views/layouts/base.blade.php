@@ -7,6 +7,7 @@
     @include('layouts.partials.head-css')
 
     @vite(['resources/js/head.js'])
+    @vite(['node_modules/sweetalert2/dist/sweetalert2.min.css'])
 </head>
 
 <body @yield('body-attribute')>

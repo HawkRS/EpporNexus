@@ -167,3 +167,7 @@
   </div>
 </div>
 @endsection
+
+@section('scripts')
+@vite(['resources/js/nexus/nuevopedido.js'])
+@endsection

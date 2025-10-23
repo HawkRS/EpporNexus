@@ -157,62 +157,63 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
     <div class="card">
       <div class="card-body">
         <h4 class="header-title">Caja chica: <span class="text-success"> ${{ number_format($balance, 2) }}</span></h4>
-        <table class="table table-striped table-sm p-1">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Monto</th>
-              <th>Área</th>
-              <th>Descripción</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($movimientos as $movimiento)
-            <tr>
-              <td>{{ date_format($movimiento->created_at,"d/m/y") }}</td>
-              @if(ucfirst($movimiento->tipo) == "Salida")
-              <td class="text-danger">- ${{ number_format($movimiento->monto, 2) }}</td>
-              @else
-              <td class="text-success">${{ number_format($movimiento->monto, 2) }}</td>
-              @endif
-              @switch($movimiento->area)
-              @case('comidas')
-              <td><span class="fnt10 badge badge-pill task-type-8">Comidas</span></td>
-              @break
-              @case('casa')
-              <td><span class="fnt10 badge badge-pill task-type-7">Pagos Casa</span></td>
-              @break
-              @case('salarios_casa')
-              <td><span class="fnt10 badge badge-pill task-type-4">Casa</span></td>
-              @break
-              @case('salarios_negocio')
-              <td><span class="fnt10 badge badge-pill task-type-3">Eppor</span></td>
-              @break
-              @case('gastos_negocio')
-              <td><span class="fnt10 badge badge-pill task-type-6">Gastos Eppor</span></td>
-              @break
-              @case('gasolinas')
-              <td><span class="fnt10 badge badge-pill task-type-1">Gasolinas</span></td>
-              @break
-              @case('miscelaneos')
-              <td><span class="fnt10 badge badge-pill task-type-8">Miscelaneos</span></td>
-              @break
-              @case('prestamo')
-              <td><span class="fnt10 badge badge-pill task-type-5">Prestamo</span></td>
-              @break
-              @case('ingreso')
-              <td><span class="fnt10 badge badge-pill task-type-2">Ingreso</span></td>
-              @break
-              @default
-              Default case...
-              @endswitch
-              <td>{{ $movimiento->descripcion }}</td>
-            </tr>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm p-1">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Área</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($movimientos as $movimiento)
+              <tr>
+                <td>{{ date_format($movimiento->created_at,"d/m/y") }}</td>
+                @if(ucfirst($movimiento->tipo) == "Salida")
+                <td class="text-danger">- ${{ number_format($movimiento->monto, 2) }}</td>
+                @else
+                <td class="text-success">${{ number_format($movimiento->monto, 2) }}</td>
+                @endif
+                @switch($movimiento->area)
+                @case('comidas')
+                <td><span class="fnt10 badge badge-pill task-type-8">Comidas</span></td>
+                @break
+                @case('casa')
+                <td><span class="fnt10 badge badge-pill task-type-7">Pagos Casa</span></td>
+                @break
+                @case('salarios_casa')
+                <td><span class="fnt10 badge badge-pill task-type-4">Casa</span></td>
+                @break
+                @case('salarios_negocio')
+                <td><span class="fnt10 badge badge-pill task-type-3">Eppor</span></td>
+                @break
+                @case('gastos_negocio')
+                <td><span class="fnt10 badge badge-pill task-type-6">Gastos Eppor</span></td>
+                @break
+                @case('gasolinas')
+                <td><span class="fnt10 badge badge-pill task-type-1">Gasolinas</span></td>
+                @break
+                @case('miscelaneos')
+                <td><span class="fnt10 badge badge-pill task-type-8">Miscelaneos</span></td>
+                @break
+                @case('prestamo')
+                <td><span class="fnt10 badge badge-pill task-type-5">Prestamo</span></td>
+                @break
+                @case('ingreso')
+                <td><span class="fnt10 badge badge-pill task-type-2">Ingreso</span></td>
+                @break
+                @default
+                Default case...
+                @endswitch
+                <td>{{ $movimiento->descripcion }}</td>
+              </tr>
 
-            @endforeach
-          </tbody>
-        </table>
-
+              @endforeach
+            </tbody>
+          </table>
+        </div>
         <a href="{{ route('movimientos.index') }}" class="btn btn-primary">Ver detalles</a>
       </div>
     </div>
@@ -227,7 +228,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
   <div class="card">
     <div class="card-body">
       <h4 class="header-title">Ventas</h4>
-      <canvas id="AnualHEGS" class="AnualSales" height="50%"></canvas>
+      <canvas id="AnualSales" class="AnualSales" height="50%"></canvas>
     </div>
   </div>
   {{-- END VENTAS --}}
@@ -355,5 +356,5 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
 @endsection
 
 @section('scripts')
-@vite(['resources/js/pages/dashboard-sales.js'])
+@vite(['resources/js/nexus/dashboard.js'])
 @endsection
