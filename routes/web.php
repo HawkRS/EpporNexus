@@ -198,6 +198,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/{id}/agregar-guia', [PedidoController::class, 'addGuia'])->name('pedidos.addguia');
         Route::get('/{id}/editar-fecha', [PedidoController::class, 'editdate'])->name('pedidos.editdate');
         Route::post('/{id}/guardar_fecha', [PedidoController::class, 'storedate'])->name('pedidos.storedate');
+        Route::post('/{id}/actualizar-estatus', [PedidoController::class, 'updatestatus'])->name('pedidos.updatestatus');
         Route::post('/{id}/pdfpaqueteria', [PedidoController::class, 'generarPDFPaqueteria'])->name('pedidos.pdfpaqueteria');
     });
 

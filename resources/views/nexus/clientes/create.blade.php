@@ -42,7 +42,7 @@
 
                   <div class="row justify-content-center">
                     <div class="pt-3 col-12"> &nbsp; </div>
-                    @include('admin.clientes.partials.fields')
+                    @include('nexus.clientes.partials.fields')
 
                     <div class="col-12 col-md-6 col-xl-3">
                       <button type="submit" name="button" class="btn btn-block btn-sm btn-primary fntB">CREAR</button>

@@ -266,23 +266,67 @@ class PedidoController extends Controller
 
   public function generarPDF(Request $request, $id)
   {
-    $request->validate([
-    'banco' => 'required|integer|min:1', // Validar que cada cantidad es un número entero y positivo
-    ]);
-    //dd($request->all());
-    //$bankinfo = DatosBancarios::findOrFail($request->banco);
-    $opciones = $request;
-    //dd($bankinfo);
-    $pedido = Pedido::with(['cliente', 'productos'])->findOrFail($id);
+      $request->validate([
+      'banco' => 'required|integer|min:1', // Validar que cada cantidad es un número entero y positivo
+      ]);
 
-    $pdf = PDF::loadView('nexus.pedido.pdf', compact('pedido', 'opciones'));
-    $date = Carbon::parse($pedido->created_at);
-    //dd($pedido->cliente->identificador);
-    // Opciones adicionales de PDF si deseas modificar la orientación o tamaño de papel
-    $pdf->setPaper('A4', 'portrait');
-    //'_'.$customer[0]->nombre.$customer[0]->apellidos.date_format($date,'dmY')
-    return $pdf->stream("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");// download O 'stream' para ver en navegador
+      $logoPath = public_path('img/EpporLogoC.png');
 
+      // Verifica si el archivo existe antes de leerlo
+      if (file_exists($logoPath)) {
+          $logoBase64 = base64_encode(file_get_contents($logoPath));
+          $logoSrc = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . $logoBase64;
+      } else {
+          // Proporcionar un placeholder o un logo de respaldo si el archivo no existe
+          $logoSrc = '';
+      }
+
+      $opciones = $request;
+      $pedido = Pedido::with(['cliente', 'productos'])->findOrFail($id);
+
+      // =========================================================================
+      // MODIFICACIÓN CLAVE: Convertir la imagen de cada producto a Base64
+      // =========================================================================
+      $pedido->productos->each(function ($producto) {
+          // Asumiendo que las imágenes de productos están en public/img/prods/
+          // y que el campo 'img' contiene el nombre del archivo (ej. 'arreadores.jpg')
+          $imageFileName = $producto->codigo.'.jpg';
+
+          if ($imageFileName) {
+              $imagePath = public_path('img/prods/' . $imageFileName);
+
+              if (file_exists($imagePath)) {
+                  //dd($imagePath);
+                  $imageContent = file_get_contents($imagePath);
+                  $mimeType = mime_content_type($imagePath);
+
+                  // Asignamos la Data URL completa a una nueva propiedad
+                  // Esto facilita el uso directo en el Blade
+                  $producto->imagen_base64 = base64_encode($imageContent);
+                  $producto->mime_type = $mimeType; // Guardamos el tipo MIME
+
+              } else {
+                  // Si el archivo no existe, asignamos Base64 vacío
+                  //dd('vacio');
+                  $producto->imagen_base64 = '';
+                  $producto->mime_type = 'image/jpg'; // Default
+                  // Opcional: Asignar una imagen placeholder Base64 aquí.
+              }
+          } else {
+              $producto->imagen_base64 = '';
+              $producto->mime_type = 'image/jpg'; // Default
+          }
+      });
+      // =========================================================================
+      //dd($pedido->productos);
+      $datosbancarios = DatosBancarios::all();
+      //dd($datosbancarios);
+      $pdf = PDF::loadView('nexus.pedido.pdf', compact('pedido', 'opciones', 'logoSrc', 'datosbancarios'));
+      $date = Carbon::parse($pedido->created_at);
+
+      $pdf->setPaper('A4', 'portrait');
+
+      return $pdf->stream("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");
   }
 
   public function generarPDFPaqueteria(Request $request, $id)

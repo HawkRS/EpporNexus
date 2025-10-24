@@ -71,4 +71,37 @@ $(document).ready(function () {
         toggleDisplay();
         $(document).on('change', '#datosenvio', toggleDisplay);
     }
+
+    $('.editPagoBtn').on('click', function(e) {
+        // Capturamos el botón que fue clickeado
+        let $btn = $(this);
+        let id = $btn.data('id');
+
+        // 1. Definir la URL de actualización (Asumiendo que 'route()' es una función global de Laravel/Ziggy)
+        // Si no usas Ziggy, cambia esto por la ruta manual, ej: `/pagos/${id}`
+        let editUrl = window.route ? route('pagos.update', id) : `/pagos/${id}`;
+
+        // 2. Establecer la URL de acción del formulario
+        $('#editPagoForm').attr('action', editUrl);
+
+        // 3. Cargar los datos a los campos del modal
+        $('#editFecha').val($btn.data('fecha'));
+        $('#editMetodo').val($btn.data('metodo'));
+        $('#editBanco').val($btn.data('banco'));
+        $('#editMonto').val($btn.data('monto'));
+
+        console.log('Modal de edición de pago cargado. ID:', id, 'URL:', editUrl);
+    });
+
+    // --------------------------------------------------------------------------------
+    // Lógica para Eliminación de Pago
+    // --------------------------------------------------------------------------------
+    $('.deletePagoBtn').click(function(e) {
+        e.preventDefault();
+        // **ADVERTENCIA**: window.confirm() no es recomendado en iframes.
+        // Se mantiene la lógica del usuario, pero se sugiere usar un modal de confirmación personalizado.
+        if (confirm('¿Estás seguro de eliminar este pago? Esta acción no se puede deshacer.')) {
+            $(this).closest('form').submit();
+        }
+    });
 });
