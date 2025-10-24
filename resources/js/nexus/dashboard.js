@@ -1,254 +1,178 @@
-import * as echarts from 'echarts';
 import { Chart } from 'chart.js';
+import DataTable from "datatables.net";
 
-const initAnualSalesChartJs = () => {
-    const canvas = document.getElementById('AnualSales');
+import 'datatables.net/js/dataTables.min.js';
+import 'datatables.net-bs5';
+import 'datatables.net-responsive';
 
-    // Validar que el canvas exista y que la variable de datos esté definida (simulada)
-    if (!canvas || typeof ventaanual === 'undefined') {
-        console.warn("Canvas 'AnualSales' o la variable 'ventaanual' no están disponibles.");
-        return;
-    }
+window.$.fn.DataTable = DataTable;
 
-    // Preparar datos: Nombres de los meses (labels) y los totales (data)
-    const labels = ventaanual.map(item => item.mes);
-    const dataValues = ventaanual.map(item => item.total);
+jQuery = window.$;
 
-    try {
-        new Chart(canvas, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Venta Anual por Mes',
-                    data: dataValues,
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.7)',
-                        'rgba(54, 162, 235, 0.7)',
-                        'rgba(255, 206, 86, 0.7)',
-                        'rgba(255, 99, 132, 0.7)',
-                        'rgba(153, 102, 255, 0.7)',
-                        'rgba(255, 159, 64, 0.7)'
-                        // ... agregar más colores
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false, // Importante para el height="50%"
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total de Ventas'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false // Ocultar leyenda
-                    },
-                    title: {
-                        display: true,
-                        text: 'Ventas Mensuales del Año'
-                    }
-                }
-            }
-        });
-    } catch (e) {
-        console.error("Error al inicializar Chart.js para AnualSales. ¿Está Chart.js cargado?", e);
-    }
-};
 
-// =========================================================
-// 2. Gráfico de Pastel - Saldos Totales (ECharts)
-// =========================================================
 
-/**
- * Inicializa el gráfico de pastel de Saldos Totales usando ECharts.
- * Obtiene los datos directamente de los atributos 'data-' del canvas.
- */
-const initGraficaSaldosTotalesEcharts = () => {
-    const chartDom = document.getElementById('graficaSaldosTotales');
+document.addEventListener('DOMContentLoaded', function() {
 
-    if (!chartDom) {
-        console.warn("Canvas 'graficaSaldosTotales' no encontrado.");
-        return;
-    }
+  var anualsusana = document.getElementById('AnualSales');
+  var AnualHEGS = new Chart(anualsusana, {
+    type: 'bar',
+    data: {
+        labels: [
+          'ENERO', 'FEBRERO', 'MARZO',
+          'ABRIL', 'MAYO', 'JUNIO',
+          'JULIO', 'AGOSTO', 'SEPTIEMBRE',
+          'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE',
+        ],
+        datasets: [{
+          label: 'Ventas',
+          data: [
+              ventasanuales['ene'], ventasanuales['feb'], ventasanuales['mar'],
+              ventasanuales['abr'], ventasanuales['may'], ventasanuales['jun'],
+              ventasanuales['jul'], ventasanuales['ago'], ventasanuales['sep'],
+              ventasanuales['oct'], ventasanuales['nov'], ventasanuales['dic'],
+            //75603,69300,
+            //195630,220000,
+            //15000,13500,
+            //98500,12000,
+            //55000,20000,
+            //68000,25000,
+            //ventas['cash']['ventatotal'],
+          ],
+          backgroundColor: [
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            'rgba(28 , 200, 138, 0.9)','rgba(28 , 200, 138, 0.9)',
+            //'rgba(255, 206, 86, 0.9)',
+            //'rgba(255, 99, 132, 0.9)',
+            //'rgba(245, 167, 66, 0.9)',
+            //'rgba(54, 162, 235, 0.9)',
+            //'rgba(204, 101, 254, 0.9)',
+          ],
 
-    // Obtener datos de los atributos data-
-    // Usamos JSON.parse para tratar las cadenas de atributos como números/objetos
-    const saldo = parseFloat(chartDom.dataset.saldo || 0);
-    const cobrado = parseFloat(chartDom.dataset.cobrado || 0);
+          order:2
+        }
+        ]},
+    options: {
+        maintainAspectRatio: true,
+        aspectRatio: 10,  // Ajusta la relación de aspecto
+        scales: {
+          y: {
+              beginAtZero: true,
+              max: 600000  // Ajusta este valor según tus necesidades
+          }
+        },
+        animation:{
+          animateScale: true,
+          easing:'linear',
+        },
+        legend:{
+          display:false,
+        },
 
-    const data = [
-        { value: cobrado, name: 'Total Cobrado' },
-        { value: saldo, name: 'Saldo Pendiente' }
+      }
+});
+    // === Datos de productos más vendidos ===
+    const masVendidos = document.getElementById('graficaProductosAnuales');
+    const productosLabels = JSON.parse(masVendidos.dataset.labels);
+    const productosData = JSON.parse(masVendidos.dataset.values);
+
+    const coloresProductos = [
+        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'
     ];
 
-    try {
-        const myChart = echarts.init(chartDom);
-        const option = {
-            title: {
-                text: 'Total Cobrado vs. Saldo Pendiente',
-                left: 'center',
-                textStyle: {
-                    fontSize: 16
-                }
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
-            // Requisito: Ocultar la leyenda (cuadritos y nombres abajo)
-            legend: {
-                show: false
-            },
-            series: [
-                {
-                    name: 'Distribución',
-                    type: 'pie',
-                    radius: '60%', // Tamaño del pastel
-                    data: data,
-                    emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    label: {
-                        formatter: '{b}: {c} ({d}%)' // Mostrar nombre, valor y porcentaje
-                    }
-                }
-            ]
-        };
-        myChart.setOption(option);
+    new Chart(document.getElementById('graficaProductosAnuales'), {
+        type: 'doughnut',
+        data: {
+            labels: productosLabels,
+            datasets: [{
+                data: productosData,
+                backgroundColor: coloresProductos,
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: true,
+          legend: {display: false},
+          cutoutPercentage:65,
+          tooltip: {
+              callbacks: {
+                  label: function (context) {
+                      return `${context.label}: ${context.parsed} piezas`;
+                  }
+              }
+          }
+        }
+    });
 
-        // Adaptar el gráfico al redimensionar la ventana
-        window.addEventListener('resize', () => myChart.resize());
+    // === Datos de saldos totales (Cobrado vs Saldo pendiente) ===
 
-    } catch (e) {
-        console.error("Error al inicializar ECharts para Saldo Totales. ¿Está ECharts cargado?", e);
-    }
-};
+    const saldosPendientes = document.getElementById('graficaSaldosTotales');
+    const totalPagado = JSON.parse(saldosPendientes.dataset.cobrado);
+    const totalSaldo = JSON.parse(saldosPendientes.dataset.saldo);
 
-// =========================================================
-// 3. Gráfico de Dona - Productos Anuales (ECharts)
-// =========================================================
+    // Función auxiliar para formatear números grandes con unidades (K, M, B)
+    function formatLargeNumber(num) {
+      // Asegurarse de que el número sea un tipo numérico
+      num = parseFloat(num);
 
-/**
- * Inicializa el gráfico de dona (donut) de Productos Anuales usando ECharts.
- * Obtiene las etiquetas y valores de los atributos data- del canvas.
- */
-const initGraficaProductosAnualesEcharts = () => {
-    const chartDom = document.getElementById('graficaProductosAnuales');
+      if (isNaN(num)) {
+        return num; // Devuelve el valor original si no es un número
+      }
 
-    if (!chartDom) {
-        console.warn("Canvas 'graficaProductosAnuales' no encontrado.");
-        return;
+      if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B'; // Billones
+      }
+      if (num >= 1000000) {
+        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'; // Millones
+      }
+      if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K'; // Miles
+      }
+      return num.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); // Formato normal si es menor a 1000
     }
 
-    // Obtener datos de los atributos data-
-    // Los datos vienen como strings JSON de los atributos data-, se deben parsear
-    const labels = JSON.parse(chartDom.dataset.labels || '[]');
-    const values = JSON.parse(chartDom.dataset.values || '[]');
 
-    // Combinar labels y values en el formato requerido por ECharts: [{ name, value }]
-    const data = labels.map((name, index) => ({
-        name: name,
-        value: values[index]
-    }));
+    new Chart(document.getElementById('graficaSaldosTotales'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Pagado', 'Saldo pendiente'],
+        datasets: [{
+          data: [totalPagado, totalSaldo],
+          backgroundColor: ['#1cc88a', '#e74a3b'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: {display: false},
+        cutoutPercentage:65,
+        tooltips: { // Para Chart.js v2, se usa 'tooltips' (plural)
+          callbacks: {
+            label: function (tooltipItem, data) {
+              const value = data.datasets[0].data[tooltipItem.index];
+              const label = data.labels[tooltipItem.index];
 
-    try {
-        const myChart = echarts.init(chartDom);
-        const option = {
-            title: {
-                text: 'Productos Más Vendidos (Último Año)',
-                left: 'center',
-                textStyle: {
-                    fontSize: 16
-                }
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
-            // Mostrar la leyenda en la parte inferior para la dona
-            legend: {
-                orient: 'horizontal',
-                bottom: '0',
-                data: labels
-            },
-            series: [
-                {
-                    name: 'Ventas por Producto',
-                    type: 'pie',
-                    radius: ['40%', '70%'], // Esto lo convierte en un gráfico de dona
-                    center: ['50%', '50%'],
-                    data: data,
-                    emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    label: {
-                        show: false // Ocultar etiquetas para mantener el gráfico limpio
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            ]
-        };
-        myChart.setOption(option);
+              // --- Opción 1: Formato de moneda con comas y decimales ---
+              const formattedValue = parseFloat(value).toLocaleString('es-MX', {
+                style: 'currency',    // Indicar estilo de moneda
+                currency: 'MXN',      // Especificar la moneda (Pesos Mexicanos)
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+              });
+              return `${label}: ${formattedValue}`;
 
-        // Adaptar el gráfico al redimensionar la ventana
-        window.addEventListener('resize', () => myChart.resize());
+              // --- Opción 2: Formato abreviado (K, M, B) con símbolo de dólar ---
+              // Si prefieres que números grandes se abrevien (ej. $1.5M, $20K)
+              // const abbreviatedValue = '$' + formatLargeNumber(value);
+              // return `${label}: ${abbreviatedValue}`;
 
-    } catch (e) {
-        console.error("Error al inicializar ECharts para Productos Anuales. ¿Está ECharts cargado?", e);
-    }
-};
+            }
+          }
+        }
+      }
+    });
 
-
-// =========================================================
-// 4. FUNCIÓN PRINCIPAL DE INICIALIZACIÓN
-// =========================================================
-
-/**
- * Función principal para iniciar todas las funcionalidades del dashboard.
- */
-export const initDashboard = () => {
-    'use strict';
-
-    // 💡 Ejecutar todas las funciones de inicialización de gráficos
-    initAnualSalesChartJs();
-    initGraficaSaldosTotalesEcharts();
-    initGraficaProductosAnualesEcharts();
-
-    console.log("Dashboard de Ventas inicializado con Chart.js y ECharts. ✅");
-};
-
-
-// =========================================================
-// 5. EXPORTACIONES
-// =========================================================
-
-export {
-    initAnualSalesChartJs,
-    initGraficaSaldosTotalesEcharts,
-    initGraficaProductosAnualesEcharts
-};
+});

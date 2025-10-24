@@ -228,6 +228,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
   <div class="card">
     <div class="card-body">
       <h4 class="header-title">Ventas</h4>
+      <script> var ventasanuales = {!! json_encode($ventasanuales) !!}; </script>
       <canvas id="AnualSales" class="AnualSales" height="50%"></canvas>
     </div>
   </div>
@@ -259,35 +260,35 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
               <td>Sin Fecha</td>
               @endif
               @if($pedido->factura == true)
-              <td><span class="badge rounded-pill bg-primary">Facturada</span> </td>
+              <td><span class="badge badge-soft-primary">Facturada</span> </td>
               @else
-              <td><span class="badge rounded-pill bg-secondary">Sin Factura</span> </td>
+              <td><span class="badge badge-soft-secondary">Sin Factura</span> </td>
               @endif
               <td>${{ number_format($pedido->total, 2) }}</td>
               @switch($pedido->estado)
               @case('ordenado')
-              <td> <span class="badge rounded-pill bg-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
+              <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
               @break
               @case('produccion')
-              <td> <span class="badge rounded-pill bg-warning"><i class="fas fa-circle"></i> Produccion </span></td>
+              <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion </span></td>
               @break
               @case('terminado')
-              <td> <span class="badge rounded-pill bg-success"><i class="fas fa-circle"></i> Terminado </span></td>
+              <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Terminado </span></td>
               @break
               @case('entregado')
-              <td> <span class="badge rounded-pill bg-success"><i class="fas fa-circle"></i> Entregado </span></td>
+              <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Entregado </span></td>
               @break
               @case('espera')
-              <td> <span class="badge rounded-pill bg-warning"><i class="fas fa-circle"></i> Espera </span></td>
+              <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Espera </span></td>
               @break
               @case('cancelado')
-              <td> <span class="badge rounded-pill bg-danger"><i class="fas fa-circle"></i> Cancelado </span></td>
+              <td> <span class="badge badge-soft-danger"><i class="fas fa-circle"></i> Cancelado </span></td>
               @break
               @case('convertida')
-              <td> <span class="badge rounded-pill bg-success"><i class="fas fa-circle"></i> Convertida </span></td>
+              <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Convertida </span></td>
               @break
               @default
-              <td> <span class="badge rounded-pill bg-secondary"><i class="fas fa-circle"></i> n/a </span></td>
+              <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> n/a </span></td>
               @endswitch
               <td>${{ number_format($pedido->saldo, 2) }}</td>
               <td>{{ $pedido->usuario->name }}</td>
