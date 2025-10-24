@@ -113,6 +113,7 @@ export default defineConfig({
                 "resources/js/nexus/pedidoshow.js",
                 "resources/js/nexus/dashboard.js",
                 "resources/js/nexus/nuevopedido.js",
+                "resources/js/nexus/contashow.js",
 
 
             ],

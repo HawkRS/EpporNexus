@@ -10,6 +10,8 @@
   <div class="content">
     <div class="container-fluid">
 
+
+
       <div class="row">
           <div class="col-sm-12">
               <div class="page-title-box">
@@ -31,91 +33,83 @@
       {{-- end row --}}
 
       <div class="page-content-wrapper">
+
         <div class="row">
-          <script>
-            var balances = {!! json_encode($balances) !!};
 
+          <div class="col-lg-4">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                          <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
+                              <i class="mdi mdi-currency-usd avatar-title font-30 text-white"></i>
+                          </div>
 
-            </script>
+                          <div class="wigdet-two-content media-body text-end text-truncate">
+                              <p class="m-0 text-uppercase fnt20 text-truncate" title="Statistics">ingreso anual</p>
+                              <p class="m-0">&nbsp;</p>
+                              <h3 class="fw-medium">$ <span data-plugin="counterup">{{ number_format($balances['ingresoanual'], 2) }}</span></h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-primary mini-stat position-relative">
-                    <div class="card-body">
-                        <div class="mini-stat-desc">
-                            <h6 class="text-uppercase verti-label text-white-50">tope anual</h6>
-                            <div class="text-white">
-                                <h6 class="text-uppercase mt-0 text-white-50">Espacio tope anual</h6>
-                                <h3 class="mb-3 mt-0 fnt30 fntB">$ {{ number_format($balances['topeanual'], 2) }}</h3>
-                                <div class="">
-                                    {{--<span class="badge badge-light text-info"> +11% </span>--}}
-                                    <span class="ml-2 text-uppercase">Activos</span>
-                                </div>
-                            </div>
-                            <div class="mini-stat-icon">
-                              <i class="fas fa-funnel-dollar display-2"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="col-lg-4">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                          <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
+                              <i class="mdi mdi-currency-usd avatar-title font-30 text-white"></i>
+                          </div>
 
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-primary mini-stat position-relative">
-                    <div class="card-body">
-                        <div class="mini-stat-desc">
-                            <h6 class="text-uppercase verti-label text-white-50">balance</h6>
-                            <div class="text-white">
-                                <h6 class="text-uppercase mt-0 text-white-50">balance mes en curso</h6>
-                                <h3 class="mb-3 mt-0 fnt20 fntB text-uppercase">{{ $mesactual }}</h3>
-                                <div class="">
-                                  <span class="badge badge-light text-success fnt20 fntB">$ {{ number_format($balances['mesactual'], 2) }}</span>
-                                </div>
-                            </div>
-                            <div class="mini-stat-icon">
-                              <i class="fas fa-chart-line display-2"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                          <div class="wigdet-two-content media-body text-end text-truncate">
+                              <p class="m-0 text-uppercase fnt20 text-truncate" title="Statistics">{{ $mesactual }}</p>
+                              <p class="m-0">&nbsp;</p>
+                              <h3 class="fw-medium">$ <span data-plugin="counterup">{{ number_format($balances['mesactual'], 2) }}</span></h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-primary mini-stat position-relative">
-                    <div class="card-body">
-                        <div class="mini-stat-desc">
-                            <h6 class="text-uppercase verti-label text-white-50">balance</h6>
-                            <div class="text-white">
-                                <h6 class="text-uppercase mt-0 text-white-50">balance anual</h6>
-                                <h3 class="mb-3 mt-0 fnt20 fntB text-uppercase">{{ $year }}</h3>
-                                <div class="">
-                                    <span class="badge badge-light text-{{ $balances['balanceanual'] >=0 ? 'success' : 'danger' }} fnt20 fntB">$ {{ number_format($balances['balanceanual'], 2) }}</span>
-                                </div>
-                            </div>
-                            <div class="mini-stat-icon">
-                              <i class="fas fa-chart-bar display-2"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="col-lg-4">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                          <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
+                              <i class="mdi mdi-currency-usd avatar-title font-30 text-white"></i>
+                          </div>
+
+                          <div class="wigdet-two-content media-body text-end text-truncate">
+                              <p class="m-0 text-uppercase fnt20 text-truncate" title="Statistics">Balance anual</p>
+                              <p class="m-0">&nbsp;</p>
+                              <h3 class="fw-medium">$ <span data-plugin="counterup">{{ number_format($balances['balanceanual'], 2) }}</span></h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
         </div>
-        {{-- END 1ST BLOCK --}}
+
         <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="row">
-              <div class="col-12">
-                <div class="card table-responsive">
-                  <table class="table table-striped table-md">
-                    <thead class="bg-primary">
+          <script> var balances = {!! json_encode($balances) !!}; </script>
+
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title">Desglose anual contable</h4>
+                <div class="table-responsive">
+                  <table class="table table-sm table-striped">
+                    <thead>
                       <tr>
-                        <th class="fntB fnt_white">MES</th>
-                        <th class="fntB fnt_white">INGRESOS</th>
-                        <th class="fntB fnt_white">EGRESOS</th>
-                        <th class="fntB fnt_white">BALANCE</th>
-                        <th class="fntB fnt_white">DECLARACION</th>
-                        <th class="fntB fnt_white">MONTO</th>
-                        <th class="fntB fnt_white">ACCIONES</th>
+                        <th class="fntB text-primary">Mes</th>
+                        <th class="fntB text-primary">Ingresos</th>
+                        <th class="fntB text-primary">Egresos</th>
+                        <th class="fntB text-primary">Balance</th>
+                        <th class="fntB text-primary">Declaración</th>
+                        <th class="fntB text-primary">Monto</th>
+                        <th class="fntB text-primary">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -137,46 +131,32 @@
               </div>
             </div>
           </div>
-          {{-- END TABLA MES ANUAL --}}
 
-          <div class="col-12 col-lg-4">
-            <div class="row">
-              <div class="col-12 col-md-6 col-lg-12">
-                <div class="card">
-                  <div class="card-header bg-success">
-                    <h6 class="fntB fnt_white"> INGRESOS </h6>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="AnualIngresos" class=""></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-12">
-                <div class="card">
-                  <div class="card-header bg-danger">
-                    <h6 class="fntB fnt_white"> EGRESOS </h6>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="AnualEgresos" class=""></canvas>
-                  </div>
+          <div class="col-lg-4">
+
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title text-success">Ingresos: <span class="text-success"> ${{ number_format($balances['ingresoanual'], 2) }}</span></h4>
+                <div class="">
+                  <canvas id="AnualIngresos" class="" height="200px"></canvas>
                 </div>
               </div>
             </div>
+
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title text-danger">Egresos: <span class="text-danger"> ${{ number_format($balances['egresoanual'], 2) }}</span></h4>
+                <div class="">
+                  <canvas id="AnualEgresos" class="" height="200px"></canvas>
+                </div>
+              </div>
+            </div>
+
           </div>
+          {{-- END COL GRAFICAS --}}
+
         </div>
-        {{--<div class="col-12">
-          <div class="card bg-primary">
-            <div class="p-3">
-              <h6 class="text-uppercase fntB fnt22 fnt_white">total ingresos : <span class="badge badge-light fntB fnt22 text-success">$ {{ number_format($balances['ingresoanual'], 2) }}</span> </h6>
-              <h6 class="text-uppercase fntB fnt22 fnt_white">total egresos : <span class="badge badge-light fntB fnt22 text-danger">$ {{ number_format($balances['egresoanual'], 2) }}</span> </h6>
-              <h6 class="text-uppercase fntB fnt22 fnt_white">balance anual : <span class="badge badge-light fntB fnt22 text-{{ $balances['balanceanual'] >=0 ? 'success' : 'danger' }}">$ {{ number_format($balances['balanceanual'], 2) }}</span> </h6>
-            </div>
-          </div>
-        </div>--}}
-        {{-- END 2ND BLOCK --}}
-
-
-
+        {{-- END SEGUNDO ROW --}}
 
       </div>
       {{-- END PAGE WRAPPER --}}
@@ -184,6 +164,8 @@
   </div>
 </div>
 
+@endsection
 
-
+@section('scripts')
+@vite(['resources/js/nexus/contashow.js'])
 @endsection

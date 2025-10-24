@@ -209,15 +209,15 @@
 
                               {{-- 7. Celda de Estatus --}}
                               @if($ingreso->test == 1)
-                                  <td><span class="badge badge-success">Publico gral</span> </td>
+                                  <td><span class="badge badge-soft-success">Publico gral</span> </td>
                               @else
-                                  <td><span class="badge badge-success">Facturado</span> </td>
+                                  <td><span class="badge badge-soft-primary">Facturado</span> </td>
                               @endif
 
                               {{-- 8. Celda de Acciones --}}
                               <td>
-                                  <a href="{{ route('conta.edit.ingreso', ['rfc' => $rfc, 'id' => $ingreso->id]) }}" class="btn btn-sm btn-warning fntB"><i class="fas fnt18 fa-pencil-alt"></i></a>
-                                  <a href="#" class="btn btn-sm btn-danger fntB"><i class="fas fnt18 fa-trash-alt"></i></a>
+                                  <a href="{{ route('conta.edit.ingreso', ['rfc' => $rfc, 'id' => $ingreso->id]) }}" class="text-warning px-1"><i class="fas fnt18 fa-pencil-alt"></i></a>
+                                  <a href="#" class="text-danger px-1"><i class="fas fnt18 fa-trash-alt"></i></a>
                               </td>
                           </tr>
                       @endforeach
@@ -271,8 +271,8 @@
                             <td>$ {{ number_format($egreso->iva, 2) }}</td>
                             <td>$ {{ number_format($egreso->total, 2) }}</td>
                             <td>
-                              <a href="{{ route('conta.edit.egreso', ['rfc' => $rfc, 'id' => $egreso->id]) }}" class="btn btn-sm btn-warning fntB"><i class="fas fnt18 fa-pencil-alt"></i></a>
-                              <a href="#" class="btn btn-sm btn-danger fntB"><i class="fas fnt18 fa-trash-alt"></i></a>
+                              <a href="{{ route('conta.edit.egreso', ['rfc' => $rfc, 'id' => $egreso->id]) }}" class="text-warning px-1"><i class="fas fnt18 fa-pencil-alt"></i></a>
+                              <a href="#" class="text-danger px-1"><i class="fas fnt18 fa-trash-alt"></i></a>
                             </td>
                           </tr>
                       @endforeach
