@@ -1,0 +1,1 @@
+import"./summernote-bs5.min-D3TtaUSw.js";import"./jquery-sB3rc0pu.js";import"./_commonjsHelpers-DR3NjCyK.js";$(document).ready(function(){$(".summernote").summernote({height:250,minHeight:null,maxHeight:null,focus:!1})});
