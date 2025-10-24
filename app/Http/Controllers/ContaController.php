@@ -277,7 +277,7 @@ class ContaController extends Controller
       public function editegreso($rfc, $id)
       {
         $Egreso = Egresos::findOrFail($id);
-        $ProveeList = Proveedores::all(); // Cambiado a proveedores
+        $ProveeList = Proveedores::orderBy('identificador', 'asc')->get();
 
         return view($this->f . 'egresoedit', [
           'egreso' => $Egreso,
@@ -322,7 +322,7 @@ class ContaController extends Controller
       public function editingreso($rfc, $id)
       {
         $Ingreso = Ingresos::findOrFail($id);
-        $ClientList = Clientes::all(); // Cambiado a clientes
+        $ClientList = Clientes::orderBy('identificador', 'asc')->get();
 
         return view($this->f . 'ingresoedit', [
           'ingreso' => $Ingreso,

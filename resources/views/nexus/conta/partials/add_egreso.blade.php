@@ -1,142 +1,158 @@
-
-  {{ csrf_field() }}
-  <div class="card p-3">
-
-    <div class="row">
-      <div class="col-12">
-        <h4>EGRESO</h4>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group {{$errors->has('egr_fecha') ? ' is-invalid' : ''}}">
-          <label for="egr_fecha" class="fntB">FECHA</label>
-          @if(isset($egreso->fecha))
-          <input type="date" class="form-control" id="egr_fecha" name="egr_fecha"  placeholder="Enter email" value="{{old('egr_fecha', $egreso->fecha->format('Y-m-d'))}}">
-          @else
-          <input type="date" class="form-control" id="egr_fecha" name="egr_fecha"  placeholder="Enter email">
-          @endif
-          <small id="emailHelp" class="form-text text-muted">Fecha en que fue pagada la factura.</small>
-        </div>
-        @error('egr_fecha')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group {{$errors->has('egr_folio') ? ' is-invalid' : ''}}">
-          <label for="egr_folio" class="fntB">FOLIO</label>
-          @if(isset($egreso->folio))
-          <input type="text" class="form-control" id="egr_folio" name="egr_folio"  placeholder="Ingresa el folio de la factura" value="{{ old('egr_folio', $egreso->folio) }}">
-          @else
-          <input type="text" class="form-control" id="egr_folio" name="egr_folio"  placeholder="Ingresa el folio de la factura" >
-          @endif
-          <small id="emailHelp" class="form-text text-muted">Sustituye los espacios por (-).</small>
-        </div>
-        @error('egr_folio')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-    </div>
-    {{--END ROW 1 --}}
-    <div class="row">
-      <div class="col-12">
-        <div class="form-group {{$errors->has('egr_provee') ? ' is-invalid' : ''}}">
-          <label for="egr_provee" class="fntB">PROVEEDOR</label>
-          <select class="custom-select" name="egr_provee">
-            <option selected>Elige una opción</option>
-            @foreach($proveedores as $proveedor)
-              @if(isset($egreso->personas_id) and $proveedor->id == $egreso->personas_id)
-                <option value="{{$proveedor->id}}" selected>{{$proveedor->identificador}}</option>
-              @else
-                <option value="{{$proveedor->id}}">{{$proveedor->identificador}}</option>
-              @endif
-            @endforeach
-          </select>
-          <small id="emailHelp" class="form-text text-muted">Elige el proveedor.</small>
-        </div>
-        @error('egr_provee')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group {{$errors->has('egr_status') ? ' is-invalid' : ''}}">
-          <label for="egr_status" class="fntB">ESTATUS</label>
-          <select class="custom-select" name="egr_status">
-              @if(isset($egreso->estatus) and $egreso->estatus == 1)
-                <option >Elige una opción</option>
-                <option value="1" selected>Defintivo</option>
-                <option value="2">Pendiente</option>
-                <option value="3">Proyectado</option>
-              @elseif(isset($egreso->estatus) and $egreso->estatus == 2)
-                <option >Elige una opción</option>
-                <option value="1">Defintivo</option>
-                <option value="2" selected>Pendiente</option>
-                <option value="3">Proyectado</option>
-              @elseif(isset($egreso->estatus) and $egreso->estatus == 3)
-                <option >Elige una opción</option>
-                <option value="1">Defintivo</option>
-                <option value="2">Pendiente</option>
-                <option value="3" selected>Proyectado</option>
-              @else
-                <option selected>Elige una opción</option>
-                <option value="1">Defintivo</option>
-                <option value="2">Pendiente</option>
-                <option value="3">Proyectado</option>
-              @endif
-          </select>
-          <small id="emailHelp" class="form-text text-muted">Elige el estatus del egreso.</small>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group {{$errors->has('egr_gas') ? ' is-invalid' : ''}}">
-          <label for="egr_gas" class="fntB">IVA MANUAL</label>
-          <select class="custom-select" name="egr_gas" id="egr_gas">
-            <option value="-1"selected>Elige una opción</option>
-            <option value="1">Si</option>
-            <option value="0">No</option>
-          </select>
-          <small id="emailHelp" class="form-text text-muted">Las facturas de gasolina tienen un manejo diferente del IVA.</small>
-        </div>
-      </div>
-    </div>
-    {{--END ROW 2 --}}
-    <div class="row">
-      <div class="col-12 col-md-4">
-        <div class="form-group {{$errors->has('egr_subtotal') ? ' is-invalid' : ''}}">
-          <label for="egr_subtotal" class="fntB">SUBTOTAL</label>
-          @if(isset($egreso->fecha))
-          <input type="number" class="form-control" disabled id="egr_subtotal" name="egr_subtotal" step=".01" placeholder="0.00" value="{{ old('egr_subtotal', $egreso->subtotal) }}">
-          @else
-          <input type="number" class="form-control" disabled id="egr_subtotal" name="egr_subtotal" step=".01" placeholder="0.00" >
-          @endif
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="form-group {{$errors->has('egr_iva') ? ' is-invalid' : ''}}">
-          <label for="egr_iva" class="fntB">IVA</label>
-          @if(isset($egreso->fecha))
-          <input type="number" class="form-control" disabled id="egr_iva" name="egr_iva" step=".01" placeholder="0.00" value="{{ old('egr_iva', $egreso->iva) }}">
-          @else
-          <input type="number" class="form-control" disabled id="egr_iva" name="egr_iva" step=".01" placeholder="0.00">
-          @endif
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="form-group {{$errors->has('egr_total') ? ' is-invalid' : ''}}">
-          <label for="egr_total" class="fntB">TOTAL</label>
-          @if(isset($egreso->fecha))
-          <input type="number" class="form-control" id="egr_total" name="egr_total" step=".01" placeholder="Ingresa la cantidad" value="{{ old('egr_total', $egreso->total) }}">
-          @else
-          <input type="number" class="form-control" id="egr_total" name="egr_total" step=".01" placeholder="Ingresa la cantidad">
-          @endif
-        </div>
-        @error('egr_total')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-    </div>
-    {{--END ROW 3 --}}
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6 col-lg-4">
-        <button type="submit" name="button" class="btn btn-block btn-primary btn-sm">CREAR</button>
-      </div>
-    </div>
+<div class="row">
+  <!-- CAMPO: FECHA -->
+  <div class="col-12 col-md-6 mb-3">
+    <label for="egr_fecha" class="form-label fntB">FECHA</label>
+    {{-- CORRECCIÓN: Lógica ISSET y control de tipo para evitar 'format() on string' --}}
+    @if(isset($egreso->fecha))
+        @php
+            // Comprueba si $egreso->fecha es un objeto (Carbon).
+            // Si lo es, llama a format('Y-m-d'). Si no, asume que es una cadena de fecha válida.
+            $fecha_display = is_object($egreso->fecha) ? $egreso->fecha->format('Y-m-d') : $egreso->fecha;
+        @endphp
+    <input
+      type="date"
+      class="form-control @error('egr_fecha') is-invalid @enderror"
+      id="egr_fecha"
+      name="egr_fecha"
+      placeholder="Enter email"
+      value="{{old('egr_fecha', $fecha_display)}}">
+    @else
+    <input
+      type="date"
+      class="form-control @error('egr_fecha') is-invalid @enderror"
+      id="egr_fecha"
+      name="egr_fecha"
+      placeholder="Enter email">
+    @endif
+    <div id="dateHelp" class="form-text text-muted">Fecha en que fue pagada la factura.</div>
+    @error('egr_fecha')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
   </div>
+
+  <!-- CAMPO: FOLIO -->
+  <div class="col-12 col-md-6 mb-3">
+    <label for="egr_folio" class="form-label fntB">FOLIO</label>
+    {{-- Lógica ISSET: Asegura que $egreso->folio exista --}}
+    <input
+      type="text"
+      class="form-control @error('egr_folio') is-invalid @enderror"
+      id="egr_folio"
+      name="egr_folio"
+      placeholder="Ingresa el folio de la factura"
+      value="{{ old('egr_folio', $egreso->folio ?? '') }}">
+    <div id="folioHelp" class="form-text text-muted">Sustituye los espacios por (-).</div>
+    @error('egr_folio')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+</div>
+{{--END ROW 1 --}}
+
+<div class="row">
+  <!-- CAMPO: PROVEEDOR -->
+  <div class="col-12 mb-3">
+    <label for="egr_provee" class="form-label fntB">PROVEEDOR</label>
+    <select class="form-select @error('egr_provee') is-invalid @enderror" id="egr_provee" name="egr_provee">
+      <option selected>Elige una opción</option>
+      @foreach($proveedores as $proveedor)
+      {{-- Lógica ISSET: Asegura que $egreso->personas_id exista para la selección --}}
+      <option value="{{$proveedor->id}}" @if(isset($egreso->personas_id) and $proveedor->id == $egreso->personas_id) selected @endif>
+        {{$proveedor->identificador}}
+      </option>
+      @endforeach
+    </select>
+    <div id="proveedorHelp" class="form-text text-muted">Elige el proveedor.</div>
+    @error('egr_provee')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+
+  <!-- CAMPO: ESTATUS -->
+  <div class="col-12 col-md-6 mb-3">
+    <label for="egr_status" class="form-label fntB">ESTATUS</label>
+    <select class="form-select @error('egr_status') is-invalid @enderror" name="egr_status" id="egr_status">
+      {{-- Lógica ISSET: Asegura que $egreso->estatus exista para la selección --}}
+      <option value="" @unless(isset($egreso->estatus)) selected @endunless>Elige una opción</option>
+      <option value="1" @if(isset($egreso->estatus) && $egreso->estatus == 1) selected @endif>Definitivo</option>
+      <option value="2" @if(isset($egreso->estatus) && $egreso->estatus == 2) selected @endif>Pendiente</option>
+      <option value="3" @if(isset($egreso->estatus) && $egreso->estatus == 3) selected @endif>Proyectado</option>
+    </select>
+    <div id="statusHelp" class="form-text text-muted">Elige el estatus del egreso.</div>
+    @error('egr_status')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+
+  <!-- CAMPO: IVA MANUAL -->
+  <div class="col-12 col-md-6 mb-3">
+    <label for="egr_gas" class="form-label fntB">IVA MANUAL</label>
+    <select class="form-select @error('egr_gas') is-invalid @enderror" name="egr_gas" id="egr_gas">
+      {{-- Lógica ISSET: Usamos $egreso->test como ejemplo, si es otra propiedad, ajústala --}}
+      <option value="-1" @unless(isset($egreso->test)) selected @endunless>Elige una opción</option>
+      <option value="1" @if(isset($egreso->test) and $egreso->test == 1) selected @endif>Sí</option>
+      <option value="0" @if(isset($egreso->test) and $egreso->test == 0) selected @endif>No</option>
+    </select>
+    <div id="ivaManualHelp" class="form-text text-muted">Las facturas de gasolina tienen un manejo diferente del IVA.</div>
+    @error('egr_gas')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+</div>
+{{--END ROW 2 --}}
+
+<div class="row">
+  <!-- CAMPO: SUBTOTAL (Disabled) -->
+  <div class="col-12 col-md-4 mb-3">
+    <label for="egr_subtotal" class="form-label fntB">SUBTOTAL</label>
+    {{-- Lógica ISSET: Asegura que $egreso->subtotal exista --}}
+    <input
+      type="number"
+      class="form-control @error('egr_subtotal') is-invalid @enderror"
+      disabled
+      id="egr_subtotal"
+      name="egr_subtotal"
+      step=".01"
+      placeholder="0.00"
+      value="{{ old('egr_subtotal', $egreso->subtotal ?? '') }}">
+    @error('egr_subtotal')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+
+  <!-- CAMPO: IVA (Disabled) -->
+  <div class="col-12 col-md-4 mb-3">
+    <label for="egr_iva" class="form-label fntB">IVA</label>
+    {{-- Lógica ISSET: Asegura que $egreso->iva exista --}}
+    <input
+      type="number"
+      class="form-control @error('egr_iva') is-invalid @enderror"
+      disabled
+      id="egr_iva"
+      name="egr_iva"
+      step=".01"
+      placeholder="0.00"
+      value="{{ old('egr_iva', $egreso->iva ?? '') }}">
+    @error('egr_iva')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+
+  <!-- CAMPO: TOTAL -->
+  <div class="col-12 col-md-4 mb-3">
+    <label for="egr_total" class="form-label fntB">TOTAL</label>
+    {{-- Lógica ISSET: Asegura que $egreso->total exista --}}
+    <input
+      type="number"
+      class="form-control @error('egr_total') is-invalid @enderror"
+      id="egr_total"
+      name="egr_total"
+      step=".01"
+      placeholder="Ingresa la cantidad"
+      value="{{ old('egr_total', $egreso->total ?? '') }}">
+    @error('egr_total')
+      <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+  </div>
+</div>
+{{--END ROW 3 --}}

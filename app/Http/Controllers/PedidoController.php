@@ -218,7 +218,7 @@ class PedidoController extends Controller
   public function edit($id)
   {
     $pedido = Pedido::with('productos')->findOrFail($id);
-    $clientes = Clientes::all(); // Lista de clientes
+    $clientes = Clientes::orderBy('identificador', 'asc')->get();
     return view($this->f.'edit', compact('pedido', 'clientes'));
   }
 

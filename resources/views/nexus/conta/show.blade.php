@@ -2,6 +2,8 @@
 @section('title', 'Contabilidad')
 @section('section', 'contabilidad')
 
+
+
 @section('content')
 <div class="content-page">
   <!-- Start content -->
@@ -23,18 +25,6 @@
                       @ENDIF
                       <li class="breadcrumb-item active fnt20 fntB text-uppercase">{{ $year }}</li>
                   </ol>
-                  {{--
-                  <div class="state-information d-none d-sm-block">
-                      <div class="state-graph">
-                          <div id="header-chart-1"></div>
-                          <div class="info">Balance $ 2,317</div>
-                      </div>
-                      <div class="state-graph">
-                          <div id="header-chart-2"></div>
-                          <div class="info">Item Sold 1230</div>
-                      </div>
-                  </div>
-                  --}}
               </div>
           </div>
       </div>
