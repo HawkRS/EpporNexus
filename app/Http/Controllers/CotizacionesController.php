@@ -202,13 +202,55 @@ class CotizacionesController extends Controller
       $request->validate([
       'banco' => 'required|integer|min:1', // Validar que cada cantidad es un número entero y positivo
       ]);
+      $logoPath = public_path('img/EpporLogoC.png');
+
+      // Verifica si el archivo existe antes de leerlo
+      if (file_exists($logoPath)) {
+          $logoBase64 = base64_encode(file_get_contents($logoPath));
+          $logoSrc = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . $logoBase64;
+      } else {
+          // Proporcionar un placeholder o un logo de respaldo si el archivo no existe
+          $logoSrc = '';
+      }
+      $pedido = Pedido::with(['cliente', 'productos'])->findOrFail($id);
+
+      $pedido->productos->each(function ($producto) {
+          // Asumiendo que las imágenes de productos están en public/img/prods/
+          // y que el campo 'img' contiene el nombre del archivo (ej. 'arreadores.jpg')
+          $imageFileName = $producto->codigo.'.jpg';
+
+          if ($imageFileName) {
+              $imagePath = public_path('img/prods/' . $imageFileName);
+
+              if (file_exists($imagePath)) {
+                  //dd($imagePath);
+                  $imageContent = file_get_contents($imagePath);
+                  $mimeType = mime_content_type($imagePath);
+
+                  // Asignamos la Data URL completa a una nueva propiedad
+                  // Esto facilita el uso directo en el Blade
+                  $producto->imagen_base64 = base64_encode($imageContent);
+                  $producto->mime_type = $mimeType; // Guardamos el tipo MIME
+
+              } else {
+                  // Si el archivo no existe, asignamos Base64 vacío
+                  //dd('vacio');
+                  $producto->imagen_base64 = '';
+                  $producto->mime_type = 'image/jpg'; // Default
+                  // Opcional: Asignar una imagen placeholder Base64 aquí.
+              }
+          } else {
+              $producto->imagen_base64 = '';
+              $producto->mime_type = 'image/jpg'; // Default
+          }
+      });
       //dd($request->all());
       //dd($id, Cotizacion::find($id));
       $bankinfo = DatosBancarios::findOrFail($request->banco);
       $opciones = $request;
       //dd($opciones->banco);
       $cotizacion = Cotizacion::with(['cliente', 'productos'])->findOrFail($id);
-      $pdf = PDF::loadView('admin.cotizaciones.pdf', compact('cotizacion', 'bankinfo', 'opciones'));
+      $pdf = PDF::loadView('nexus.cotizaciones.pdf', compact('cotizacion', 'bankinfo', 'opciones', 'logoSrc'));
       //dd($pdf);
       $date = Carbon::parse($cotizacion->created_at);
 
@@ -276,4 +318,3 @@ class CotizacionesController extends Controller
     }
 
   }
-

@@ -218,7 +218,7 @@
       <!-- Imagen a la izquierda -->
       <td>
         @if($opciones->datos == 2 || $opciones->datos == 3)
-          <img  class="" src="{{asset('img/EpporLogoC.png')}}" alt="EpporLogo">
+          <img class="logo" src="{{$logoSrc}}" alt="EpporLogo">
         @endif
       </td>
       <!-- Texto a la derecha, alineado a la misma altura -->
@@ -285,7 +285,9 @@
         <tr class="prodrows">
           <td class="fnt12 fnt_black">{{ $producto->pivot->cantidad }}</td>
           <td class="fnt12 fnt_black">{{ $producto->nombre }}</td>
-          <td class="fnt12 fnt_black"><img class="prod-img" src="{{ asset('img/prods/'.$producto->codigo.'.jpg') }}" alt=""></td>
+          <td class="fnt12 fnt_black"><img class="prod-img"
+               src="data:{{ $producto->mime_type ?? 'image/png' }};base64,{{ $producto->imagen_base64 }}"
+               alt="{{ $producto->codigo }}"></td>
           <td class="fnt12 fnt_black">${{ number_format($producto->pivot->precio, 2) }}</td>
           <td class="fnt12 fnt_black">${{ number_format($producto->pivot->total, 2) }}</td>
         </tr>
@@ -427,5 +429,3 @@
   </div>
 </body>
 </html>
-
-
