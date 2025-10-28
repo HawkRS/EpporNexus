@@ -21,6 +21,7 @@ use App\Http\Controllers\MovimientoCajaController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\CotizacionesController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\FerreteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -222,6 +223,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/eliminar/{pagos}', [PagosController::class, 'delete'])->name('pagos.delete');
         Route::get('/{id}/pdf', [PagosController::class, 'generarPDF'])->name('pagos.pdf');
     });
+
+    Route::resource('ferreteria', FerreteriaController::class)
+    // Opcional: Define los nombres para las rutas que usarás en redirects y enlaces.
+    ->names([
+        'index' => 'ferreteria.index',
+        'create' => 'ferreteria.create',
+        'store' => 'ferreteria.store',
+        'show' => 'ferreteria.show',
+        'edit' => 'ferreteria.edit',
+        'update' => 'ferreteria.update',
+        'destroy' => 'ferreteria.destroy',
+    ]);
+
 }); //END ADMIN GROUP
 
 

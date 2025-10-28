@@ -190,7 +190,7 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{{route('ferreteria.index')}}" class="side-nav-link">
                                 <span class="menu-text">Ferreteria</span>
                             </a>
                         </li>

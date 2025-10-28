@@ -115,6 +115,7 @@ export default defineConfig({
                 "resources/js/nexus/dashboard.js",
                 "resources/js/nexus/nuevopedido.js",
                 "resources/js/nexus/contashow.js",
+                "resources/js/nexus/ferreteria.js",
 
 
             ],
