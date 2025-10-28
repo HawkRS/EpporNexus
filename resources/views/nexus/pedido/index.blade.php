@@ -139,35 +139,35 @@
                   <td>{{ $pedido->cliente->identificador }}</td>
                   <td>${{ number_format($pedido->total, 2) }}</td>
                   @if($pedido->factura == true)
-                  <td><span class="badge badge-pill badge-primary">Facturada</span> </td>
+                  <td><span class="badge badge-soft-primary">Facturada</span> </td>
                   @else
-                  <td><span class="badge badge-pill badge-secondary">Sin Factura</span> </td>
+                  <td><span class="badge badge-soft-secondary">Sin Factura</span> </td>
                   @endif
                   <td>${{ number_format($pedido->saldo, 2) }}</td>
                   @switch($pedido->estado)
                   @case('ordenado')
-                  <td> <span class="badge badge-pill badge-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
+                  <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
                   @break
                   @case('produccion')
-                  <td> <span class="badge badge-pill badge-warning"><i class="fas fa-circle"></i> Produccion </span></td>
+                  <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion </span></td>
                   @break
                   @case('terminado')
-                  <td> <span class="badge badge-pill badge-success"><i class="fas fa-circle"></i> Terminado </span></td>
+                  <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Terminado </span></td>
                   @break
                   @case('entregado')
-                  <td> <span class="badge badge-pill badge-success"><i class="fas fa-circle"></i> Entregado </span></td>
+                  <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Entregado </span></td>
                   @break
                   @case('espera')
-                  <td> <span class="badge badge-pill badge-warning"><i class="fas fa-circle"></i> Espera </span></td>
+                  <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Espera </span></td>
                   @break
                   @case('cancelado')
-                  <td> <span class="badge badge-pill badge-danger"><i class="fas fa-circle"></i> Cancelado </span></td>
+                  <td> <span class="badge badge-soft-danger"><i class="fas fa-circle"></i> Cancelado </span></td>
                   @break
                   @case('convertida')
-                  <td> <span class="badge badge-pill badge-success"><i class="fas fa-circle"></i> Convertida </span></td>
+                  <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Convertida </span></td>
                   @break
                   @default
-                  <td> <span class="badge badge-pill badge-secondary"><i class="fas fa-circle"></i> n/a </span></td>
+                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> n/a </span></td>
                   @endswitch
                   <td>
                     <a class="text-info" href="{{ route('pedidos.show', $pedido->id) }}"> <i class="fas fa-eye"></i> </a>&nbsp;
@@ -198,7 +198,24 @@
           <div class="row">
             @foreach($porEstado as $estado => $total)
             <div class="col-12 col-md-4">
-              <p class="fnt_type{{$loop->index+1}}"><i class="fas fa-circle"></i> {{ ucfirst($estado) }}</p>
+              @switch($loop->index)
+                @case(1)
+                <p class="text-primary">
+                @break
+                @case(2)
+                <p class="text-danger">
+                @break
+                @case(3)
+                <p class="text-dark">
+                @break
+                @case(4)
+                <p class="text-warning">
+                @break
+                @case(0)
+                <p class="text-success">
+                @break
+              @endswitch
+              <i class="fas fa-circle"></i> {{ ucfirst($estado) }}</p>
             </div>
             @endforeach
           </div>
@@ -239,7 +256,23 @@
       <div class="row">
         @foreach($productosContados as $productosContado)
           <div class="col-12">
-            <p class="fnt_type{{$loop->index+1}}">
+            @switch($loop->index)
+              @case(1)
+              <p class="text-primary">
+              @break
+              @case(2)
+              <p class="text-danger">
+              @break
+              @case(3)
+              <p class="text-dark">
+              @break
+              @case(4)
+              <p class="text-warning">
+              @break
+              @case(0)
+              <p class="text-success">
+              @break
+            @endswitch
               <i class="fas fa-circle"></i>
               {{ ucfirst(Str::lower(Str::limit($productosContado->nombre, 40))) }}
             </p>

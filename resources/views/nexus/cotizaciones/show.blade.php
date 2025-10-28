@@ -18,9 +18,9 @@
             <table class="table table-sm table-borderless">
               <tbody>
                 <tr class="bg-primary">
-                  <td class="bg-primary "><strong>Cliente:</strong> {{$cliente->identificador}}</td>
-                  <td class="bg-primary "><strong>RFC:</strong> {{$cliente->rfc}}</td>
-                  <td class="bg-primary "><strong>Fecha:</strong> {{ date('d/m/y', strtotime($cotizacion->fecha)) }}</td>
+                  <td class="bg-primary text-fixed-white"><strong>Cliente:</strong> {{$cliente->identificador}}</td>
+                  <td class="bg-primary text-fixed-white"><strong>RFC:</strong> {{$cliente->rfc}}</td>
+                  <td class="bg-primary text-fixed-white"><strong>Fecha:</strong> {{ date('d/m/y', strtotime($cotizacion->fecha)) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -44,11 +44,11 @@
               <tbody>
                 <table id="PedidoTable" class="table table-sm table-borderless table-striped table-hover align-middle ">
                   <thead class="bg-primary">
-                    <th class="text-light">Acciones</th>
-                    <th class="text-light">Cantidad</th>
-                    <th class="text-light">Descripción</th>
-                    <th class="text-light">P/Unitario</th>
-                    <th class="text-light">Importe</th>
+                    <th class="text-fixed-white">Acciones</th>
+                    <th class="text-fixed-white">Cantidad</th>
+                    <th class="text-fixed-white">Descripción</th>
+                    <th class="text-fixed-white">P/Unitario</th>
+                    <th class="text-fixed-white">Importe</th>
                     <tbody>
                       @foreach($cotizacion->productos as $cotizacionProducto)
                       <tr>
@@ -68,9 +68,9 @@
                         <td></td>
                         <td></td>
                         @if($cotizacion->factura == 0)
-                        <td class="bg-primary text-light"><strong>TOTAL</strong></td>
+                        <td class="bg-primary text-fixed-white"><strong>TOTAL</strong></td>
                         @else
-                        <td class="bg-primary text-light"><strong>SUBTOTAL</strong></td>
+                        <td class="bg-primary text-fixed-white"><strong>SUBTOTAL</strong></td>
                         @endif
                         <td>${{ number_format($cotizacion->subtotal, 2) }}</td>
                       </tr>
@@ -79,14 +79,14 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="bg-primary text-light"><strong>IVA 16%</strong></td>
+                        <td class="bg-primary text-fixed-white"><strong>IVA 16%</strong></td>
                         <td>${{ number_format($cotizacion-> iva, 2) }}</td>
                       </tr>
                       <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="bg-primary text-light"><strong>TOTAL</strong></td>
+                        <td class="bg-primary text-fixed-white"><strong>TOTAL</strong></td>
                         <td>${{ number_format($cotizacion-> total, 2) }}</td>
                       </tr>
                       @endif
@@ -112,17 +112,17 @@
       <div class="card-body">
         <h5 class="fnt18 fntB fnt_blue">Acciones</h5>
         <div class="row">
-          <div class="col-md-6 pt-2 d-grid gap-2"> <a href="{{route('cotizacion.edit', ['id'=>$cotizacion->id])}}" class="btn btn btn-block btn-warning">Editar pedido</a> </div>
+          <div class="col-md-6 pt-2 d-grid gap-2"> <a href="{{route('cotizacion.edit', ['id'=>$cotizacion->id])}}" class="btn btn-sm btn-block btn-warning">Editar pedido</a> </div>
           <div class="col-md-6 pt-2 d-grid gap-2">
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#PDFModal">Generar PDF</button>
+            <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#PDFModal">Generar PDF</button>
           </div>
           <div class="col-md-6 pt-2 d-grid gap-2">
-            <form method="POST" action="{{ route('cotizacion.pedido', $cotizacion->id) }}">
+            <form method="POST" action="{{ route('cotizacion.pedido', $cotizacion->id) }}" class=" d-grid gap-2">
                 @csrf
-                <button class="btn btn btn-info" type="submit">Convertir a pedido</button>
+                <button class="btn btn-sm btn-info" type="submit">Convertir a pedido</button>
             </form>
           </div>
-          <div class="col-md-6 pt-2 d-grid gap-2"> <a href="#" class="btn btn btn-block btn-primary">Cambiar cliente</a> </div>
+          <div class="col-md-6 pt-2 d-grid gap-2"> <a href="#" class="btn btn-sm btn-block btn-primary">Cambiar cliente</a> </div>
         </div>
       </div>
     </div>

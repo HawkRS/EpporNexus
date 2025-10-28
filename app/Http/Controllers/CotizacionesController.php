@@ -299,7 +299,7 @@ class CotizacionesController extends Controller
         // Opcional: actualizar estado de la cotización o marcarla como usada
         $cotizacion->estado = 'convertida';
         $cotizacion->save();
-
+        //dd($pedido);
         DB::commit();
 
         return redirect()->route('pedidos.show', $pedido->id)

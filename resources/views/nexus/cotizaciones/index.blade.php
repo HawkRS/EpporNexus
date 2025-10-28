@@ -59,37 +59,37 @@
                             <td>{{ $cotizacion->cliente->identificador }}</td>
                             <td>${{ number_format($cotizacion->total, 2) }}</td>
                             @if($cotizacion->factura == true)
-                              <td><span class="text-primary"><i class="fas fa-circle"></i> Facturada</span> </td>
+                              <td><span class=" badge badge-soft-primary"><i class="fas fa-circle"></i> Facturada</span> </td>
                             @else
-                              <td><span class="text-secondary"><i class="fas fa-circle"></i> Sin Factura</span> </td>
+                              <td><span class=" badge badge-soft-secondary"><i class="fas fa-circle"></i> Sin Factura</span> </td>
                             @endif
                             <td>${{ number_format($cotizacion->saldo, 2) }}</td>
                               @switch($cotizacion->estado)
                                 @case('ordenado')
-                                    <td> <span class="text-primary"><i class="fas fa-circle"></i> ordenado </span></td>
+                                    <td> <span class=" badge badge-soft-primary"><i class="fas fa-circle"></i> ordenado </span></td>
                                     @break
                                 @case('produccion')
-                                    <td> <span class="text-warning"><i class="fas fa-circle"></i> produccion </span></td>
+                                    <td> <span class=" badge badge-soft-warning"><i class="fas fa-circle"></i> produccion </span></td>
                                     @break
                                 @case('terminado')
-                                    <td> <span class="text-success"><i class="fas fa-circle"></i> terminado </span></td>
+                                    <td> <span class=" badge badge-soft-success"><i class="fas fa-circle"></i> terminado </span></td>
                                     @break
                                 @case('entregado')
-                                    <td> <span class="text-success"><i class="fas fa-circle"></i> entregado </span></td>
+                                    <td> <span class=" badge badge-soft-success"><i class="fas fa-circle"></i> entregado </span></td>
                                     @break
                                 @case('espera')
-                                    <td> <span class="text-warning"><i class="fas fa-circle"></i> espera </span></td>
+                                    <td> <span class=" badge badge-soft-warning"><i class="fas fa-circle"></i> espera </span></td>
                                     @break
                                 @case('cancelado')
-                                    <td> <span class="text-danger"><i class="fas fa-circle"></i> cancelado </span></td>
+                                    <td> <span class=" badge badge-soft-danger"><i class="fas fa-circle"></i> cancelado </span></td>
                                     @break
                                 @case('convertida')
-                                    <td> <span class="text-success"><i class="fas fa-circle"></i> convertida </span></td>
+                                    <td> <span class=" badge badge-soft-success"><i class="fas fa-circle"></i> convertida </span></td>
                                     @break
                                 @default
-                                    <td> <span class="text-secondary"><i class="fas fa-circle"></i> n/a </span></td>
+                                    <td> <span class=" badge badge-soft-secondary"><i class="fas fa-circle"></i> n/a </span></td>
                               @endswitch
-                            <td>{{ $cotizacion->metodo_entrega == 'recoger' ? 'Cliente recoge' : 'Enviado' }}</td>
+                            <td> <span class="badge badge-soft-{{ $cotizacion->metodo_entrega == 'recoger' ? 'dark' : 'primary' }}"><i class="fas fa-circle"></i> {{ $cotizacion->metodo_entrega == 'recoger' ? 'Cliente recoge' : 'Enviado' }} </span></td>
                             <td>
                               <a class="text-info" href="{{ route('cotizacion.show', $cotizacion->id) }}"> <i class="fas fa-eye"></i> </a>&nbsp;
                               <a class="text-warning" href="{{ route('cotizacion.edit', $cotizacion->id) }}"> <i class="fas fa-edit"></i> </a>

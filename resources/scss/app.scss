@@ -109,3 +109,20 @@ File: App Css File
 @import "plugins/lightbox";
 @import "plugins/sweetalert2";
 @import "plugins/rangeslider";
+
+$text-fixed-white-color: #ffffff;
+// Variables de contraste (Bootstrap nativas)
+$text-contrast-color: $black; // Texto negro para el estado interactivo
+$bg-hover-subtle: rgba(255, 255, 255, 0.5); // Fondo sutil para hover
+$bg-active-intense: rgba(255, 255, 255, 1); // Fondo más intenso para active
+
+.text-fixed-white {
+    // 1. Estado Normal: Siempre blanco, ignorando cualquier variable de tema.
+    color: $text-fixed-white-color !important;
+
+    // Transiciones y estilo base
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    text-decoration: none;
+    // Padding y border-radius son opcionales, pero mejoran la interacción si es un enlace
+    padding: 0.25rem;
+}

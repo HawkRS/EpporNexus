@@ -8,6 +8,7 @@ export default defineConfig({
                 // css
                 "resources/scss/app.scss",
                 "resources/scss/icons.scss",
+                "resources/scss/customs.scss",
                 "node_modules/c3/c3.min.css",
                 "node_modules/summernote/dist/summernote-bs4.min.css",
                 "node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
