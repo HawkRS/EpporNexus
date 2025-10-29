@@ -104,4 +104,47 @@ class FerreteriaController extends Controller
         return redirect()->route('ferreteria.index')
                          ->with('success', 'Artículo eliminado de inventario.');
     }
+
+    /**
+ * Obtiene y devuelve todo el inventario agrupado por categoría.
+ * En producción, aquí se haría una consulta a la DB (e.g., Eloquent).
+ */
+  public function getInventory(Request $request)
+  {
+
+    $articulos = Ferreteria::orderBy('nombre')->get();
+
+    return response()->json($articulos);
+    }
+
+    /**
+     * Maneja las peticiones PUT para actualizar productos.
+     */
+    public function updateItem(Request $request, $id)
+    {
+        // Lógica para encontrar el Item::find($id) y actualizarlo con $request->all()
+        Log::info("Actualización recibida para el producto ID: {$id}", $request->all());
+
+        // Devolver una respuesta de éxito con los datos actualizados
+        return response()->json([
+            'message' => 'Producto actualizado exitosamente.',
+            'updated_id' => $id,
+            // Aquí podrías devolver los datos del producto actualizado desde la DB
+        ]);
+    }
+
+    /**
+     * Maneja las peticiones DELETE para eliminar productos.
+     */
+    public function deleteItem($id)
+    {
+        // Lógica para Item::destroy($id)
+        Log::info("Petición de eliminación para el producto ID: {$id}");
+
+        // Devolver una respuesta de éxito
+        return response()->json([
+            'message' => 'Producto eliminado exitosamente.',
+            'deleted_id' => $id
+        ]);
+    }
 }

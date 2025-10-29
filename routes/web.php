@@ -235,6 +235,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'ferreteria.update',
         'destroy' => 'ferreteria.destroy',
     ]);
+    // GET: Obtiene todo el inventario agrupado por categoría.
+    Route::get('ferreteria/inventory', [FerreteriaController::class, 'getInventory']);
+
+    // PUT: Endpoint para actualizar un solo campo o el producto completo.
+    Route::put('ferreteria/inventory/{id}', [FerreteriaController::class, 'updateItem']);
+
+    // DELETE: Elimina un producto.
+    Route::delete('ferreteria/inventory/{id}', [FerreteriaController::class, 'deleteItem']);
 
 }); //END ADMIN GROUP
 

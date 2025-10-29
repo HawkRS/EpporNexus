@@ -18,19 +18,12 @@ class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items
 
                     <div class="card-body p-4">
 
-                        <div class="row">
-                          <div class="col-12">
-                            <a href="{{ route('public.home') }}">
-                              <img src="{{ asset('img/EpporLogoC.png') }}" class="mx-auto d-block img-fluid" alt="Eppor">
-                            </a>
-                          </div>
-                        </div>
 
                         <div class="account-box">
-                            <div class="account-logo-box">
+                            <div class="account-logo-box text-center">
                                 <div class="text-center">
                                     <a href="{{ route ('public.home') }}">
-                                        <img src="/images/logo-dark.png" alt="" height="30">
+                                        <img src="{{ asset('img/EpporLogoC.png') }}" class="mx-auto d-block img-fluid" alt="Eppor">
                                     </a>
                                 </div>
                                 <h5 class="text-uppercase mb-1 mt-4 fw-semibold">Eppor Nexus</h5>
@@ -51,8 +44,8 @@ class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="emailaddress">Correo Eléctronico</label>
-                                            <input class="form-control" type="email" name="email" id="emailaddress" value="user@demo.com" required=""
-                                                placeholder="john@deo.com">
+                                            <input class="form-control" type="email" name="email" id="emailaddress" value="" required=""
+                                                placeholder="Ingresa tu correo">
                                         </div>
                                     </div>
 
@@ -63,8 +56,8 @@ class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items
                                                     your password?</small></a>
                                                     --}}
                                             <label for="password">Contraseña</label>
-                                            <input class="form-control" type="password" required="" name="password" id="password" value="password"
-                                                placeholder="Enter your password">
+                                            <input class="form-control" type="password" required="" name="password" id="password"
+                                                placeholder="Ingresa tu contraseña">
                                         </div>
                                     </div>
 

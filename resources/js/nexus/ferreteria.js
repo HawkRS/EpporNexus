@@ -1,181 +1,257 @@
 import Alpine from 'alpinejs'
-
 window.Alpine = Alpine
-
 Alpine.start()
-// Envuelve toda la lógica para asegurar que se ejecuta cuando el DOM está completamente cargado.
-document.addEventListener('DOMContentLoaded', function() {
 
-    // Función principal que define el componente Alpine.js
-    window.inventoryManager = function() {
+// --- FUNCIÓN AUXILIAR DE AGRUPAMIENTO ---
+function groupArticulosByCategory(items) {
+    if (!Array.isArray(items)) {
+        console.error("Error: Los datos recibidos del API no son un array.");
+        return {};
+    }
 
-        // Datos iniciales simulados, basados en la variable 'articulos'
-        // En un entorno real, esta data vendría de una API
-        const articulos = {
-            "Herramienta Manual": [
-                { id: 1, codigo: 'HM-001', nombre: 'Martillo de Uña Curva 16oz', cantidad: 50, costo_unitario: 150.50, precio_venta: 220.99, unidad_medida: 'unidad', editMode: {cantidad: false, precio_venta: false} },
-                { id: 4, codigo: 'HM-002', nombre: 'Juego de Destornilladores (10 pzas)', cantidad: 120, costo_unitario: 200.00, precio_venta: 350.50, unidad_medida: 'juego', editMode: {cantidad: false, precio_venta: false} }
-            ],
-            "Seguridad": [
-                { id: 2, codigo: 'SEG-001', nombre: 'Lentes de Seguridad Transparentes', cantidad: 200, costo_unitario: 12.00, precio_venta: 24.50, unidad_medida: 'unidad', editMode: {cantidad: false, precio_venta: false} },
-                { id: 5, codigo: 'SEG-002', nombre: 'Guantes de Piel Reforzados', cantidad: 80, costo_unitario: 45.00, precio_venta: 85.00, unidad_medida: 'par', editMode: {cantidad: false, precio_venta: false} }
-            ],
-            "Abrasivos": [
-                { id: 3, codigo: 'ABR-001', nombre: 'Disco de Corte Fino 4.5"', cantidad: 150, costo_unitario: 18.75, precio_venta: 35.00, unidad_medida: 'unidad', editMode: {cantidad: false, precio_venta: false} }
-            ],
-             "Electricidad": [
-                { id: 6, codigo: 'EL-001', nombre: 'Cinta Aislante Negra (Rollo)', cantidad: 300, costo_unitario: 8.00, precio_venta: 15.00, unidad_medida: 'rollo', editMode: {cantidad: false, precio_venta: false} },
-            ],
-        };
+    const grouped = items.reduce((acc, item) => {
+        // Asegúrate que el campo 'categoria' exista en tu modelo Ferreteria
+        const category = item.categoria || item.nombre_categoria || 'Sin Categoría';
 
-        // Función auxiliar para aplanar el inventario y facilitar la búsqueda/gestión por ID
-        function flattenInventory(inv) {
-            let flat = {};
-            for (const category in inv) {
-                inv[category].forEach(item => {
-                    flat[item.id] = item;
-                });
-            }
-            return flat;
+        if (!acc[category]) {
+            acc[category] = [];
         }
 
-        return {
-            // Datos reactivos
-            articulos: articulos, // Inventario agrupado por categoría
-            flatInventory: flattenInventory(articulos), // Inventario plano para acceso rápido
-            searchTerm: '',
-            message: '',
+        item.editMode = item.editMode || { cantidad: false, precio_venta: false };
+        item.original_cantidad = item.cantidad;
+        item.original_precio_venta = item.precio_venta;
 
-            // Variables para el Modal de Edición Completa
-            isModalOpen: false,
-            modalProduct: {}, // Copia del producto que se está editando
+        acc[category].push(item);
+        return acc;
+    }, {});
+    return grouped;
+}
 
-            // Variables para el Diálogo de Eliminación
-            isDeleteDialogOpen: false,
-            dialogProduct: {}, // Producto a eliminar
+// --- COMPONENTE ALPINE (Recibe la URL de la API como argumento) ---
+// Ahora se debe llamar así en la vista: x-data="inventoryManager('{{ url('ferreteria/inventory') }}')"
+window.inventoryManager = function(apiUrl) {
 
-            // === PROPIEDAD COMPUTADA PARA FILTRADO ===
-            get filteredInventory() {
-                if (!this.searchTerm) {
-                    return this.articulos;
+    const API_BASE_URL = apiUrl;
+
+    return {
+        // Datos reactivos
+        articulos: {},
+        flatInventory: {},
+        searchTerm: '',
+        message: '',
+        messageType: 'info',
+        isLoading: true,
+        isDeleteDialogOpen: false,
+        dialogProduct: {},
+
+        init() {
+            // Utilizamos DOMContentLoaded para asegurar que Alpine y el componente se carguen correctamente
+            // y que los elementos como el meta tag CSRF estén listos.
+            document.addEventListener('DOMContentLoaded', () => {
+                this.fetchInventory();
+            });
+        },
+
+        // === LÓGICA DE FETCH DE DATOS (API) ===
+        async fetchInventory() {
+            this.isLoading = true;
+            this.message = '';
+            try {
+                // Usamos la URL completa que se pasó desde Blade
+                const response = await fetch(API_BASE_URL);
+
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status} al llamar a ${API_BASE_URL}.`);
                 }
 
-                const term = this.searchTerm.toLowerCase();
-                const filtered = {};
+                const flatData = await response.json();
 
-                for (const category in this.articulos) {
-                    const products = this.articulos[category].filter(product => {
-                        return product.nombre.toLowerCase().includes(term) ||
-                               product.codigo.toLowerCase().includes(term) ||
-                               category.toLowerCase().includes(term); // Permite buscar por categoría
-                    });
+                console.log("Datos planos recibidos del API:", flatData);
 
-                    if (products.length > 0) {
-                        filtered[category] = products;
-                    }
-                }
-                return filtered;
-            },
+                // Procesamiento y agrupación
+                this.articulos = groupArticulosByCategory(flatData);
+                this.flatInventory = flatData;
 
-            // === LÓGICA DE EDICIÓN EN LÍNEA ===
-            editItem(product, field) {
-                // Desactiva cualquier otro modo de edición en este producto
-                for (const key in product.editMode) {
-                    product.editMode[key] = false;
+                if (Array.isArray(flatData) && flatData.length === 0) {
+                     this.showMessage('Inventario vacío. No hay artículos en la base de datos.', 'info');
+                } else {
+                     this.showMessage('Inventario cargado exitosamente.', 'success');
                 }
 
-                product.editMode[field] = true;
+            } catch (error) {
+                console.error('Error FATAL al cargar el inventario:', error);
+                this.showMessage('FALLÓ la carga: ' + error.message, 'danger');
+            } finally {
+                this.isLoading = false;
+            }
+        },
 
-                this.$nextTick(() => {
-                    // Selecciona el input recién mostrado
-                    const input = this.$el.querySelector(`input[x-model.number="product.${field}"]`);
-                    if (input) {
-                        input.focus();
-                        input.select();
-                    }
+        // === LÓGICA DE EDICIÓN Y GUARDADO (API PUT) ===
+        async saveItem(product, field) {
+            product.editMode[field] = false;
+
+            if (product[field] === product[`original_${field}`]) {
+                return;
+            }
+
+            this.isLoading = true;
+
+            try {
+                // Construimos la URL completa para PUT
+                const updateUrl = `${API_BASE_URL}/${product.id}`;
+
+                const response = await fetch(updateUrl, {
+                    method: 'POST', // Usamos POST para web.php
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ [field]: product[field], _method: 'PUT' }) // Enviamos _method: 'PUT'
                 });
-            },
 
-            // Simula el guardado de un artículo (inline o modal)
-            saveItem(product, source = 'modal') {
-                if (source === 'inline') {
-                    // Cierra el modo de edición inline
-                    product.editMode.cantidad = false;
-                    product.editMode.precio_venta = false;
-                    this.showMessage(`Actualización en línea de ${product.nombre} guardada.`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Error en el servidor al actualizar.');
                 }
 
-                // *** Aquí se haría la llamada AJAX/Fetch a Laravel para persistir los datos. ***
-                console.log(`Guardando artículo ${product.id}. Fuente: ${source}`);
-            },
+                product[`original_${field}`] = product[field];
+                this.showMessage(`"${product.nombre}" actualizado.`, 'success');
+            } catch (error) {
+                console.error('Error al guardar:', error);
+                product[field] = product[`original_${field}`];
+                this.showMessage('Error al guardar: ' + error.message, 'danger');
+            } finally {
+                this.isLoading = false;
+            }
+        },
 
-            // === LÓGICA DEL MODAL DE EDICIÓN COMPLETA ===
-            openModal(product) {
-                // Clona el objeto para la edición en el modal y muestra el modal
-                this.modalProduct = JSON.parse(JSON.stringify(product));
-                this.isModalOpen = true;
-            },
+        // === LÓGICA DE ELIMINACIÓN (API DELETE) ===
+        async confirmDelete() {
+            const idToDelete = this.dialogProduct.id;
+            const nameToDelete = this.dialogProduct.nombre;
 
-            closeModal() {
-                this.isModalOpen = false;
-                this.modalProduct = {};
-            },
+            this.isLoading = true;
+            this.closeDeleteDialog();
 
-            saveModalChanges() {
-                // Aplica los cambios clonados al objeto original
-                const originalProduct = this.flatInventory[this.modalProduct.id];
-                Object.assign(originalProduct, this.modalProduct);
+            try {
+                // Construimos la URL completa para DELETE
+                const deleteUrl = `${API_BASE_URL}/${idToDelete}`;
 
-                this.closeModal();
-                this.showMessage(`Cambios completos para ${originalProduct.nombre} guardados.`);
+                const response = await fetch(deleteUrl, {
+                    method: 'POST', // Usamos POST para web.php
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ _method: 'DELETE' }) // Enviamos _method: 'DELETE'
+                });
 
-                this.saveItem(originalProduct, 'modal');
-            },
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Falló la eliminación en el servidor.');
+                }
 
-
-            // === LÓGICA DEL DIÁLOGO DE ELIMINACIÓN ===
-            openDeleteDialog(product) {
-                this.dialogProduct = product;
-                this.isDeleteDialogOpen = true;
-            },
-
-            closeDeleteDialog() {
-                this.isDeleteDialogOpen = false;
-                this.dialogProduct = {};
-            },
-
-            confirmDelete() {
-                const idToDelete = this.dialogProduct.id;
-                const nameToDelete = this.dialogProduct.nombre;
-
-                // Elimina el producto del array 'articulos' reactivo
+                // Lógica para eliminar del array local
                 for (const category in this.articulos) {
                     const index = this.articulos[category].findIndex(p => p.id === idToDelete);
                     if (index !== -1) {
                         this.articulos[category].splice(index, 1);
+                        if (this.articulos[category].length === 0) {
+                            delete this.articulos[category];
+                        }
                         break;
                     }
                 }
 
-                // Eliminar del inventario plano
-                if(this.flatInventory[idToDelete]) {
-                    delete this.flatInventory[idToDelete];
-                }
+                // Nota: La eliminación de flatInventory aquí es opcional, ya que solo usamos 'articulos' para renderizar.
 
-                this.closeDeleteDialog();
-                this.showMessage(`Artículo "${nameToDelete}" eliminado exitosamente.`);
-
-                // *** Aquí se haría la llamada DELETE AJAX a Laravel. ***
-            },
-
-            // Muestra un mensaje de notificación temporal (simula una respuesta del servidor)
-            showMessage(text) {
-                this.message = text;
-                clearTimeout(this.timeout);
-                this.timeout = setTimeout(() => {
-                    this.message = '';
-                }, 3000);
+                this.showMessage(`Artículo "${nameToDelete}" eliminado exitosamente.`, 'success');
+            } catch (error) {
+                console.error('Error al eliminar:', error);
+                this.showMessage('Error al intentar eliminar el artículo: ' + error.message, 'danger');
+            } finally {
+                this.isLoading = false;
             }
-        }
+        },
+
+        // === LÓGICA DE EDICIÓN EN LÍNEA (EditItem, utilidades, etc.) ===
+        editItem(product, field) {
+            // ... (Lógica igual)
+            for (const key in product.editMode) {
+                product.editMode[key] = false;
+            }
+            product.editMode[field] = true;
+
+            this.$nextTick(() => {
+                const input = this.$el.querySelector(`input[data-id="${product.id}"][data-field="${field}"]`);
+                if (input) {
+                    input.focus();
+                    input.select();
+                }
+            });
+        },
+
+        openDeleteDialog(product) {
+            this.dialogProduct = product;
+            // Usamos getOrCreateInstance para compatibilidad con Bootstrap 5
+            const deleteModalEl = document.getElementById('deleteModal');
+            let deleteModal = bootstrap.Modal.getOrCreateInstance(deleteModalEl);
+            deleteModal.show();
+            this.isDeleteDialogOpen = true;
+        },
+
+        closeDeleteDialog() {
+            const deleteModalEl = document.getElementById('deleteModal');
+            let deleteModal = bootstrap.Modal.getInstance(deleteModalEl);
+            if (deleteModal) deleteModal.hide();
+            this.isDeleteDialogOpen = false;
+            this.dialogProduct = {};
+        },
+
+        showMessage(text, type = 'success') {
+            this.message = text;
+            this.messageType = type;
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.message = '';
+            }, 3000);
+        },
+
+        formatCurrency(value) {
+            return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
+        },
+
+        calculateMargin(venta, costo) {
+            const margin = venta - costo;
+            return this.formatCurrency(margin);
+        },
+
+        get filteredInventory() {
+            // ... (Lógica de filtrado igual)
+            if (this.isLoading) return {};
+
+            if (!this.searchTerm.trim()) {
+                return this.articulos;
+            }
+
+            const term = this.searchTerm.toLowerCase().trim();
+            const filtered = {};
+
+            for (const category in this.articulos) {
+                const products = this.articulos[category].filter(product => {
+                    const productName = product.nombre ? product.nombre.toLowerCase() : '';
+                    const productCode = product.codigo ? product.codigo.toLowerCase() : '';
+
+                    return productName.includes(term) ||
+                           productCode.includes(term) ||
+                           category.toLowerCase().includes(term);
+                });
+
+                if (products.length > 0) {
+                    filtered[category] = products;
+                }
+            }
+            return filtered;
+        },
     }
-});
+}

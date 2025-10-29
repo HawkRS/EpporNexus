@@ -4,178 +4,152 @@
 @include('layouts.partials.page-title', ['subtitle' => 'Inventario', 'title' => 'Ferreteria'])
 
 <div class="row">
-      <script> var articulos = {!! json_encode(articulos) !!}; </script>
 
-  <!-- Contenedor principal de la aplicación Alpine -->
-    <div class="col-md-10" x-data="inventoryManager()">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Pedidos activos</h4>
 
-        <div class="card">
-            <div class="card-body">
-                <h4 class="header-title mb-4">Control de Inventario de Ferretería</h4>
+        <header class="mb-4 d-flex justify-content-between align-items-center">
+            <h1>Inventario de Ferretería</h1>
 
-                <!-- Campo de Búsqueda -->
-                <div class="mb-4">
-                    <input x-model="searchTerm" type="text" placeholder="Buscar por Nombre, Código o Categoría..."
-                           class="form-control form-control-lg" style="border-radius: 6px;">
+            <div class="d-flex align-items-center">
+                <div x-show="isLoading" class="spinner-border text-primary me-3" role="status">
+                    <span class="visually-hidden">Cargando...</span>
                 </div>
+                <button @click="fetchInventory()" :disabled="isLoading" class="btn btn-primary d-flex align-items-center">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Refrescar
+                </button>
+            </div>
+        </header>
 
-                <!-- Iteración por Categorías -->
-                <template x-for="(products, category) in filteredInventory" :key="category">
-                    <div class="mb-5 border rounded shadow-sm">
-                        <div class="p-3 bg-light border-bottom">
-                            <h5 class="mb-0 text-primary fw-bold"
-                                x-text="category + ' (' + products.length + ' artículos)'">
-                            </h5>
-                        </div>
+        {{-- Barra de Búsqueda --}}
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input
+                        type="text"
+                        x-model="searchTerm"
+                        placeholder="Buscar por código, nombre o categoría..."
+                        class="form-control"
+                    >
+                </div>
+            </div>
+        </div>
 
-                        <!-- Tabla de Productos -->
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm table-hover mb-0">
-                                <thead class="table-light">
+        {{-- Contenedor de la Tabla --}}
+    <div class="card shadow-lg">
+        <div class="card-body p-0">
+
+            {{-- Mensaje de Inventario Vacío --}}
+            <div x-show="Object.keys(filteredInventory).length === 0 && !isLoading" class="alert alert-info m-4" role="alert">
+                No se encontraron artículos que coincidan con la búsqueda.
+            </div>
+
+            <template x-for="(products, category) in filteredInventory" :key="category">
+                <div class="mb-4 border-bottom">
+                    {{-- Título de Categoría --}}
+                    <h5 class="bg-light text-primary p-3 mb-0 border-bottom" x-text="category"></h5>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead>
+                                <tr class="text-uppercase small">
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col" class="text-center">Unidad</th>
+                                    <th scope="col" class="text-end">Costo</th>
+                                    <th scope="col" class="text-end">Precio Venta</th>
+                                    <th scope="col" class="text-center">Cantidad</th>
+                                    <th scope="col" class="text-end d-none d-md-table-cell">Margen</th>
+                                    <th scope="col" class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="product in products" :key="product.id">
                                     <tr>
-                                        <th style="width: 10%;">Código</th>
-                                        <th style="width: 30%;">Nombre</th>
-                                        <th style="width: 10%;">Cantidad</th>
-                                        <th style="width: 10%;">U. Medida</th>
-                                        <th style="width: 15%;">Costo Unitario</th>
-                                        <th style="width: 15%;">Precio Venta</th>
-                                        <th style="width: 10%; text-align: center;">Acciones</th>
+                                        {{-- Código --}}
+                                        <td x-text="product.codigo" class="align-middle"></td>
+
+                                        {{-- Nombre --}}
+                                        <td x-text="product.nombre" class="align-middle"></td>
+
+                                        {{-- Unidad --}}
+                                        <td x-text="product.unidad_medida" class="text-center align-middle"></td>
+
+                                        {{-- Costo Unitario --}}
+                                        <td x-text="formatCurrency(product.costo_unitario)" class="text-end align-middle text-muted"></td>
+
+                                        {{-- Precio Venta (Editable) --}}
+                                        <td class="text-end align-middle">
+                                            <div x-show="!product.editMode.precio_venta"
+                                                 @dblclick="editItem(product, 'precio_venta')"
+                                                 class="fw-bold text-success cursor-pointer p-1 rounded hover-bg-light"
+                                                 x-text="formatCurrency(product.precio_venta)">
+                                            </div>
+                                            <input x-show="product.editMode.precio_venta"
+                                                   type="number"
+                                                   step="0.01"
+                                                   :data-id="product.id"
+                                                   data-field="precio_venta"
+                                                   x-model.number="product.precio_venta"
+                                                   @blur="saveItem(product, 'precio_venta')"
+                                                   @keyup.enter="$event.target.blur()"
+                                                   class="form-control form-control-sm text-end"
+                                            >
+                                        </td>
+
+                                        {{-- Cantidad (Editable) --}}
+                                        <td class="text-center align-middle">
+                                            <div x-show="!product.editMode.cantidad"
+                                                 @dblclick="editItem(product, 'cantidad')"
+                                                 class="cursor-pointer p-1 rounded hover-bg-light"
+                                                 x-text="product.cantidad">
+                                            </div>
+                                            <input x-show="product.editMode.cantidad"
+                                                   type="number"
+                                                   step="1"
+                                                   :data-id="product.id"
+                                                   data-field="cantidad"
+                                                   x-model.number="product.cantidad"
+                                                   @blur="saveItem(product, 'cantidad')"
+                                                   @keyup.enter="$event.target.blur()"
+                                                   class="form-control form-control-sm text-center"
+                                            >
+                                        </td>
+
+                                        {{-- Margen --}}
+                                        <td x-text="calculateMargin(product.precio_venta, product.costo_unitario)" class="text-end align-middle text-info d-none d-md-table-cell"></td>
+
+                                        {{-- Acciones --}}
+                                        <td class="text-center align-middle">
+                                            <button @click="openDeleteDialog(product)" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Fila del Producto -->
-                                    <template x-for="product in products" :key="product.id">
-                                        <tr>
-                                            <td class="px-3 py-2 text-muted" x-text="product.codigo"></td>
-                                            <td class="px-3 py-2 fw-medium" x-text="product.nombre"></td>
-
-                                            <!-- Columna Editable: Cantidad -->
-                                            <td class="editable-cell" @dblclick="editItem(product, 'cantidad')">
-                                                <span x-show="!product.editMode.cantidad" x-text="product.cantidad" class="editable-span"></span>
-                                                <input x-show="product.editMode.cantidad"
-                                                       type="number"
-                                                       x-model.number="product.cantidad"
-                                                       @keydown.enter="saveItem(product, 'inline')"
-                                                       @blur="saveItem(product, 'inline')"
-                                                       :autofocus="product.editMode.cantidad"
-                                                       class="editable-input">
-                                            </td>
-
-                                            <td class="px-3 py-2" x-text="product.unidad_medida"></td>
-                                            <td class="px-3 py-2" x-text="'$' + product.costo_unitario.toFixed(2)"></td>
-
-                                            <!-- Columna Editable: Precio Venta -->
-                                            <td class="editable-cell" @dblclick="editItem(product, 'precio_venta')">
-                                                <span x-show="!product.editMode.precio_venta" x-text="'$' + product.precio_venta.toFixed(2)" class="editable-span"></span>
-                                                <input x-show="product.editMode.precio_venta"
-                                                       type="number"
-                                                       step="0.01"
-                                                       x-model.number="product.precio_venta"
-                                                       @keydown.enter="saveItem(product, 'inline')"
-                                                       @blur="saveItem(product, 'inline')"
-                                                       :autofocus="product.editMode.precio_venta"
-                                                       class="editable-input">
-                                            </td>
-
-                                            <!-- Botones de Acción -->
-                                            <td class="px-3 py-2 text-center">
-                                                <div class="btn-group" role="group">
-                                                    <button
-                                                        @click="openModal(product)"
-                                                        class="btn btn-sm btn-outline-primary"
-                                                        title="Editar todos los campos">
-                                                        <i class="mdi mdi-pencil"></i> <!-- Usando MDI si tu tema lo tiene -->
-                                                    </button>
-                                                    <button
-                                                        @click="openDeleteDialog(product)"
-                                                        class="btn btn-sm btn-outline-danger"
-                                                        title="Eliminar artículo">
-                                                        <i class="mdi mdi-delete"></i> <!-- Usando MDI si tu tema lo tiene -->
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
-                        </div>
+                                </template>
+                            </tbody>
+                        </table>
                     </div>
-                </template>
-            </div>
-        </div>
-
-        <!-- Alerta de Notificación (estilo Bootstrap) -->
-        <div x-show="message" x-transition.opacity x-cloak
-             class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
-            <div class="alert alert-success shadow-lg" role="alert" x-text="message"></div>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- MODAL DE EDICIÓN COMPLETA (Usamos x-teleport para moverlo fuera del flujo normal del DOM) -->
-<template x-teleport="body">
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
-         x-show="isModalOpen" x-cloak
-         x-trap="isModalOpen"
-         @click.self="closeModal()"
-         :class="{ 'show': isModalOpen }" :style="{ 'display': isModalOpen ? 'block' : 'none' }">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="editModalLabel" x-text="'Editar Artículo: ' + (modalProduct.nombre || '')"></h5>
-                    <button type="button" class="btn-close btn-close-white" @click="closeModal()" aria-label="Close"></button>
                 </div>
-                <form @submit.prevent="saveModalChanges()">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="modal-codigo" class="form-label">Código</label>
-                            <input id="modal-codigo" type="text" x-model="modalProduct.codigo" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modal-nombre" class="form-label">Nombre</label>
-                            <input id="modal-nombre" type="text" x-model="modalProduct.nombre" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modal-cantidad" class="form-label">Cantidad</label>
-                            <input id="modal-cantidad" type="number" x-model.number="modalProduct.cantidad" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modal-costo" class="form-label">Costo Unitario ($)</label>
-                            <input id="modal-costo" type="number" step="0.01" x-model.number="modalProduct.costo_unitario" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modal-precio" class="form-label">Precio Venta ($)</label>
-                            <input id="modal-precio" type="number" step="0.01" x-model.number="modalProduct.precio_venta" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modal-unidad" class="form-label">Unidad de Medida</label>
-                            <select id="modal-unidad" x-model="modalProduct.unidad_medida" class="form-select">
-                                <option value="unidad">unidad</option>
-                                <option value="juego">juego</option>
-                                <option value="par">par</option>
-                                <option value="rollo">rollo</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
+            </template>
         </div>
     </div>
-</template>
 
-<!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN -->
-<template x-teleport="body">
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true"
-         x-show="isDeleteDialogOpen" x-cloak
-         x-trap="isDeleteDialogOpen"
-         @click.self="closeDeleteDialog()"
-         :class="{ 'show': isDeleteDialogOpen }" :style="{ 'display': isDeleteDialogOpen ? 'block' : 'none' }">
+    {{-- Alerta de Notificación (Mensaje del servidor) --}}
+    <div x-cloak x-show="message" x-transition.opacity class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+        <div
+            :class="{'alert-success': messageType === 'success', 'alert-danger': messageType === 'danger', 'alert-info': messageType === 'info'}"
+            class="alert shadow-sm"
+            role="alert"
+            x-text="message"
+        ></div>
+    </div>
+
+    {{-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN (Bootstrap Modal) --}}
+    <div x-ref="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" @click.self="closeDeleteDialog()">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
@@ -183,22 +157,25 @@
                     <button type="button" class="btn-close btn-close-white" @click="closeDeleteDialog()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está **seguro** de eliminar el artículo
-                       <span class="fw-bold text-danger" x-text="dialogProduct.nombre"></span>
-                       (Cód: <span x-text="dialogProduct.codigo"></span>)?</p>
-                    <p class="mt-2 text-muted small">Esta acción es irreversible y requiere confirmación.</p>
+                    <p class="text-center mb-4">
+                        ¿Estás seguro de eliminar <br>
+                        <strong x-text="dialogProduct.nombre"></strong>?
+                    </p>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" @click="closeDeleteDialog()">Cancelar</button>
-                    <button type="button" class="btn btn-danger" @click="confirmDelete()">Sí, Eliminar</button>
+                    <button type="button" class="btn btn-danger" @click="confirmDelete()" :disabled="isLoading">
+                        Sí, Eliminar
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-</template>
 
-@endsection
+      </div>
+    </div>
+  </div>
 
-@section('scripts')
-@vite(['resources/js/nexus/ferreteria.js'])
+</div>
+
 @endsection
