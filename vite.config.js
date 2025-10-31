@@ -1,136 +1,160 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: [
-                // css
-                "resources/scss/app.scss",
-                "resources/scss/icons.scss",
-                "resources/scss/customs.scss",
-                "node_modules/c3/c3.min.css",
-                "node_modules/summernote/dist/summernote-bs4.min.css",
-                "node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
-                "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
-                "node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
-                "node_modules/custombox/dist/custombox.min.css",
-                "node_modules/jquery-toast-plugin/dist/jquery.toast.min.css",
-                "node_modules/spinkit/css/spinkit.css",
-                "node_modules/lightbox2/dist/css/lightbox.min.css",
-                "node_modules/nestable2/dist/jquery.nestable.min.css",
-                "node_modules/ion-rangeslider/css/ion.rangeSlider.min.css",
-                "node_modules/slick-carousel/slick/slick.css",
-                "node_modules/slick-carousel/slick/slick-theme.css",
-                "node_modules/sweetalert2/dist/sweetalert2.min.css",
-                "node_modules/toastr/build/toastr.min.css",
-                "node_modules/hopscotch/dist/css/hopscotch.min.css",
-                "node_modules/jstree/dist/themes/default/style.min.css",
-                "node_modules/chartist/dist/chartist.min.css",
-                "node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
-                "node_modules/switchery/switchery.css",
-                "node_modules/multiselect/css/multi-select.css",
-                "node_modules/select2/dist/css/select2.min.css",
-                "node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css",
-                "node_modules/quill/dist/quill.core.css",
-                "node_modules/quill/dist/quill.snow.css",
-                "node_modules/quill/dist/quill.bubble.css",
-                "node_modules/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css",
-                "node_modules/x-editable/dist/bootstrap-editable/css/bootstrap-editable.css",
-                "node_modules/dropify/dist/css/dropify.min.css",
-                "node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css",
-                'node_modules/nouislider/dist/nouislider.min.css',
-                "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
-                "node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css",
-                "node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
-                "node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css",
-                "node_modules/RWD-Table-Patterns/dist/css/rwd-table.min.css",
-                "node_modules/jsvectormap/dist/jsvectormap.min.css",
-                "node_modules/leaflet/dist/leaflet.css",
-                "node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css",
+export default defineConfig(({ mode }) => {
+
+    // 1. Cargar las variables de entorno, incluyendo APP_ENV.
+    const env = loadEnv(mode, process.cwd(), '');
+
+    // 2. Determinar el entorno
+    // Si APP_ENV en el .env es 'production', isProduction será true.
+    const isProduction = env.APP_ENV === 'production';
+
+    // 3. Definir las rutas condicionales
+    // En producción (servidor), apunta a public_html (un nivel arriba, luego public_html).
+    // En local, apunta a public (la ruta por defecto de Laravel dentro de nexus).
+    const publicDir = isProduction ? '../public_html' : 'public';
+    const buildDir = 'build';
+
+    return {
+        plugins: [
+            laravel({
+                // Todas tus entradas de CSS y JS se mantienen intactas
+                input: [
+                    // css
+                    "resources/scss/app.scss",
+                    "resources/scss/icons.scss",
+                    "resources/scss/customs.scss",
+                    "node_modules/c3/c3.min.css",
+                    "node_modules/summernote/dist/summernote-bs4.min.css",
+                    "node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
+                    "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
+                    "node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
+                    "node_modules/custombox/dist/custombox.min.css",
+                    "node_modules/jquery-toast-plugin/dist/jquery.toast.min.css",
+                    "node_modules/spinkit/css/spinkit.css",
+                    "node_modules/lightbox2/dist/css/lightbox.min.css",
+                    "node_modules/nestable2/dist/jquery.nestable.min.css",
+                    "node_modules/ion-rangeslider/css/ion.rangeSlider.min.css",
+                    "node_modules/slick-carousel/slick/slick.css",
+                    "node_modules/slick-carousel/slick/slick-theme.css",
+                    "node_modules/sweetalert2/dist/sweetalert2.min.css",
+                    "node_modules/toastr/build/toastr.min.css",
+                    "node_modules/hopscotch/dist/css/hopscotch.min.css",
+                    "node_modules/jstree/dist/themes/default/style.min.css",
+                    "node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
+                    "node_modules/switchery/switchery.css",
+                    "node_modules/multiselect/css/multi-select.css",
+                    "node_modules/select2/dist/css/select2.min.css",
+                    "node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css",
+                    "node_modules/quill/dist/quill.core.css",
+                    "node_modules/quill/dist/quill.snow.css",
+                    "node_modules/quill/dist/quill.bubble.css",
+                    "node_modules/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css",
+                    "node_modules/x-editable/dist/bootstrap-editable/css/bootstrap-editable.css",
+                    "node_modules/dropify/dist/css/dropify.min.css",
+                    "node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css",
+                    'node_modules/nouislider/dist/nouislider.min.css',
+                    "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
+                    "node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css",
+                    "node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css",
+                    "node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css",
+                    "node_modules/RWD-Table-Patterns/dist/css/rwd-table.min.css",
+                    "node_modules/jsvectormap/dist/jsvectormap.min.css",
+                    "node_modules/leaflet/dist/leaflet.css",
+                    "node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css",
 
 
 
-                // js
-                "resources/js/config.js",
-                "resources/js/app.js",
-                "resources/js/head.js",
-                "resources/js/pages/dashboard-sales.js",
-                "resources/js/pages/dashboard-2.js",
-                "resources/js/pages/apps-calendar.js",
-                "resources/js/pages/email-read.js",
-                "resources/js/pages/email-compose.js",
-                "resources/js/pages/tickets.js",
-                "resources/js/pages/taskboard.js",
-                "resources/js/pages/coming-soon.js",
-                "resources/js/pages/companies.js",
-                "resources/js/pages/profile.js",
-                "resources/js/pages/toastr.js",
-                "resources/js/pages/extended-dragula.js",
-                "resources/js/pages/nestable.js",
-                "resources/js/pages/range-sliders.js",
-                "resources/js/pages/extended-rating.js",
-                "resources/js/pages/slick-slider.js",
-                "resources/js/pages/extended-sweetalerts.js",
-                "resources/js/pages/extended-tour.js",
-                "resources/js/pages/treeview.js",
-                "resources/js/pages/c3.js",
-                "resources/js/pages/chartist.js",
-                "resources/js/pages/chartjs.js",
-                "resources/js/pages/echart.js",
-                "resources/js/pages/google-charts.js",
-                "resources/js/pages/jquery.todo.js",
-                "resources/js/pages/morris.js",
-                "resources/js/pages/peity.js",
-                "resources/js/pages/sparkline.js",
-                "resources/js/pages/form-advanced.js",
-                "resources/js/pages/form-fileupload.js",
-                "resources/js/pages/form-editor.js",
-                "resources/js/pages/form-masks.js",
-                "resources/js/pages/form-flatpickr.js",
-                "resources/js/pages/extended-range-slider.js",
-                "resources/js/pages/form-validation.js",
-                "resources/js/pages/form-wizard.js",
-                "resources/js/pages/tabledit.js",
-                "resources/js/pages/table-gridjs.js",
-                "resources/js/pages/foo-tables.js",
-                "resources/js/pages/responsive-table.js",
-                "resources/js/pages/maps-leaflet.js",
-                "resources/js/maps/leaflet-data.js",
-                "resources/js/pages/maps-google.js",
-                "resources/js/pages/maps-vector.js",
-                "resources/js/maps/canada.js",
-                "resources/js/maps/iraq.js",
-                "resources/js/maps/russia.js",
-                "resources/js/maps/spain.js",
-                "resources/js/maps/us-aea-en.js",
-                "resources/js/maps/us-lcc-en.js",
-                "resources/js/maps/us-mill-en.js",
-                "resources/js/maps/in-mill-en.js",
-                "resources/js/nexus/clientes.js",
-                "resources/js/nexus/proveedores.js",
-                "resources/js/nexus/contadetail.js",
-                "resources/js/nexus/pedidos.js",
-                "resources/js/nexus/pedidoshow.js",
-                "resources/js/nexus/dashboard.js",
-                "resources/js/nexus/nuevopedido.js",
-                "resources/js/nexus/contashow.js",
-                "resources/js/nexus/ferreteria.js",
+                    // js
+                    "resources/js/config.js",
+                    "resources/js/app.js",
+                    "resources/js/head.js",
+                    "resources/js/pages/dashboard-sales.js",
+                    "resources/js/pages/dashboard-2.js",
+                    "resources/js/pages/apps-calendar.js",
+                    "resources/js/pages/email-read.js",
+                    "resources/js/pages/email-compose.js",
+                    "resources/js/pages/tickets.js",
+                    "resources/js/pages/taskboard.js",
+                    "resources/js/pages/coming-soon.js",
+                    "resources/js/pages/companies.js",
+                    "resources/js/pages/profile.js",
+                    "resources/js/pages/toastr.js",
+                    "resources/js/pages/extended-dragula.js",
+                    "resources/js/pages/nestable.js",
+                    "resources/js/pages/range-sliders.js",
+                    "resources/js/pages/extended-rating.js",
+                    "resources/js/pages/slick-slider.js",
+                    "resources/js/pages/extended-sweetalerts.js",
+                    "resources/js/pages/extended-tour.js",
+                    "resources/js/pages/treeview.js",
+                    "resources/js/pages/c3.js",
+                    "resources/js/pages/chartist.js",
+                    "resources/js/pages/chartjs.js",
+                    "resources/js/pages/echart.js",
+                    "resources/js/pages/google-charts.js",
+                    "resources/js/pages/jquery.todo.js",
+                    "resources/js/pages/morris.js",
+                    "resources/js/pages/peity.js",
+                    "resources/js/pages/sparkline.js",
+                    "resources/js/pages/form-advanced.js",
+                    "resources/js/pages/form-fileupload.js",
+                    "resources/js/pages/form-editor.js",
+                    "resources/js/pages/form-masks.js",
+                    "resources/js/pages/form-flatpickr.js",
+                    "resources/js/pages/extended-range-slider.js",
+                    "resources/js/pages/form-validation.js",
+                    "resources/js/pages/form-wizard.js",
+                    "resources/js/pages/tabledit.js",
+                    "resources/js/pages/table-gridjs.js",
+                    "resources/js/pages/foo-tables.js",
+                    "resources/js/pages/responsive-table.js",
+                    "resources/js/pages/maps-leaflet.js",
+                    "resources/js/maps/leaflet-data.js",
+                    "resources/js/pages/maps-google.js",
+                    "resources/js/pages/maps-vector.js",
+                    "resources/js/maps/canada.js",
+                    "resources/js/maps/iraq.js",
+                    "resources/js/maps/russia.js",
+                    "resources/js/maps/spain.js",
+                    "resources/js/maps/us-aea-en.js",
+                    "resources/js/maps/us-lcc-en.js",
+                    "resources/js/maps/us-mill-en.js",
+                    "resources/js/maps/in-mill-en.js",
+                    "resources/js/nexus/clientes.js",
+                    "resources/js/nexus/proveedores.js",
+                    "resources/js/nexus/contadetail.js",
+                    "resources/js/nexus/pedidos.js",
+                    "resources/js/nexus/pedidoshow.js",
+                    "resources/js/nexus/dashboard.js",
+                    "resources/js/nexus/nuevopedido.js",
+                    "resources/js/nexus/contashow.js",
+                    "resources/js/nexus/ferreteria.js",
+                ],
 
+                // Configuración dinámica del directorio público
+                publicDirectory: publicDir,
+                buildDirectory: buildDir,
 
-            ],
-            refresh: true,
-        })
-    ],
-    define: {
-        global: 'window',
-    },
-    optimizeDeps: {
-        include: ['jquery', 'jquery.counterup', 'summernote', '@iconify/iconify', 'chartist'],
-    }, resolve: {
-        alias: {
-            'jQuery': 'jquery'
+                refresh: true,
+            }),
+        ],
+        // Configuración de salida para 'npm run build'
+        build: {
+            // outDir ahora apunta a public/build (local) o ../public_html/build (prod)
+            outDir: `${publicDir}/${buildDir}`,
+        },
+        define: {
+            global: 'window',
+        },
+        optimizeDeps: {
+            include: ['jquery', 'jquery.counterup', 'summernote', '@iconify/iconify', 'chartist'],
+        },
+        resolve: {
+            alias: {
+                'jQuery': 'jquery'
+            }
         }
-    }
+    };
 });
-

@@ -14,6 +14,9 @@ class Ferreteria extends Model
   // Nombre de la tabla
   protected $table = 'ferreteria';
 
+  // Asumiendo que 'id' es la clave primaria por convención de Laravel
+  protected $primaryKey = 'id'; 
+
   // Campos que pueden ser asignados masivamente (Mass Assignable)
   protected $fillable = [
       'codigo',

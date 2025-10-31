@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-w5x42YD8.js": {
-    "file": "assets/index-w5x42YD8.js",
+  "_index-Bb7Pa4tF.js": {
+    "file": "assets/index-Bb7Pa4tF.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -126,11 +126,6 @@
   "node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css": {
     "file": "assets/chartist-plugin-tooltip-DBnI1KY1.css",
     "src": "node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css",
-    "isEntry": true
-  },
-  "node_modules/chartist/dist/chartist.min.css": {
-    "file": "assets/chartist-1G75bg4J.css",
-    "src": "node_modules/chartist/dist/chartist.min.css",
     "isEntry": true
   },
   "node_modules/custombox/dist/custombox.min.css": {
@@ -375,7 +370,7 @@
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
@@ -388,7 +383,7 @@
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
@@ -645,7 +640,7 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-JvOE66XR.js",
+    "file": "assets/ferreteria-356JXBXu.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
     "isEntry": true
@@ -758,13 +753,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-CUV8Ca5k.js",
+    "file": "assets/dashboard-sales-B-PKmEYh.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-w5x42YD8.js",
+      "_index-Bb7Pa4tF.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -772,12 +767,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-_-iz1LMo.js",
+    "file": "assets/echart-BRo7dIdD.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-w5x42YD8.js"
+      "_index-Bb7Pa4tF.js"
     ]
   },
   "resources/js/pages/email-compose.js": {

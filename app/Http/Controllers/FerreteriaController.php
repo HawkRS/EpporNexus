@@ -16,8 +16,13 @@ class FerreteriaController extends Controller
     public function index()
     {
         $articulos = Ferreteria::orderBy('nombre')->get();
+        $consumibles = Ferreteria::where('categoria', 'Consumibles')->get();
+        $abrasivos = Ferreteria::where('categoria', 'Abrasivos')->get();
+        $seguridad = Ferreteria::where('categoria', 'Seguridad')->get();
+        $soldadura = Ferreteria::where('categoria', 'Soldadura')->get();
+        $miscelaneos = Ferreteria::where('categoria', 'Miscelaneos')->get();
         //dd($articulos);
-        return view($this->f.'index', compact('articulos'));
+        return view($this->f.'index', compact('articulos','consumibles','abrasivos','seguridad','soldadura','miscelaneos'));
     }
 
     /**

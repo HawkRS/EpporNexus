@@ -104,7 +104,11 @@
                           </div>
 
                           <div class="wigdet-two-content media-body text-end text-truncate">
-                              <p class="m-0 text-uppercase fnt20 text-truncate" title="Statistics">saldo Ivas $<span data-plugin="counterup">{{ number_format($balance['diffivas'], 2) }}</span></p>
+                              @if($balance['diffivas'] >=0)
+                                <p class="m-0 text-uppercase fnt20 text-truncate text-success" title="Statistics">saldo Ivas $<span data-plugin="counterup">{{ number_format($balance['diffivas'], 2) }}</span></p>
+                              @else
+                                <p class="m-0 text-uppercase fnt20 text-truncate text-danger" title="Statistics">saldo Ivas $<span data-plugin="counterup"><strong>{{ number_format($balance['diffivas'], 2) }}</strong></span></p>
+                              @endif
                               <p class="m-0">Acreditable</p>
                               <h3 class="fw-medium">$<span data-plugin="counterup">{{ number_format($egresomensual['ivaacreeditable'], 2) }}</span></h3>
                               <p class="m-0">Transladado</p>
@@ -129,8 +133,13 @@
                         </div>
 
                         <div class="wigdet-two-content media-body text-end text-truncate">
-                            <p class="m-0 text-uppercase fnt20 text-truncate" title="Statistics">Saldo ISR $<span data-plugin="counterup">{{ number_format($balance['diffivas'], 2) }}</span></p>
-                            <p class="m-0">Facturado</p>
+                          @if($balance['balance'] >=0)
+                            <p class="m-0 text-uppercase fnt20 text-truncate text-success" title="Statistics">saldo ISR $<span data-plugin="counterup">{{ number_format($balance['balance'], 2) }}</span></p>
+                            <p class="m-0">Ganancias de:</p>
+                          @else
+                            <p class="m-0 text-uppercase fnt20 text-truncate text-danger" title="Statistics">saldo ISR $<span data-plugin="counterup"><strong>{{ number_format($balance['balance'], 2) }}</strong></span></p>
+                            <p class="m-0">Perdidas:</p>
+                          @endif
                             <h3 class="fw-medium">$<span data-plugin="counterup">{{ number_format($balance['balance'], 2) }}</span></h3>
                             <p class="m-0">&nbsp;</p>
                             <h3 class="fw-medium">&nbsp;</h3>
