@@ -131,6 +131,8 @@ export default defineConfig(({ mode }) => {
                     "resources/js/nexus/nuevopedido.js",
                     "resources/js/nexus/contashow.js",
                     "resources/js/nexus/ferreteria.js",
+                    "resources/js/nexus/indexisn.js",
+                    "resources/js/nexus/indeximss.js",
                 ],
 
                 // Configuración dinámica del directorio público

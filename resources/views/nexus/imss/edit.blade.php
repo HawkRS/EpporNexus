@@ -3,12 +3,6 @@
 @section('section', 'imssregistro')
 
 @section('content')
-
-<div class="content-page">
-  <!-- Start content -->
-  <div class="content">
-    <div class="container-fluid">
-
       <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
@@ -26,7 +20,7 @@
 
                 <h2>ACTUALIZAR PAGO</h2>
 
-                @include('admin.imss.partials.fields')
+                @include('nexus.imss.partials.fields')
 
               </div>
             </div>
@@ -34,7 +28,5 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</div>
+
 @endsection

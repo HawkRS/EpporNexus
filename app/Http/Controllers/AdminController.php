@@ -72,8 +72,13 @@ class AdminController extends Controller
      $ImssPayments=0;
      $IsnPayments=0;
      $SatPayments=0;
-
-     // Productos más vendidos en el último año
+     $currentYear = Carbon::now()->year;
+     $lastYear = $currentYear - 1;
+     $totalVentasLastYear = Pedido::inYear($lastYear)->sum('total');
+     $queryCurrentYear = Pedido::inYear($currentYear);
+     $totalVentasCurrentYear = $queryCurrentYear
+         ->whereDate('fecha', '<=', Carbon::today())
+         ->sum('total');
      $fechaHaceUnAnio = $fecha->copy()->subYear();
      $productosUltimoAnio = DB::table('pedido_productos')
          ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
@@ -103,7 +108,9 @@ class AdminController extends Controller
        'pedidosActivos' => $pedidosActivos,
        'totalSaldoPedidos' => $totalSaldoPedidos,
        'totalCobradoPedidos' => $totalCobradoPedidos,
-       'productosUltimoAnio' => $productosUltimoAnio
+       'productosUltimoAnio' => $productosUltimoAnio,
+       'totalVentasLastYear' => $totalVentasLastYear,
+       'totalVentasCurrentYear' => $totalVentasCurrentYear
      ]);
 
    }

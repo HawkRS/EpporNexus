@@ -193,33 +193,42 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
+          <div class="text-center pb-3">
           <h5 class="fnt18 fntB fnt_blue">Estatus:  &nbsp;
             @switch($pedido->estado)
             @case('ordenado')
-            <span class="fnt18 fntB text-primary"><i class="fas fa-circle"></i> Ordenado</span>
+            <span class="fnt18 badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-cart-shopping"></i></p>
             @break
             @case('produccion')
-            <span class="fnt18 fntB text-warning"><i class="fas fa-circle"></i> Produccion</span>
+            <span class="fnt18 badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-helmet-safety"></i></p>
             @break
             @case('terminado')
-            <span class="fnt18 fntB text-success"><i class="fas fa-circle"></i> Terminado</span>
+            <span class="fnt18 badge badge-soft-success"><i class="fas fa-circle"></i> Terminado</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-boxes-stacked"></i></p>
             @break
             @case('entregado')
-            <span class="fnt18 fntB text-success"><i class="fas fa-circle"></i> Entregado</span>
+            <span class="fnt18 badge badge-soft-success"><i class="fas fa-circle"></i> Entregado</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-cart-flatbed"></i></p>
             @break
             @case('espera')
-            <span class="fnt18 fntB text-warning"><i class="fas fa-circle"></i> Espera</span>
+            <span class="fnt18 badge badge-soft-warning"><i class="fas fa-circle"></i> Espera</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-hourglass-half"></i></p>
             @break
             @case('cancelado')
-            <span class="fnt18 fntB text-danger"><i class="fas fa-circle"></i> Cancelado</span>
+            <span class="fnt18 badge badge-soft-danger"><i class="fas fa-circle"></i> Cancelado</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-xmark"></i></p>
             @break
             @default
             <span class="fnt22 fntB text-secondary"><i class="fas fa-circle"></i> N/A</span>
+            <p class="text-muted pt-3"><i class="fas fa-4x fa-notdef"></i></p>
             @endswitch
           </h5>
           <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#StatusModal">
             Actualizar estatus
           </button>
+        </div>
           <h5 class="fnt18 fntB fnt_blue">Canal de venta: &nbsp;
             <span class=" fnt16 fntB  text-primary">
               @switch($pedido->canaldeventa)
@@ -251,7 +260,7 @@
         <div class="col-md-6 text-center">
           <h5 class="fnt18 fntB fnt_blue">Metodo de entrega</h5>
           <div class="row">
-            <div class="col-12 text-center fnt_grey">
+            <div class="col-12 text-center text-muted">
               @if($pedido->metodo_entrega == "envio")
               <p class="pt-3"><i class="fas fa-4x fa-shipping-fast"></i></p>
               <p class="fnt18 fntB">Envio por paqueteria</p>

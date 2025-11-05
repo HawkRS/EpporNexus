@@ -4,11 +4,6 @@
 
 @section('content')
 
-<div class="content-page">
-  <!-- Start content -->
-  <div class="content">
-    <div class="container-fluid">
-
       <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
@@ -31,7 +26,7 @@
                     @endforeach
                 @endif
 
-                @include('admin.isn.partials.fields')
+                @include('nexus.isn.partials.fields')
 
               </div>
             </div>
@@ -39,7 +34,4 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</div>
 @endsection

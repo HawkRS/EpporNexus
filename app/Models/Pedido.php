@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Productos;
 use App\Models\Guias;
+use Carbon\Carbon;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,18 @@ class Pedido extends Model
   protected function getNuevoFolioPedido()
   {
       return Pedido::max('folio') + 1;
+  }
+
+  public function scopeInYear($query, $year = null)
+  {
+      $targetYear = $year ?? Carbon::now()->year;
+
+      // Calcula el inicio y el fin del año objetivo
+      $startDate = Carbon::create($targetYear, 1, 1)->startOfDay();
+      $endDate = Carbon::create($targetYear, 12, 31)->endOfDay();
+
+      // Filtra los pedidos cuya columna 'fecha' esté dentro del rango del año
+      return $query->whereBetween('fecha', [$startDate, $endDate]);
   }
 
 }

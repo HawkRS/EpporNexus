@@ -29,7 +29,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
 
                   <div class="wigdet-two-content media-body text-end text-truncate">
                       <p class="m-0 text-uppercase fw-medium text-truncate" title="Statistics">Ventas Anuales {{$currentYear}}</p>
-                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">65,841</span></h3>
+                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasLastYear,2)}}</span></h3>
                       <p class="m-0"> Ene - {{$mesAbreviado}} {{$currentYear}}</p>
                   </div>
               </div>
@@ -47,7 +47,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
 
                   <div class="wigdet-two-content media-body text-end text-truncate">
                       <p class="m-0 text-uppercase fw-medium text-truncate" title="Statistics">Ventas Anuales {{$lastYear}}</p>
-                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">65,841</span></h3>
+                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasCurrentYear,2)}}</span></h3>
                       <p class="m-0"> Ene - Dic {{$lastYear}}</p>
                   </div>
               </div>
@@ -161,10 +161,10 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
           <table class="table table-striped table-sm p-1">
             <thead>
               <tr>
-                <th>Fecha</th>
-                <th>Monto</th>
-                <th>Área</th>
-                <th>Descripción</th>
+                <th class="text-primary">Fecha</th>
+                <th class="text-primary">Monto</th>
+                <th class="text-primary">Área</th>
+                <th class="text-primary">Descripción</th>
               </tr>
             </thead>
             <tbody>
@@ -241,14 +241,14 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
-            <th>Cliente</th>
-            <th>Fecha de pedido</th>
-            <th>Factura</th>
-            <th>Monto</th>
-            <th>Estatus</th>
-            <th>Saldo</th>
-            <th>Vendedor</th>
-            <th>Acciones</th>
+            <th class="text-primary">Cliente</th>
+            <th class="text-primary">Fecha de pedido</th>
+            <th class="text-primary">Factura</th>
+            <th class="text-primary">Monto</th>
+            <th class="text-primary">Estatus</th>
+            <th class="text-primary">Saldo</th>
+            <th class="text-primary">Vendedor</th>
+            <th class="text-primary">Acciones</th>
           </thead>
           <tbody>
             @foreach($ultimospedidos as $pedido)

@@ -474,5 +474,17 @@ class PedidoController extends Controller
     $pedido->save();
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Fecha guardada exitosamente.');
   }
+
+  public function updatestatus(Request $request, $id)
+  {
+    $pedido = Pedido::findOrFail($id);
+    //dd($request->all());
+    $request->validate([
+    'estado' => 'required',
+    ]);
+    $pedido->estado = $request->estado;
+    $pedido->save();
+    return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Estado actualizado exitosamente.');
+  }
 }
 

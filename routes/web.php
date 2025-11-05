@@ -220,7 +220,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('pagos')->group(function () {
         Route::post('/guardar', [PagosController::class, 'store'])->name('pagos.store');
         Route::put('/actualizar/{pagos}', [PagosController::class, 'update'])->name('pagos.update'); // PUT
-        Route::post('/eliminar/{pagos}', [PagosController::class, 'delete'])->name('pagos.delete');
+        Route::post('/eliminar/{pagos}', [PagosController::class, 'destroy'])->name('pagos.delete');
         Route::get('/{id}/pdf', [PagosController::class, 'generarPDF'])->name('pagos.pdf');
     });
 

@@ -19,10 +19,24 @@ class FerreteriaController extends Controller
         $consumibles = Ferreteria::where('categoria', 'Consumibles')->get();
         $abrasivos = Ferreteria::where('categoria', 'Abrasivos')->get();
         $seguridad = Ferreteria::where('categoria', 'Seguridad')->get();
-        $soldadura = Ferreteria::where('categoria', 'Soldadura')->get();
+        $soldaduras = Ferreteria::where('categoria', 'Soldadura')->get();
         $miscelaneos = Ferreteria::where('categoria', 'Miscelaneos')->get();
+        $totalInvertido = $articulos->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
+        $inversionConsumibles = $consumibles->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
+        $inversionAbrasivos = $abrasivos->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
+        $inversionSeguridad = $seguridad->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
+        $inversionSoldaduras = $soldaduras->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
+        $inversionMiscelaneos = $miscelaneos->sum(function ($articulo) { return $articulo->costo_unitario * $articulo->cantidad; });
         //dd($articulos);
-        return view($this->f.'index', compact('articulos','consumibles','abrasivos','seguridad','soldadura','miscelaneos'));
+        $inversionPorCategoria = [
+            'Consumibles' => $inversionConsumibles,
+            'Abrasivos' => $inversionAbrasivos,
+            'Seguridad' => $inversionSeguridad,
+            'Soldadura' => $inversionSoldaduras,
+            'Miscelaneos' => $inversionMiscelaneos,
+        ];
+
+        return view($this->f.'index', compact('articulos','consumibles','abrasivos','seguridad','soldaduras','miscelaneos', 'totalInvertido', 'inversionPorCategoria'));
     }
 
     /**
