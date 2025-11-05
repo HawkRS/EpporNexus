@@ -132,7 +132,7 @@
             <table>
               <tbody>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td class="fnt24">CTD de Paquetes: {{ $i }}/{{$opciones->numetiquetas}}</td>
+                <td class="fnt20">CTD de Paquetes: {{ $i }}/{{$opciones->numetiquetas}}</td>
               </tbody>
             </table>
           </div>
@@ -173,12 +173,3 @@
       @endfor
 </body>
 </html>
-
-
-
-
-
-
-
-
-
