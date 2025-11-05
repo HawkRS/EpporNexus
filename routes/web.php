@@ -6,22 +6,25 @@
 use Illuminate\Support\Facades\Route;
 // Asegúrate de importar todos los Controladores que usas
 // Nota: La cantidad de '..' dependerá de la estructura de carpetas si no usas un RouteServiceProvider
+use App\Http\Controllers\IsnController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImssController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContaController;
+use App\Http\Controllers\PagosController;
 use App\Http\Controllers\TareasController;
-use App\Http\Controllers\ProductosController;
-use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\ImssController;
-use App\Http\Controllers\DeclaracionController;
-use App\Http\Controllers\IsnController;
-use App\Http\Controllers\MovimientoCajaController;
-use App\Http\Controllers\PedidoController;
-use App\Http\Controllers\CotizacionesController;
-use App\Http\Controllers\PagosController;
+use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\FerreteriaController;
+use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\DeclaracionController;
+use App\Http\Controllers\SemanaPagosController;
+use App\Http\Controllers\CotizacionesController;
+use App\Http\Controllers\MovimientoCajaController;
+use App\Http\Controllers\PagoIndividualsController;
+use App\Http\Controllers\TrabajoProyectosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -243,6 +246,52 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // DELETE: Elimina un producto.
     Route::delete('ferreteria/inventory/{id}', [FerreteriaController::class, 'deleteItem']);
+
+    Route::prefix('nomina')->name('nomina.')->middleware('auth')->group(function () {
+
+      // 1. GESTIÓN DE SEMANAS DE PAGO (Bitácora Semanal)
+      // CRUD COMPLETO
+      Route::resource('semanas', SemanaPagosController::class)->names([
+        'index' => 'semanas.index',        // GET    /nomina/semanas
+        'create' => 'semanas.create',      // GET    /nomina/semanas/create
+        'store' => 'semanas.store',        // POST   /nomina/semanas
+        'show' => 'semanas.show',          // GET    /nomina/semanas/{semana}  <-- DETALLE DE LA SEMANA
+        'edit' => 'semanas.edit',          // GET    /nomina/semanas/{semana}/edit
+        'update' => 'semanas.update',      // PUT/PATCH /nomina/semanas/{semana}
+        'destroy' => 'semanas.destroy',    // DELETE /nomina/semanas/{semana}
+      ]);
+
+      // 2. GESTIÓN DE TRABAJOS/PROYECTOS (Destajos)
+      // CRUD COMPLETO
+      Route::resource('trabajos', TrabajoProyectosController::class)->names([
+        'index' => 'trabajos.index',       // GET    /nomina/trabajos
+        'create' => 'trabajos.create',     // GET    /nomina/trabajos/create
+        'store' => 'trabajos.store',       // POST   /nomina/trabajos
+        'show' => 'trabajos.show',         // GET    /nomina/trabajos/{trabajo} <-- ESTADO DEL DESTAJO
+        'edit' => 'trabajos.edit',         // GET    /nomina/trabajos/{trabajo}/edit
+        'update' => 'trabajos.update',     // PUT/PATCH /nomina/trabajos/{trabajo}
+        'destroy' => 'trabajos.destroy',   // DELETE /nomina/trabajos/{trabajo}
+      ]);
+
+      // Ruta específica para marcar un proyecto como finalizado (utilidad opcional)
+      Route::put('trabajos/{trabajo}/finalizar', [TrabajoProyectosController::class, 'finalizar'])->name('trabajos.finalizar');
+
+
+      // 3. GESTIÓN DE PAGOS INDIVIDUALES (ANIDADO EN SEMANA)
+      // CRUD SIN 'SHOW' (el detalle se ve en semanas.show)
+      Route::prefix('semanas/{semana}')->group(function () {
+        Route::resource('pagos', PagoIndividualsController::class)->except([
+          'index', // No se necesita index, se ve en semanas.show
+          'show',  // No se necesita show individual, se ve en semanas.show
+          ])->names([
+            'create' => 'semanas.pagos.create',    // GET    /nomina/semanas/{semana}/pagos/create
+            'store' => 'semanas.pagos.store',      // POST   /nomina/semanas/{semana}/pagos
+            'edit' => 'semanas.pagos.edit',        // GET    /nomina/semanas/{semana}/pagos/{pago}/edit
+            'update' => 'semanas.pagos.update',    // PUT/PATCH /nomina/semanas/{semana}/pagos/{pago}
+            'destroy' => 'semanas.pagos.destroy',  // DELETE /nomina/semanas/{semana}/pagos/{pago}
+          ]);
+        });
+      });
 
 }); //END ADMIN GROUP
 
