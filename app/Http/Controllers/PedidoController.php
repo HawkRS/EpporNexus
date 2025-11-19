@@ -326,7 +326,7 @@ class PedidoController extends Controller
 
       $pdf->setPaper('A4', 'portrait');
 
-      return $pdf->stream("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");
+      return $pdf->download("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");
   }
 
   public function generarPDFPaqueteria(Request $request, $id)
@@ -439,7 +439,7 @@ class PedidoController extends Controller
 
 
     $tipoEntrega = $request->tipoenvio; // 1 o 2
-    return $pdf->stream("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_paqueteria_" . date_format($date, 'dmY'). ".pdf");// download O 'stream' para ver en navegador
+    return $pdf->download("Pedido_" . str_replace(' ', '', ucwords(strtolower($pedido->cliente->identificador))) . "_paqueteria_" . date_format($date, 'dmY'). ".pdf");// download O 'stream' para ver en navegador
   }
 
   public function addGuia(Request $request, $id)
@@ -487,4 +487,3 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Estado actualizado exitosamente.');
   }
 }
-

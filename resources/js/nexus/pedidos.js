@@ -19,6 +19,7 @@ jQuery = window.$;
 
 $(document).ready(function () {
   $('#PedidoTable').DataTable({
+    "order": [[0, 'desc']], 
     "language": {
       "lengthMenu": "Mostrar _MENU_ entradas por pagina",
       "zeroRecords": "No hay entrdas existentes",
@@ -127,4 +128,3 @@ $(document).ready(function () {
   }
 
 });
-
