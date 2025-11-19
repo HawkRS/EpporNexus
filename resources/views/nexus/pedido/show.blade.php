@@ -64,6 +64,10 @@
 
                       </tr>
                       @endforeach
+                      <div id="productos-container"></div>
+
+                      <!-- Total del pedido -->
+                      <div>
                       <tr>
                         <td></td>
                         <td></td>
@@ -96,6 +100,9 @@
                 </table>
               </tbody>
             </table>
+          </div>
+          <div class="col-md-8 d-grid d2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddProdModal">Agregar Producto</button>
           </div>
         </div>
       </div>
