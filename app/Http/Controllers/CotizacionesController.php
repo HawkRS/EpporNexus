@@ -61,6 +61,7 @@ class CotizacionesController extends Controller
     */
     public function store(Request $request)
     {
+      dd($request->all());
       $request->validate([
       'cliente_id' => 'required|exists:clientes,id',
       'usuario_id' => 'required|exists:users,id',

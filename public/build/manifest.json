@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-Bb7Pa4tF.js": {
-    "file": "assets/index-Bb7Pa4tF.js",
+  "_index-XqGNUVMG.js": {
+    "file": "assets/index-XqGNUVMG.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -370,11 +370,11 @@
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css": {
     "file": "assets/bootstrap-editable-B6NSTogR.css",
@@ -383,18 +383,18 @@
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
   },
   "resources/fonts/Simple-Line-Icons.eot": {
     "file": "assets/Simple-Line-Icons-CKKl-dGR.eot",
     "src": "resources/fonts/Simple-Line-Icons.eot"
   },
   "resources/fonts/Simple-Line-Icons.svg": {
-    "file": "assets/Simple-Line-Icons-TZpPYPE3.svg",
+    "file": "assets/Simple-Line-Icons-DkBUl6G0.svg",
     "src": "resources/fonts/Simple-Line-Icons.svg"
   },
   "resources/fonts/Simple-Line-Icons.ttf": {
@@ -414,8 +414,8 @@
     "src": "node_modules/dropify/dist/fonts/dropify.eot"
   },
   "resources/fonts/dropify.svg": {
-    "file": "assets/dropify-Brhiu8JO.svg",
-    "src": "node_modules/dropify/dist/fonts/dropify.svg"
+    "file": "assets/dropify-BKTEv22q.svg",
+    "src": "resources/fonts/dropify.svg"
   },
   "resources/fonts/dropify.ttf": {
     "file": "assets/dropify-DYBgaHoZ.ttf",
@@ -462,7 +462,7 @@
     "src": "resources/fonts/footable.eot"
   },
   "resources/fonts/footable.svg": {
-    "file": "assets/footable-Bhr4RRlN.svg",
+    "file": "assets/footable-LKYkrrcL.svg",
     "src": "resources/fonts/footable.svg"
   },
   "resources/fonts/footable.ttf": {
@@ -640,10 +640,45 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-356JXBXu.js",
+    "file": "assets/ferreteria-BQGwn0Rq.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_Chart-2EDZRsaq.js",
+      "_dataTables.responsive-BByBcBtb.js",
+      "_dataTables.min-DG7PGfu-.js",
+      "__commonjsHelpers-DR3NjCyK.js",
+      "_moment-CAEcp8GN.js",
+      "_jquery-M4kHYfMF.js",
+      "_jquery-sB3rc0pu.js"
+    ]
+  },
+  "resources/js/nexus/indeximss.js": {
+    "file": "assets/indeximss-CtKPGjGJ.js",
+    "name": "indeximss",
+    "src": "resources/js/nexus/indeximss.js",
+    "isEntry": true,
+    "imports": [
+      "_dataTables.responsive-BByBcBtb.js",
+      "_dataTables.min-DG7PGfu-.js",
+      "_jquery-M4kHYfMF.js",
+      "__commonjsHelpers-DR3NjCyK.js",
+      "_jquery-sB3rc0pu.js"
+    ]
+  },
+  "resources/js/nexus/indexisn.js": {
+    "file": "assets/indexisn-WdshBUEY.js",
+    "name": "indexisn",
+    "src": "resources/js/nexus/indexisn.js",
+    "isEntry": true,
+    "imports": [
+      "_dataTables.responsive-BByBcBtb.js",
+      "_dataTables.min-DG7PGfu-.js",
+      "_jquery-M4kHYfMF.js",
+      "__commonjsHelpers-DR3NjCyK.js",
+      "_jquery-sB3rc0pu.js"
+    ]
   },
   "resources/js/nexus/nuevopedido.js": {
     "file": "assets/nuevopedido-B04mLnXb.js",
@@ -652,7 +687,7 @@
     "isEntry": true
   },
   "resources/js/nexus/pedidos.js": {
-    "file": "assets/pedidos-CvJjD_-Q.js",
+    "file": "assets/pedidos-DjvboUJh.js",
     "name": "pedidos",
     "src": "resources/js/nexus/pedidos.js",
     "isEntry": true,
@@ -753,13 +788,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-B-PKmEYh.js",
+    "file": "assets/dashboard-sales-DduZ6DjR.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-Bb7Pa4tF.js",
+      "_index-XqGNUVMG.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -767,12 +802,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-BRo7dIdD.js",
+    "file": "assets/echart-BH4Ix7Fo.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-Bb7Pa4tF.js"
+      "_index-XqGNUVMG.js"
     ]
   },
   "resources/js/pages/email-compose.js": {
@@ -1081,7 +1116,7 @@
     ]
   },
   "resources/scss/app.scss": {
-    "file": "assets/app-ClTc0hNv.css",
+    "file": "assets/app-DlXoFz6F.css",
     "src": "resources/scss/app.scss",
     "isEntry": true
   },
@@ -1091,7 +1126,7 @@
     "isEntry": true
   },
   "resources/scss/icons.scss": {
-    "file": "assets/icons-7Ux14HWi.css",
+    "file": "assets/icons-U1umaN_d.css",
     "src": "resources/scss/icons.scss",
     "isEntry": true
   }
