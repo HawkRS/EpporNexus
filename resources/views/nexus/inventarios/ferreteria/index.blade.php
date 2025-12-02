@@ -306,13 +306,15 @@
                                         <td>${{ number_format($soldadura->costo_unitario, 2) }}</td>
                                         <td>${{ number_format($soldadura->costo_unitario * $soldadura->cantidad, 2) }}</td>
                                         <td class="text-center">
-                                            <!-- Botones de Acción -->
-                                            <a href="#" class="text-warning me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-id="{{ $soldadura->id }}"
-                                                data-nombre="{{ $soldadura->nombre }}" data-cantidad="{{ $soldadura->cantidad }}"
-                                                data-costo="{{ $soldadura->costo_unitario }}">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                          <a href="#" class="text-warning me-2"
+                                              data-bs-toggle="modal"
+                                              data-bs-target="#editModal"
+                                              data-id="{{ $soldadura->id }}"
+                                              data-nombre="{{ $soldadura->nombre }}"
+                                              data-cantidad="{{ $soldadura->cantidad }}"
+                                              data-costo="{{ $soldadura->costo_unitario }}">
+                                              <i class="fas fa-edit"></i>
+                                          </a>
                                             <form action="{{ route('ferreteria.destroy', $soldadura->id) }}" method="POST" class="delete-form d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -352,6 +354,8 @@
         </div>
     </div>
 </div>
+
+@include('nexus.inventarios.ferreteria.partials.modaledititem')
 
 @endsection
 

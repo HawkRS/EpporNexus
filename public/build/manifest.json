@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-XqGNUVMG.js": {
-    "file": "assets/index-XqGNUVMG.js",
+  "_index-w5x42YD8.js": {
+    "file": "assets/index-w5x42YD8.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -640,7 +640,7 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-BQGwn0Rq.js",
+    "file": "assets/ferreteria-BweaiWWV.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
     "isEntry": true,
@@ -788,13 +788,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-DduZ6DjR.js",
+    "file": "assets/dashboard-sales-CUV8Ca5k.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-XqGNUVMG.js",
+      "_index-w5x42YD8.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -802,12 +802,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-BH4Ix7Fo.js",
+    "file": "assets/echart-_-iz1LMo.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-XqGNUVMG.js"
+      "_index-w5x42YD8.js"
     ]
   },
   "resources/js/pages/email-compose.js": {

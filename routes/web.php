@@ -227,25 +227,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/{id}/pdf', [PagosController::class, 'generarPDF'])->name('pagos.pdf');
     });
 
-    Route::resource('ferreteria', FerreteriaController::class)
-    // Opcional: Define los nombres para las rutas que usarás en redirects y enlaces.
-    ->names([
-        'index' => 'ferreteria.index',
-        'create' => 'ferreteria.create',
-        'store' => 'ferreteria.store',
-        'show' => 'ferreteria.show',
-        'edit' => 'ferreteria.edit',
-        'update' => 'ferreteria.update',
-        'destroy' => 'ferreteria.destroy',
-    ]);
-    // GET: Obtiene todo el inventario agrupado por categoría.
-    Route::get('ferreteria/inventory', [FerreteriaController::class, 'getInventory']);
 
-    // PUT: Endpoint para actualizar un solo campo o el producto completo.
-    Route::put('ferreteria/inventory/{id}', [FerreteriaController::class, 'updateItem']);
 
-    // DELETE: Elimina un producto.
-    Route::delete('ferreteria/inventory/{id}', [FerreteriaController::class, 'deleteItem']);
+    // Cotizaciones
+    Route::prefix('ferreteria')->group(function () {
+        Route::get('/', [FerreteriaController::class, 'index'])->name('ferreteria.index');
+        Route::get('/alta', [FerreteriaController::class, 'create'])->name('ferreteria.create');
+        Route::post('/guardar', [FerreteriaController::class, 'store'])->name('ferreteria.store');
+        Route::get('/detalle/{id}', [FerreteriaController::class, 'show'])->name('ferreteria.show');
+        Route::get('/editar/{id}', [FerreteriaController::class, 'edit'])->name('ferreteria.edit');
+        Route::put('/actualizar/{id}', [FerreteriaController::class, 'update'])->name('ferreteria.update'); // PUT
+        Route::post('/eliminar/{id}', [FerreteriaController::class, 'delete'])->name('ferreteria.destroy');
+        Route::post('/{id}/pdf', [FerreteriaController::class, 'generarPDF'])->name('ferreteria.pdf');
+        Route::post('/{id}/pedido', [FerreteriaController::class, 'generarPedido'])->name('ferreteria.pedido');
+    });
 
     Route::prefix('nomina')->name('nomina.')->middleware('auth')->group(function () {
 

@@ -100,7 +100,11 @@
               <li class="nav-item "><a class="nav-link" href="{{ route('public.urbano') }}">Urbano</a></li>
               <li class="nav-item "><a class="nav-link" href="{{ route('public.industrial') }}">Industrial</a></li>
               <li class="nav-item "><a class="nav-link" href="{{ route('public.cocina') }}">Cocina</a></li>
+              @if(Auth::user())
+              <li class="nav-item "><a class="nav-link" href="{{ route('admin.dashboard') }}">Intranet</a></li>
+              @else
               <li class="nav-item "><a class="nav-link" href="{{ route('login') }}">Intranet</a></li>
+              @endif
               <li class="nav-item"><a class="nav-link icn-fb" href="#">fb</a></li>
               <a class="btn-whats" href="https://wa.me/523336706991?text=Buen+día,%0AEscribo+desde+el+sitio+web,+me+gustaria+más+información.%0ASaludos.">Whatsapp</a>
             </ul>

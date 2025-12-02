@@ -1,51 +1,39 @@
-<div id="editModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden z-50 transition-opacity duration-300">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white w-full max-w-lg mx-auto rounded-xl shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:p-6">
-
-            <!-- Encabezado del Modal -->
-            <div class="border-b pb-4 mb-4 flex justify-between items-center">
-                <h3 id="modalTitle" class="text-xl font-bold text-indigo-700"></h3>
-                <button type="button" id="closeModalBtn" class="text-gray-400 hover:text-gray-600 transition">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Registro de Soldadura</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <!-- Formulario de Edición -->
-            <form id="editForm" method="POST" action="{{ route('ferreteria.update', ['ferreteria' => 'ID_PLACEHOLDER']) }}">
-                @csrf
-                <!-- IMPORTANTE: Spoofing del método para PATCH/PUT en Laravel -->
-                @method('PUT')
+            <form id="editForm" method="POST" action="{{ route('ferreteria.update', ['id' => 'ID_PLACEHOLDER']) }}">
+                <div class="modal-body">
+                    @csrf
 
-                <input type="hidden" name="id" id="editId">
+                    <input type="hidden" name="id" id="editId">
 
-                <!-- Campo Nombre -->
-                <div class="mb-4">
-                    <label for="editNombre" class="block text-sm font-medium text-gray-700">Nombre del Producto</label>
-                    <input type="text" name="nombre" id="editNombre" required
-                           class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500">
+                    <div class="mb-3">
+                        <label for="editNombre" class="form-label">Nombre del Producto</label>
+                        <input type="text" name="nombre" id="editNombre" required readonly
+                            class="form-control" aria-describedby="nombreHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCantidad" class="form-label">Cantidad (Stock)</label>
+                        <input type="number" name="cantidad" id="editCantidad" required min="0"
+                            class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCosto" class="form-label">Costo Unitario</label>
+                        <!-- Es crucial que el nombre del input coincida con el campo de tu modelo: costo_unitario -->
+                        <input type="number" name="costo_unitario" id="editCosto" step="0.01" required
+                            class="form-control">
+                    </div>
                 </div>
-
-                <!-- Campo Stock -->
-                <div class="mb-4">
-                    <label for="editStock" class="block text-sm font-medium text-gray-700">Stock Actual</label>
-                    <input type="number" name="stock" id="editStock" required
-                           class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <!-- Campo Precio -->
-                <div class="mb-6">
-                    <label for="editPrecio" class="block text-sm font-medium text-gray-700">Precio Unitario</label>
-                    <input type="number" name="precio" id="editPrecio" step="0.01" required
-                           class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <!-- Botón de Envío -->
-                <div class="flex justify-end">
-                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-150 transform hover:scale-[1.01]">
-                        Guardar Cambios
-                    </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-warning">Guardar Cambios</button>
                 </div>
             </form>
 
