@@ -133,3 +133,9 @@
 
 
 @endsection
+
+@section('scripts')
+@vite(['resources/js/nexus/pedidoedit.js'])
+@endsection
+
+

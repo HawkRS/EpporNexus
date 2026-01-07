@@ -101,7 +101,9 @@
               </tbody>
             </table>
           </div>
-          <div class="col-md-8 d-grid d2">
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-3 d-grid gap-2">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddProdModal">Agregar Producto</button>
           </div>
         </div>
@@ -355,6 +357,7 @@
 @include('nexus.pedido.partials.modaladdguia')
 @include('nexus.pedido.partials.modaleditpago')
 @include('nexus.pedido.partials.modalupdatestatus')
+@include('nexus.pedido.partials.modaladdproducto')
 
 
 @endsection

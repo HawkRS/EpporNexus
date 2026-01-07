@@ -208,9 +208,10 @@ class PedidoController extends Controller
     $pedido = Pedido::findOrFail($id);
     $productos = $pedido->productos();
     //dd($productos);
+    $productlist = Productos::all();
     $cliente = Clientes::findOrFail($pedido->cliente_id);
 
-    return view($this->f.'show', compact('pedido', 'cliente', 'productos'));
+    return view($this->f.'show', compact('pedido', 'cliente', 'productos', 'productlist'));
   }
 
   // app/Http/Controllers/PedidosController.php
@@ -263,6 +264,17 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.index')->with('success', 'Pedido eliminado exitosamente.');
   }
 
+  public function addproducts(Request $request, $id)
+  {
+    $pedido = Pedido::findOrFail($id);
+    $request->validate([
+    'producto' => 'required|exists:productos,id', // Verificar que es un array y que tiene al menos un producto
+    'costo' => 'required', // Verificar que es un array
+    'cantidad' => 'required|numeric', // Verificar que es un array
+    'descuento' => 'nullable|numeric', // Verificar que es un array o nulo
+    ]);
+    dd($request->all());
+  }
 
   public function generarPDF(Request $request, $id)
   {
