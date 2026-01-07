@@ -19,7 +19,7 @@
             <input type="text" name="guia"  class="form-control" required>
           </div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Registrar</button>
+          <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
       </div>
 

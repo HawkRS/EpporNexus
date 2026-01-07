@@ -93,8 +93,9 @@ class FerreteriaController extends Controller
      * @param  \App\Models\Ferreteria  $articulo
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Ferreteria $articulo)
+    public function update(Request $request, Ferreteria $ferreteria)
     {
+      dd($request->all());
         $validatedData = $request->validate([
             'nombre' => ['required', 'string', 'max:150', Rule::unique('ferreteria')->ignore($articulo->id)],
             'categoria' => ['required', 'string', 'max:50'],

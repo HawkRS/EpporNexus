@@ -121,7 +121,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="" action="{{ route('pedidos.create') }}" method="GET">
+        <form class="" action="{{ route('cotizacion.create') }}" method="GET">
           @csrf
           <div class="row g-3">
 
