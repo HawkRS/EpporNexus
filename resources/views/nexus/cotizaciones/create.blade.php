@@ -151,3 +151,7 @@
   </div>
 </div>
 @endsection
+
+@section('scripts')
+@vite(['resources/js/nexus/nuevacoti.js'])
+@endsection

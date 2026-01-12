@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
 
         // Definir la plantilla de la ruta Laravel con un placeholder.
         // Esto asegura que la función route() de Laravel se use correctamente.
-        const routeTemplate = "{{ route('ferreteria.update', ['ferreteria' => 'PLACEHOLDER_ID']) }}";
+        const routeTemplate = "{{ route('ferreteria.update', ['id' => 'PLACEHOLDER_ID']) }}";
 
         // Escuchar el evento que se dispara JUSTO ANTES de que Bootstrap muestre el modal
         editModal.on('show.bs.modal', function (event) {

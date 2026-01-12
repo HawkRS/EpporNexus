@@ -11,7 +11,7 @@ use App\Models\Productos;
 use App\Models\Clientes;
 use App\Models\Persona;
 use App\Models\Pedido;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use PDF;
 
@@ -61,7 +61,7 @@ class CotizacionesController extends Controller
     */
     public function store(Request $request)
     {
-      dd($request->all());
+      //dd($request->all());
       $request->validate([
       'cliente_id' => 'required|exists:clientes,id',
       'usuario_id' => 'required|exists:users,id',
@@ -257,7 +257,7 @@ class CotizacionesController extends Controller
 
       $pdf->setPaper('A4', 'portrait');
       //dd('hola');
-      return $pdf->stream("Cotizacion_" . str_replace(' ', '', ucwords(strtolower($cotizacion->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");// download O 'stream' para ver en navegador
+      return $pdf->download("Cotizacion_" . str_replace(' ', '', ucwords(strtolower($cotizacion->cliente->identificador))) . "_" . date_format($date, 'dmY'). ".pdf");// download O 'stream' para ver en navegador
 
     }
 

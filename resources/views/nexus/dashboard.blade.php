@@ -29,7 +29,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
 
                   <div class="wigdet-two-content media-body text-end text-truncate">
                       <p class="m-0 text-uppercase fw-medium text-truncate" title="Statistics">Ventas Anuales {{$currentYear}}</p>
-                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasLastYear,2)}}</span></h3>
+                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasCurrentYear,2)}}</span></h3>
                       <p class="m-0"> Ene - {{$mesAbreviado}} {{$currentYear}}</p>
                   </div>
               </div>
@@ -47,7 +47,7 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
 
                   <div class="wigdet-two-content media-body text-end text-truncate">
                       <p class="m-0 text-uppercase fw-medium text-truncate" title="Statistics">Ventas Anuales {{$lastYear}}</p>
-                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasCurrentYear,2)}}</span></h3>
+                      <h3 class="fw-medium my-2">$ <span data-plugin="counterup">{{number_format($totalVentasLastYear,2)}}</span></h3>
                       <p class="m-0"> Ene - Dic {{$lastYear}}</p>
                   </div>
               </div>
@@ -267,13 +267,13 @@ $mesAbreviado = Carbon::now('America/Mexico_City')->format('M');
               <td>${{ number_format($pedido->total, 2) }}</td>
               @switch($pedido->estado)
               @case('ordenado')
-              <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
+              <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> Ordenado </span></td>
               @break
               @case('produccion')
-              <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion </span></td>
+              <td> <span class="badge badge-soft-info"><i class="fas fa-circle"></i> Produccion </span></td>
               @break
               @case('terminado')
-              <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Terminado </span></td>
+              <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Terminado </span></td>
               @break
               @case('entregado')
               <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Entregado </span></td>

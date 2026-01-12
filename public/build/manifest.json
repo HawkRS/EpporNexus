@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-w5x42YD8.js": {
-    "file": "assets/index-w5x42YD8.js",
+  "_index-C8EtrM9T.js": {
+    "file": "assets/index-C8EtrM9T.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -370,11 +370,11 @@
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css": {
     "file": "assets/bootstrap-editable-B6NSTogR.css",
@@ -383,11 +383,11 @@
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
   },
   "resources/fonts/Simple-Line-Icons.eot": {
     "file": "assets/Simple-Line-Icons-CKKl-dGR.eot",
@@ -640,7 +640,7 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-BweaiWWV.js",
+    "file": "assets/ferreteria-nK2d-NZt.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
     "isEntry": true,
@@ -679,6 +679,12 @@
       "__commonjsHelpers-DR3NjCyK.js",
       "_jquery-sB3rc0pu.js"
     ]
+  },
+  "resources/js/nexus/nuevacoti.js": {
+    "file": "assets/nuevacoti-B04mLnXb.js",
+    "name": "nuevacoti",
+    "src": "resources/js/nexus/nuevacoti.js",
+    "isEntry": true
   },
   "resources/js/nexus/nuevopedido.js": {
     "file": "assets/nuevopedido-B04mLnXb.js",
@@ -788,13 +794,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-CUV8Ca5k.js",
+    "file": "assets/dashboard-sales-CpZ-v4Io.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-w5x42YD8.js",
+      "_index-C8EtrM9T.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -802,12 +808,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-_-iz1LMo.js",
+    "file": "assets/echart-BWqmq0OK.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-w5x42YD8.js"
+      "_index-C8EtrM9T.js"
     ]
   },
   "resources/js/pages/email-compose.js": {

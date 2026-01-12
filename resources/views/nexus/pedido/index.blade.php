@@ -146,13 +146,13 @@
                   <td>${{ number_format($pedido->saldo, 2) }}</td>
                   @switch($pedido->estado)
                   @case('ordenado')
-                  <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
+                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> Ordenado </span></td>
                   @break
                   @case('produccion')
-                  <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion </span></td>
+                  <td> <span class="badge badge-soft-info"><i class="fas fa-circle"></i> Produccion </span></td>
                   @break
                   @case('terminado')
-                  <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Terminado </span></td>
+                  <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Terminado </span></td>
                   @break
                   @case('entregado')
                   <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Entregado </span></td>
@@ -167,7 +167,7 @@
                   <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Convertida </span></td>
                   @break
                   @default
-                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> n/a </span></td>
+                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> N/A </span></td>
                   @endswitch
                   <td>
                     <a class="text-info" href="{{ route('pedidos.show', $pedido->id) }}"> <i class="fas fa-eye"></i> </a>&nbsp;
