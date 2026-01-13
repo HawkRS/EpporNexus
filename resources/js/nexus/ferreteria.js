@@ -11,53 +11,45 @@ window.$.fn.DataTable = DataTable;
 
 // Usamos const para jQuery, aunque ya debería ser global por DataTables
 const jQuery = window.$;
-
 jQuery(document).ready(function($) {
+    const editModal = $('#editModal');
+    const editForm = $('#editForm');
+    const modalTitle = $('#editModalLabel');
 
-        const editModal = $('#editModal');
-        const editForm = $('#editForm');
-        const modalTitle = $('#editModalLabel');
+    // Escuchar el evento antes de mostrar el modal
+    editModal.on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
 
-        // Definir la plantilla de la ruta Laravel con un placeholder.
-        // Esto asegura que la función route() de Laravel se use correctamente.
-        const routeTemplate = "{{ route('ferreteria.update', ['id' => 'PLACEHOLDER_ID']) }}";
+        // 1. Extraer datos
+        const id = button.data('id');
+        const nombre = button.data('nombre');
+        const cantidad = button.data('cantidad');
+        const costo = button.data('costo');
 
-        // Escuchar el evento que se dispara JUSTO ANTES de que Bootstrap muestre el modal
-        editModal.on('show.bs.modal', function (event) {
-            const button = $(event.relatedTarget); // El botón que hizo clic
+        // 2. Cargar datos en los inputs
+        $('#editId').val(id);
+        $('#editNombre').val(nombre);
+        $('#editCantidad').val(cantidad);
+        $('#editCosto').val(costo);
 
-            // 1. Extraer los datos usando .data() de jQuery
-            const id = button.data('id');
-            const nombre = button.data('nombre');
-            // Se usan tus nombres de atributos: data-cantidad y data-costo
-            const cantidad = button.data('cantidad');
-            const costo = button.data('costo');
+        // 3. Actualizar título
+        modalTitle.text(`Editar Producto: ${nombre}`);
 
-            // 2. Cargar los datos en los campos del formulario
-            $('#editId').val(id);
-            $('#editNombre').val(nombre);
-            $('#editCantidad').val(cantidad);
-            // El campo se llama editCosto
-            $('#editCosto').val(costo);
-
-            // 3. Actualizar el título del modal
-            modalTitle.text(`Editar Soldadura: ${nombre}`);
-
-            // 4. ACTUALIZAR DINÁMICAMENTE LA URL DE ACCIÓN
-            // Reemplazamos el placeholder en la plantilla de la ruta
-            const finalUrl = routeTemplate.replace('PLACEHOLDER_ID', id);
-
-            // Asignar la URL de acción final al formulario
+        // 4. ACTUALIZAR LA RUTA DINÁMICAMENTE
+        // Usamos la variable global que inyectamos en el Blade
+        if (window.ferreteriaUpdateUrl) {
+            const finalUrl = window.ferreteriaUpdateUrl.replace('ID_PLACEHOLDER', id);
             editForm.attr('action', finalUrl);
-
-            console.log(`Ruta de actualización: ${finalUrl}`);
-        });
-
-        // Opcional: Limpiar el formulario al cerrar el modal
-        editModal.on('hidden.bs.modal', function () {
-            editForm.trigger('reset');
-        });
+            console.log("Acción del formulario actualizada a:", finalUrl);
+        }
     });
+
+    // Limpiar al cerrar
+    editModal.on('hidden.bs.modal', function () {
+        editForm.trigger('reset');
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log('--- DEPURACIÓN DE DATOS DEL GRÁFICO ---');

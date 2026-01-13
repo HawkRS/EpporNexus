@@ -60,6 +60,10 @@
         <div class="card">
             <div class="card-body">
 
+              @if(session('success'))
+                  <div class="alert alert-success">{{ session('success') }}</div>
+              @endif
+
                 <!-- NAV TABS (Pestañas de Navegación) -->
                 <ul class="nav nav-tabs nav-bordered mb-3">
                     <li class="nav-item">

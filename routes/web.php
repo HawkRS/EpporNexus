@@ -236,7 +236,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/guardar', [FerreteriaController::class, 'store'])->name('ferreteria.store');
         Route::get('/detalle/{id}', [FerreteriaController::class, 'show'])->name('ferreteria.show');
         Route::get('/editar/{id}', [FerreteriaController::class, 'edit'])->name('ferreteria.edit');
-        Route::put('/actualizar/{id}', [FerreteriaController::class, 'update'])->name('ferreteria.update'); // PUT
+        Route::post('/actualizar/{id}', [FerreteriaController::class, 'update'])->name('ferreteria.update'); // PUT
         Route::post('/eliminar/{id}', [FerreteriaController::class, 'delete'])->name('ferreteria.destroy');
         Route::post('/{id}/pdf', [FerreteriaController::class, 'generarPDF'])->name('ferreteria.pdf');
         Route::post('/{id}/pedido', [FerreteriaController::class, 'generarPedido'])->name('ferreteria.pedido');

@@ -28,10 +28,9 @@
                   </div>
                   <div class="col-md-4">
                     <span class="text-right">
-                      {{--<a href="{{route('cotizacion.create')}}" class="btn btn-sm btn-success">Nueva cotizacion</a>--}}
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PedidoModal">
-                        Nuevo pedido
+                        Nueva cotización
                       </button>
                     </span>
                   </div>
