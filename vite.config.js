@@ -133,7 +133,7 @@ export default defineConfig(({ mode }) => {
                     "resources/js/nexus/ferreteria.js",
                     "resources/js/nexus/indexisn.js",
                     "resources/js/nexus/indeximss.js",
-                    "resources/js/nexus/nuevacoti.js",
+                    "resources/js/nexus/nuevacoti.js", 
                 ],
 
                 // Configuración dinámica del directorio público

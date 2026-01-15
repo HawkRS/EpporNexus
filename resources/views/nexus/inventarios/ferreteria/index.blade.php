@@ -47,7 +47,9 @@
                 <div class="row justify-content-center mt-3">
                     <div class="col-md-8">
                         <div class="d-grid">
-                            <a href="#" class="btn btn-sm btn-primary">Agregar artículo</a>
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevoArticulo">
+                                <i class="bi bi-plus-circle"></i> Nuevo Artículo
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -60,6 +62,8 @@
         <div class="card">
             <div class="card-body">
 
+              <h5 class="header-title">Inversión total <span class="text-success fntB">${{ number_format($totalInvertido, 2) }}</span> </h5>
+
               @if(session('success'))
                   <div class="alert alert-success">{{ session('success') }}</div>
               @endif
@@ -68,27 +72,27 @@
                 <ul class="nav nav-tabs nav-bordered mb-3">
                     <li class="nav-item">
                         <a href="#tab-abrasivos" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
-                            Abrasivos <span class="badge bg-danger ms-1">${{ number_format($inversionPorCategoria['Abrasivos'], 0) }}</span>
+                            Abrasivos <span class="badge bg-danger ms-1">${{ number_format($inversionPorCategoria['Abrasivos'], 2) }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#tab-consumibles" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                            Consumibles <span class="badge bg-success ms-1">${{ number_format($inversionPorCategoria['Consumibles'], 0) }}</span>
+                            Consumibles <span class="badge bg-success ms-1">${{ number_format($inversionPorCategoria['Consumibles'], 2) }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#tab-miscelaneos" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                            Misceláneos <span class="badge bg-warning ms-1">${{ number_format($inversionPorCategoria['Miscelaneos'], 0) }}</span>
+                            Misceláneos <span class="badge bg-warning ms-1">${{ number_format($inversionPorCategoria['Miscelaneos'], 2) }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#tab-seguridad" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                            Seguridad <span class="badge bg-dark ms-1">${{ number_format($inversionPorCategoria['Seguridad'], 0) }}</span>
+                            Seguridad <span class="badge bg-dark ms-1">${{ number_format($inversionPorCategoria['Seguridad'], 2) }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#tab-soldadura" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
-                            Soldadura <span class="badge bg-info ms-1">${{ number_format($inversionPorCategoria['Soldadura'], 0) }}</span>
+                            Soldadura <span class="badge bg-info ms-1">${{ number_format($inversionPorCategoria['Soldadura'], 2) }}</span>
                         </a>
                     </li>
                 </ul>
@@ -360,6 +364,7 @@
 </div>
 
 @include('nexus.inventarios.ferreteria.partials.modaledititem')
+@include('nexus.inventarios.ferreteria.partials.modaladditem')
 
 @endsection
 

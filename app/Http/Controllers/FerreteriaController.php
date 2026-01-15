@@ -59,7 +59,9 @@ class FerreteriaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validatedData = $request->validate([
+            'codigo' => ['required', 'string', 'max:150', 'unique:ferreteria,codigo'],
             'nombre' => ['required', 'string', 'max:150', 'unique:ferreteria,nombre'],
             'categoria' => ['required', 'string', 'max:50'],
             'cantidad' => ['required', 'integer', 'min:0'],
@@ -67,6 +69,7 @@ class FerreteriaController extends Controller
             'unidad_medida' => ['required', 'string', 'max:30'],
             'precio_venta' => ['nullable', 'numeric', 'min:0'],
         ]);
+        //dd($request->all());
 
         Ferreteria::create($validatedData);
 
