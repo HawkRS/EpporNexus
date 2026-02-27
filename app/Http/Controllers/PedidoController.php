@@ -112,9 +112,6 @@ class PedidoController extends Controller
     ]);
   }
 
-
-
-
   public function create(Request $request)
   {
     //dd($request->all());
@@ -213,8 +210,6 @@ class PedidoController extends Controller
     return view($this->f.'show', compact('pedido', 'cliente', 'productos'));
   }
 
-  // app/Http/Controllers/PedidosController.php
-
   public function edit($id)
   {
     $pedido = Pedido::with('productos')->findOrFail($id);
@@ -256,13 +251,11 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.index')->with('success', 'Pedido actualizado con éxito');
   }
 
-
   public function destroy(Pedido $pedido)
   {
     $pedido->delete();
     return redirect()->route('pedidos.index')->with('success', 'Pedido eliminado exitosamente.');
   }
-
 
   public function generarPDF(Request $request, $id)
   {
@@ -457,7 +450,6 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Guia creada exitosamente.');
   }
 
-
   public function editdate(Request $request, $id)
   {
     $pedido = Pedido::findOrFail($id);
@@ -486,4 +478,34 @@ class PedidoController extends Controller
     $pedido->save();
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Estado actualizado exitosamente.');
   }
+
+  public function prodedit($id, $art)
+  {
+    $pedido = Pedido::with('productos')->findOrFail($id);
+    $productos = Productos::all(); // Vendedores
+
+    return view($this->f.'editprod', compact('pedido', 'productos'));
+  }
+
+  public function delete($id)
+  {
+      dd('Eliminado');
+      $pedido = Pedido::findOrFail($id);
+      $pedido->delete(); // Borrado físico
+      return route('pedidos.index')->with('success', 'Pedido eliminario exitosamente.');
+  }
+
+  public function cancelar($id)
+  {
+    dd('Cancelado');
+      $pedido = Pedido::findOrFail($id);
+      // Asumiendo que tienes una columna 'estado'
+      $pedido->estado = 'cancelado';
+      $pedido->save();
+
+      return route('pedidos.index')->with('info', 'Pedido anulado. Ya no se contará en tus totales.');
+  }
+
+  // CUANDO SUMES TUS TOTALES:
+  // $total = Pedido::where('estado', '!=', 'cancelado')->sum('total');
 }

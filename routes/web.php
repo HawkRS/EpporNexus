@@ -196,8 +196,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/guardar', [PedidoController::class, 'store'])->name('pedidos.store');
         Route::get('/detalle/{id}', [PedidoController::class, 'show'])->name('pedidos.show');
         Route::get('/editar/{id}', [PedidoController::class, 'edit'])->name('pedidos.edit');
-        Route::put('/actualizar/{id}', [PedidoController::class, 'update'])->name('pedidos.update'); // PUT
+        Route::put('/actualizar/{id}', [PedidoController::class, 'update'])->name('pedidos.update'); // PUDT
+        Route::get('/editar/{id}/prod/{art}', [PedidoController::class, 'prodedit'])->name('pedidosarticulo.edit'); // PUDT
+        Route::post('/actualizar/{id}/prod/{art}', [PedidoController::class, 'produpdate'])->name('pedidosarticulo.update'); // PUDT
         Route::post('/eliminar/{id}', [PedidoController::class, 'delete'])->name('pedidos.delete');
+        Route::post('/cancelar/{id}', [PedidoController::class, 'cancelar'])->name('pedidos.cancelar');
         Route::post('/{id}/pdf', [PedidoController::class, 'generarPDF'])->name('pedidos.pdf');
         Route::post('/{id}/agregar-guia', [PedidoController::class, 'addGuia'])->name('pedidos.addguia');
         Route::get('/{id}/editar-fecha', [PedidoController::class, 'editdate'])->name('pedidos.editdate');

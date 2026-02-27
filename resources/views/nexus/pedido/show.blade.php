@@ -14,6 +14,21 @@
       <div class="card-body">
         <h2 class="fntB fnt_blue"><i class="fas fa-file-invoice"></i> Pedido # {{ $pedido->folio }}</h2>
         <a href="{{route('pedidos.index')}}" class="btn btn-sm btn-primary">Regresar</a>
+        <button type="button" class="btn btn-sm btn-secondary btn-cancelar-pedido"
+            data-bs-toggle="modal" data-bs-target="#confirmActionModal"
+            data-id="{{ $pedido->id }}"
+            data-nombre="Pedido #{{ $pedido->id }}"
+            data-action-url="{{ route('pedidos.cancelar', $pedido->id) }}"
+            title="Anular Pedido">Anular pedido
+    </button>
+
+    <button type="button" class="btn btn-sm btn-danger btn-eliminar-pedido"
+            data-bs-toggle="modal" data-bs-target="#confirmActionModal"
+            data-id="{{ $pedido->id }}"
+            data-nombre="Pedido #{{ $pedido->id }}"
+            data-action-url="{{ route('pedidos.delete', $pedido->id) }}"
+            title="Eliminar permanentemente">Eliminar pedido
+    </button>
         <div  class="row fnt16 text-uppercase pt-4">
           <div class="table-responsive">
             <table class="table table-sm table-borderless">
@@ -54,7 +69,7 @@
                       @foreach($pedido->productos as $pedidoProducto)
                       <tr>
                         <td>
-                          <a href="#" class="text-warning"><i class="fas fa-edit"></i></a>
+                          <a href="{{route('pedidosarticulo.edit', ['id'=>$pedido->id, 'art'=>$pedidoProducto->id])}}" class="text-warning"><i class="fas fa-edit"></i></a>
                           <a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                         </td>
                         <td>{{ $pedidoProducto->pivot['cantidad']}}</td>
@@ -355,6 +370,7 @@
 @include('nexus.pedido.partials.modaladdguia')
 @include('nexus.pedido.partials.modaleditpago')
 @include('nexus.pedido.partials.modalupdatestatus')
+@include('nexus.pedido.partials.modaldelete')
 
 
 @endsection

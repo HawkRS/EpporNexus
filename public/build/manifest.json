@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-C8EtrM9T.js": {
-    "file": "assets/index-C8EtrM9T.js",
+  "_index-iIG3APxK.js": {
+    "file": "assets/index-iIG3APxK.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -374,7 +374,7 @@
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css": {
     "file": "assets/bootstrap-editable-B6NSTogR.css",
@@ -387,7 +387,7 @@
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
-    "src": "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif"
+    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif"
   },
   "resources/fonts/Simple-Line-Icons.eot": {
     "file": "assets/Simple-Line-Icons-CKKl-dGR.eot",
@@ -640,7 +640,7 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-nK2d-NZt.js",
+    "file": "assets/ferreteria-C4Q0uvju.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
     "isEntry": true,
@@ -794,13 +794,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-CpZ-v4Io.js",
+    "file": "assets/dashboard-sales-UFZx0Rg9.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-C8EtrM9T.js",
+      "_index-iIG3APxK.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -808,12 +808,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-BWqmq0OK.js",
+    "file": "assets/echart-BVXvOCeJ.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-C8EtrM9T.js"
+      "_index-iIG3APxK.js"
     ]
   },
   "resources/js/pages/email-compose.js": {
