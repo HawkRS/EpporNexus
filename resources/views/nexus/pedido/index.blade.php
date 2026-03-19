@@ -66,14 +66,15 @@
                         <div class="col-md-3">
                           <label>Estado</label>
                           <select name="estado" class="form-control">
-                            <option value="">Todos</option>
-                            <option value="ordenado">Ordenado</option>
-                            <option value="produccion">Producción</option>
-                            <option value="terminado">Terminado</option>
-                            <option value="entregado">Entregado</option>
-                            <option value="espera">Espera</option>
-                            <option value="cancelado">Cancelado</option>
-                            <option value="convertida">Convertida</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="">Todos</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="activos">Activos</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="ordenado">Ordenado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="produccion">Producción</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="terminado">Terminado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="entregado">Entregado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="espera">Espera</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="cancelado">Cancelado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="convertida">Convertida</option>
                           </select>
                         </div>
 

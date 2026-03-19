@@ -93,7 +93,7 @@ $(document).ready(function () {
         console.log('Modal de edición de pago cargado. ID:', id, 'URL:', editUrl);
     });
 
-  
+
     if (confirmModal) {
         confirmModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget; // Botón que activó el modal
@@ -126,7 +126,7 @@ $(document).ready(function () {
                 header.className = 'modal-header bg-warning text-dark';
                 confirmBtn.className = 'btn btn-warning px-4 text-dark';
                 // Si la ruta de cancelar es PATCH o PUT, lo agregamos aquí:
-                methodPlaceholder.innerHTML = '<input type="hidden" name="_method" value="PATCH">';
+                methodPlaceholder.innerHTML = '<input type="hidden" name="_method" value="post">';
             }
         });
     }

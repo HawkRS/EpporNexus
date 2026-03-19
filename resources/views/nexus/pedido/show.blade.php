@@ -17,6 +17,7 @@
         <button type="button" class="btn btn-sm btn-secondary btn-cancelar-pedido"
             data-bs-toggle="modal" data-bs-target="#confirmActionModal"
             data-id="{{ $pedido->id }}"
+            data-type = "anular"
             data-nombre="Pedido #{{ $pedido->id }}"
             data-action-url="{{ route('pedidos.cancelar', $pedido->id) }}"
             title="Anular Pedido">Anular pedido
@@ -25,9 +26,10 @@
     <button type="button" class="btn btn-sm btn-danger btn-eliminar-pedido"
             data-bs-toggle="modal" data-bs-target="#confirmActionModal"
             data-id="{{ $pedido->id }}"
+            data-type = "eliminar"
             data-nombre="Pedido #{{ $pedido->id }}"
             data-action-url="{{ route('pedidos.delete', $pedido->id) }}"
-            title="Eliminar permanentemente">Eliminar pedido
+            title="Eliminar Pedido">Eliminar Pedido
     </button>
         <div  class="row fnt16 text-uppercase pt-4">
           <div class="table-responsive">
