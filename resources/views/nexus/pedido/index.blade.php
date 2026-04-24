@@ -54,11 +54,11 @@
                         </div>
                         <div class="col-md-3">
                           <label>Desde</label>
-                          <input type="date" name="desde" class="form-control">
+                          <input type="date" name="fecha_inicio" class="form-control">
                         </div>
                         <div class="col-md-3">
                           <label>Hasta</label>
-                          <input type="date" name="hasta" class="form-control">
+                          <input type="date" name="fecha_fin" class="form-control">
                         </div>
                       </div>
 

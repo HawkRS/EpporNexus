@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-iIG3APxK.js": {
-    "file": "assets/index-iIG3APxK.js",
+  "_index-Dkd76Y9j.js": {
+    "file": "assets/index-Dkd76Y9j.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -624,6 +624,12 @@
       "_moment-CAEcp8GN.js"
     ]
   },
+  "resources/js/nexus/cotishow.js": {
+    "file": "assets/cotishow-DfSH598t.js",
+    "name": "cotishow",
+    "src": "resources/js/nexus/cotishow.js",
+    "isEntry": true
+  },
   "resources/js/nexus/dashboard.js": {
     "file": "assets/dashboard-Bfup0iOu.js",
     "name": "dashboard",
@@ -708,7 +714,7 @@
     ]
   },
   "resources/js/nexus/pedidoshow.js": {
-    "file": "assets/pedidoshow-Br768Exs.js",
+    "file": "assets/pedidoshow-BjjiAGh0.js",
     "name": "pedidoshow",
     "src": "resources/js/nexus/pedidoshow.js",
     "isEntry": true
@@ -794,13 +800,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-UFZx0Rg9.js",
+    "file": "assets/dashboard-sales-CkC7f6zR.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-iIG3APxK.js",
+      "_index-Dkd76Y9j.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -808,12 +814,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-BVXvOCeJ.js",
+    "file": "assets/echart-CMdzkDli.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-iIG3APxK.js"
+      "_index-Dkd76Y9j.js"
     ]
   },
   "resources/js/pages/email-compose.js": {

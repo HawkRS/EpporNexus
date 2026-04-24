@@ -218,6 +218,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/editar/{id}', [CotizacionesController::class, 'edit'])->name('cotizacion.edit');
         Route::put('/actualizar/{id}', [CotizacionesController::class, 'update'])->name('cotizacion.update'); // PUT
         Route::post('/eliminar/{id}', [CotizacionesController::class, 'delete'])->name('cotizacion.delete');
+        Route::post('/cancelar/{id}', [CotizacionesController::class, 'cancelar'])->name('cotizacion.cancelar');
         Route::post('/{id}/pdf', [CotizacionesController::class, 'generarPDF'])->name('cotizacion.pdf');
         Route::post('/{id}/pedido', [CotizacionesController::class, 'generarPedido'])->name('cotizacion.pedido');
     });

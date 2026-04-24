@@ -73,7 +73,7 @@ class CotizacionesController extends Controller
       'cantidad.*' => 'required|integer|min:1',
       'descuento' => 'nullable|array',
       'descuento.*' => 'nullable|numeric|min:0',
-      'estado' => 'required|string',
+      'fecha_pedido' => 'required|date',
       'metodo_entrega' => 'required|string',
       'factura' => 'required|boolean',
       'comentarios' => 'nullable|string',
@@ -97,7 +97,8 @@ class CotizacionesController extends Controller
       'iva' => $iva,
       'total' => $total,
       'saldo' => $total,
-      'estado' => $request->estado,
+      'fecha' => $request->fecha_pedido,
+      'estado' => "pendiente",
       'metodo_entrega' => $request->metodo_entrega,
       'factura' => $request->factura ? 1 : 0,
       'comentarios' => $request->comentarios,
@@ -267,7 +268,7 @@ class CotizacionesController extends Controller
 
       try {
         $cotizacion = Cotizacion::with('productos')->findOrFail($id);
-
+        //dd($cotizacion);
         // Crear nuevo pedido con los mismos datos
         $pedido = Pedido::create([
         'cliente_id'      => $cotizacion->cliente_id,
@@ -275,6 +276,7 @@ class CotizacionesController extends Controller
         'folio'           => $this->getNuevoFolioPedido(), // lógica para folio incremental
         'subtotal'        => $cotizacion->subtotal,
         'iva'             => $cotizacion->iva,
+        'fecha'             => $cotizacion->fecha,
         'total'           => $cotizacion->total,
         'saldo'           => $cotizacion->total, // Asumes que aún no paga nada
         'estado'          => 'ordenado',
@@ -316,6 +318,27 @@ class CotizacionesController extends Controller
     private function getNuevoFolioPedido()
     {
       return \App\Models\Pedido::max('folio') + 1;
+    }
+
+    public function delete($id)
+    {
+        //dd('Eliminado');
+        $cotizacion = Cotizacion::findOrFail($id);
+        $cotizacion->delete(); // Borrado físico
+        //dd($cotizacion);
+         return redirect()->route('cotizacion.index')->with('success', 'Cotización eliminada exitosamente.');
+    }
+
+    public function cancelar($id)
+    {
+        //dd('Cancelado');
+        $cotizacion = Cotizacion::findOrFail($id);
+        // Asumiendo que tienes una columna 'estado'
+        $cotizacion->estado = 'cancelado';
+        $cotizacion->save();
+        //dd($cotizacion);
+
+         return redirect()->route('cotizacion.index')->with('success', 'Cotización anulada. Ya no se contará en tus totales.');
     }
 
   }

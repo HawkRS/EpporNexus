@@ -97,7 +97,8 @@ $(document).ready(function () {
     if (confirmModal) {
         confirmModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget; // Botón que activó el modal
-
+            //console.log(event);
+            //console.log(event.relatedTarget);
             // Extraer info de los atributos data-
             const nombre = button.getAttribute('data-nombre');
             const actionUrl = button.getAttribute('data-action-url'); // La ruta completa de Laravel
