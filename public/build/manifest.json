@@ -41,8 +41,8 @@
     "file": "assets/index-BEKk9TLb.js",
     "name": "index"
   },
-  "_index-w5x42YD8.js": {
-    "file": "assets/index-w5x42YD8.js",
+  "_index-Dkd76Y9j.js": {
+    "file": "assets/index-Dkd76Y9j.js",
     "name": "index"
   },
   "_jquery-M4kHYfMF.js": {
@@ -370,7 +370,7 @@
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
@@ -383,7 +383,7 @@
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png": {
     "file": "assets/clear-DqTgjJ-s.png",
-    "src": "node_modules/x-editable/dist/bootstrap3-editable/img/clear.png"
+    "src": "node_modules/x-editable/dist/bootstrap-editable/img/clear.png"
   },
   "node_modules/x-editable/dist/bootstrap3-editable/img/loading.gif": {
     "file": "assets/loading-CwvWj_Ry.gif",
@@ -624,6 +624,12 @@
       "_moment-CAEcp8GN.js"
     ]
   },
+  "resources/js/nexus/cotishow.js": {
+    "file": "assets/cotishow-DfSH598t.js",
+    "name": "cotishow",
+    "src": "resources/js/nexus/cotishow.js",
+    "isEntry": true
+  },
   "resources/js/nexus/dashboard.js": {
     "file": "assets/dashboard-Bfup0iOu.js",
     "name": "dashboard",
@@ -640,7 +646,7 @@
     ]
   },
   "resources/js/nexus/ferreteria.js": {
-    "file": "assets/ferreteria-BweaiWWV.js",
+    "file": "assets/ferreteria-C4Q0uvju.js",
     "name": "ferreteria",
     "src": "resources/js/nexus/ferreteria.js",
     "isEntry": true,
@@ -680,6 +686,12 @@
       "_jquery-sB3rc0pu.js"
     ]
   },
+  "resources/js/nexus/nuevacoti.js": {
+    "file": "assets/nuevacoti-B04mLnXb.js",
+    "name": "nuevacoti",
+    "src": "resources/js/nexus/nuevacoti.js",
+    "isEntry": true
+  },
   "resources/js/nexus/nuevopedido.js": {
     "file": "assets/nuevopedido-B04mLnXb.js",
     "name": "nuevopedido",
@@ -702,7 +714,7 @@
     ]
   },
   "resources/js/nexus/pedidoshow.js": {
-    "file": "assets/pedidoshow-Br768Exs.js",
+    "file": "assets/pedidoshow-BjjiAGh0.js",
     "name": "pedidoshow",
     "src": "resources/js/nexus/pedidoshow.js",
     "isEntry": true
@@ -788,13 +800,13 @@
     ]
   },
   "resources/js/pages/dashboard-sales.js": {
-    "file": "assets/dashboard-sales-CUV8Ca5k.js",
+    "file": "assets/dashboard-sales-CkC7f6zR.js",
     "name": "dashboard-sales",
     "src": "resources/js/pages/dashboard-sales.js",
     "isEntry": true,
     "imports": [
       "_c3-CmzG1_VR.js",
-      "_index-w5x42YD8.js",
+      "_index-Dkd76Y9j.js",
       "_Chart-2EDZRsaq.js",
       "__commonjsHelpers-DR3NjCyK.js",
       "__commonjs-dynamic-modules-TDtrdbi3.js",
@@ -802,12 +814,12 @@
     ]
   },
   "resources/js/pages/echart.js": {
-    "file": "assets/echart-_-iz1LMo.js",
+    "file": "assets/echart-CMdzkDli.js",
     "name": "echart",
     "src": "resources/js/pages/echart.js",
     "isEntry": true,
     "imports": [
-      "_index-w5x42YD8.js"
+      "_index-Dkd76Y9j.js"
     ]
   },
   "resources/js/pages/email-compose.js": {

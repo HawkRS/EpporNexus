@@ -13,6 +13,24 @@
     <div class="card">
       <div class="card-body">
         <h2 class="fntB fnt_blue"><i class="fas fa-file-invoice"></i> Cotización # {{ $cotizacion->folio }}</h2>
+        <a href="{{route('cotizacion.index')}}" class="btn btn-sm btn-primary">Regresar</a>
+        <button type="button" class="btn btn-sm btn-secondary btn-cancelar-pedido"
+            data-bs-toggle="modal" data-bs-target="#confirmActionModal"
+            data-id="{{ $cotizacion->id }}"
+            data-type = "anular"
+            data-nombre="Cotizacion #{{ $cotizacion->id }}"
+            data-action-url="{{ route('cotizacion.cancelar', $cotizacion->id) }}"
+            title="Anular Cotizacion">Anular Cotización
+    </button>
+
+    <button type="button" class="btn btn-sm btn-danger btn-eliminar-pedido"
+            data-bs-toggle="modal" data-bs-target="#confirmActionModal"
+            data-id="{{ $cotizacion->id }}"
+            data-type = "eliminar"
+            data-nombre="Pedido #{{ $cotizacion->id }}"
+            data-action-url="{{ route('cotizacion.delete', $cotizacion->id) }}"
+            title="Eliminar Cotización">Eliminar Cotización
+    </button>
         <div  class="row fnt16 text-uppercase pt-4">
           <div class="table-responsive">
             <table class="table table-sm table-borderless">
@@ -131,5 +149,10 @@
 </div>
 
 @include ('nexus.cotizaciones.partials.pdfmodal')
+@include ('nexus.cotizaciones.partials.modaldelete')
 
+@endsection
+
+@section('scripts')
+@vite(['resources/js/nexus/cotishow.js'])
 @endsection

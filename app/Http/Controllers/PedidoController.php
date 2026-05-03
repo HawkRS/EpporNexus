@@ -23,97 +23,106 @@ class PedidoController extends Controller
 
 
 
-  public function index(Request $request)
-  {
-    // Base query
-    $query = Pedido::query();
+  /**
+     * Muestra el listado de pedidos con filtros avanzados.
+     * Se prioriza la columna 'fecha' sobre 'created_at' para las búsquedas.
+     */
+    public function index(Request $request)
+    {
+        // Base query
+        $query = Pedido::query();
 
-    // Filtros
-    if ($request->filled('cliente')) {
-      $query->whereHas('cliente', function ($q) use ($request) {
-        $q->where('identificador', 'like', '%' . $request->cliente . '%');
-      });
-    }
+        // 0. REGLA ESTRICTA GLOBAL: Ignorar SIEMPRE los pedidos sin fecha
+        // Al colocarlo aquí, nos aseguramos de que jamás aparezca un pedido
+        // con fecha NULL en esta vista ni en las gráficas de abajo.
+        $query->whereNotNull('fecha');
 
-    if ($request->filled('fecha_inicio') && $request->filled('fecha_fin')) {
-      $query->whereBetween('created_at', [
-        $request->fecha_inicio . ' 00:00:00',
-        $request->fecha_fin . ' 23:59:59',
-      ]);
-    }
-
-    if ($request->filled('producto')) {
-      $query->whereHas('productos', function ($q) use ($request) {
-        $q->where('nombre', 'like', '%' . $request->producto . '%');
-      });
-    }
-
-    if ($request->has('saldo_pendiente')) {
-      $query->where('saldo', '>', 0);
-    }
-
-    if ($request->filled('estado')) {
-      $query->where('estado', $request->estado);
-    }
-
-    if ($request->filled('entrega')) {
-      $query->where('metodo_entrega', $request->entrega);
-    }
-
-    if ($request->filled('pagado')) {
-      $query->where(function ($q) use ($request) {
-        if ($request->pagado == 'si') {
-          $q->where('saldo', '<=', 0);
-        } elseif ($request->pagado == 'no') {
-          $q->where('saldo', '>', 0);
+        // Filtros
+        if ($request->filled('cliente')) {
+            $query->whereHas('cliente', function ($q) use ($request) {
+                $q->where('identificador', 'like', '%' . $request->cliente . '%');
+            });
         }
-      });
+
+        // 2. FILTRO POR RANGO DE FECHAS (Usando la columna 'fecha')
+        if ($request->filled('fecha_inicio') && $request->filled('fecha_fin')) {
+            // Como ya filtramos los nulos arriba, aquí solo aplicamos el rango
+            $query->whereBetween('fecha', [
+                      $request->fecha_inicio,
+                      $request->fecha_fin
+                  ]);
+        }
+
+        if ($request->filled('producto')) {
+            $query->whereHas('productos', function ($q) use ($request) {
+                $q->where('nombre', 'like', '%' . $request->producto . '%');
+            });
+        }
+
+        if ($request->has('saldo_pendiente')) {
+            $query->where('saldo', '>', 0);
+        }
+
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->estado);
+        }
+
+        if ($request->filled('entrega')) {
+            $query->where('metodo_entrega', $request->entrega);
+        }
+
+        if ($request->filled('pagado')) {
+            $query->where(function ($q) use ($request) {
+                if ($request->pagado == 'si') {
+                    $q->where('saldo', '<=', 0);
+                } elseif ($request->pagado == 'no') {
+                    $q->where('saldo', '>', 0);
+                }
+            });
+        }
+
+        // Clonamos el query para reutilizarlo sin modificar el original
+        $pedidosQuery = clone $query;
+
+        // Obtener pedidos filtrados
+        $pedidos = $query->orderBy('id', 'desc')->get();
+        // dd($pedidos); // <-- Comentado para permitir que la vista se cargue
+
+        // Clientes
+        $clientes = Clientes::orderBy('identificador', 'asc')->get();
+
+        // Gráfica 1: pedidos por estado
+        $porEstado = (clone $pedidosQuery)
+        ->selectRaw('estado, COUNT(*) as total')
+        ->groupBy('estado')
+        ->pluck('total', 'estado');
+
+        // Gráfica 2: saldos (filtrados)
+        $totalPedidos = (clone $pedidosQuery)->sum('total');
+        $totalSaldo = (clone $pedidosQuery)->sum('saldo');
+        $totalPagado = $totalPedidos - $totalSaldo;
+
+        // Gráfica 3: productos más vendidos en los pedidos filtrados
+        $pedidoIdsFiltrados = $pedidos->pluck('id');
+
+        $productosContados = DB::table('pedido_productos')
+        ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
+        ->whereIn('pedido_productos.pedido_id', $pedidoIdsFiltrados)
+        ->select('productos.nombre', DB::raw('COUNT(DISTINCT pedido_productos.pedido_id) as total'))
+        ->groupBy('productos.nombre')
+        ->orderByDesc('total')
+        ->take(5)
+        ->get();
+
+        return view($this->f . 'index', [
+            'pedidos' => $pedidos,
+            'clientes' => $clientes,
+            'porEstado' => $porEstado,
+            'totalPagado' => $totalPagado,
+            'totalSaldo' => $totalSaldo,
+            'productosContados' => $productosContados,
+        ]);
     }
-
-    // Clonamos el query para reutilizarlo sin modificar el original
-    $pedidosQuery = clone $query;
-
-    // Obtener pedidos filtrados
-    $pedidos = $query->orderBy('id', 'desc')->get();
-
-    // Clientes
-    $clientes = Clientes::orderBy('identificador', 'asc')->get();
-
-    // Gráfica 1: pedidos por estado
-    $porEstado = (clone $pedidosQuery)
-    ->selectRaw('estado, COUNT(*) as total')
-    ->groupBy('estado')
-    ->pluck('total', 'estado');
-
-    // Gráfica 2: saldos (filtrados)
-    $totalPedidos = (clone $pedidosQuery)->sum('total');
-    $totalSaldo = (clone $pedidosQuery)->sum('saldo');
-    $totalPagado = $totalPedidos - $totalSaldo;
-
-    // Gráfica 3: productos más vendidos en los pedidos filtrados
-    $pedidoIdsFiltrados = $pedidos->pluck('id');
-
-    $productosContados = DB::table('pedido_productos')
-    ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
-    ->whereIn('pedido_productos.pedido_id', $pedidoIdsFiltrados)
-    ->select('productos.nombre', DB::raw('COUNT(DISTINCT pedido_productos.pedido_id) as total'))
-    ->groupBy('productos.nombre')
-    ->orderByDesc('total')
-    ->take(5)
-    ->get();
-
-    return view($this->f . 'index', [
-    'pedidos' => $pedidos,
-    'clientes' => $clientes,
-    'porEstado' => $porEstado,
-    'totalPagado' => $totalPagado,
-    'totalSaldo' => $totalSaldo,
-    'productosContados' => $productosContados,
-    ]);
-  }
-
-
-
 
   public function create(Request $request)
   {
@@ -214,8 +223,6 @@ class PedidoController extends Controller
     return view($this->f.'show', compact('pedido', 'cliente', 'productos', 'productlist'));
   }
 
-  // app/Http/Controllers/PedidosController.php
-
   public function edit($id)
   {
     $pedido = Pedido::with('productos')->findOrFail($id);
@@ -257,13 +264,13 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.index')->with('success', 'Pedido actualizado con éxito');
   }
 
-
   public function destroy(Pedido $pedido)
   {
     $pedido->delete();
     return redirect()->route('pedidos.index')->with('success', 'Pedido eliminado exitosamente.');
   }
 
+<<<<<<< HEAD
   public function addproducts(Request $request, $id)
   {
     $pedido = Pedido::findOrFail($id);
@@ -276,6 +283,8 @@ class PedidoController extends Controller
     dd($request->all());
   }
 
+=======
+>>>>>>> a8e11e7513235ebcaf44fe81723bb5704f682149
   public function generarPDF(Request $request, $id)
   {
       $request->validate([
@@ -469,7 +478,6 @@ class PedidoController extends Controller
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Guia creada exitosamente.');
   }
 
-
   public function editdate(Request $request, $id)
   {
     $pedido = Pedido::findOrFail($id);
@@ -498,4 +506,34 @@ class PedidoController extends Controller
     $pedido->save();
     return redirect()->route('pedidos.show', ['id' => $pedido->id])->with('success', ' Estado actualizado exitosamente.');
   }
+
+  public function prodedit($id, $art)
+  {
+    $pedido = Pedido::with('productos')->findOrFail($id);
+    $productos = Productos::all(); // Vendedores
+
+    return view($this->f.'editprod', compact('pedido', 'productos'));
+  }
+
+  public function delete($id)
+  {
+      //dd('Eliminado');
+      $pedido = Pedido::findOrFail($id);
+      $pedido->delete(); // Borrado físico
+       return redirect()->route('pedidos.index')->with('success', 'Pedido eliminario exitosamente.');
+  }
+
+  public function cancelar($id)
+  {
+      //dd('Cancelado');
+      $pedido = Pedido::findOrFail($id);
+      // Asumiendo que tienes una columna 'estado'
+      $pedido->estado = 'cancelado';
+      $pedido->save();
+
+       return redirect()->route('pedidos.index')->with('success', 'Pedido anulado. Ya no se contará en tus totales.');
+  }
+
+  // CUANDO SUMES TUS TOTALES:
+  // $total = Pedido::where('estado', '!=', 'cancelado')->sum('total');
 }

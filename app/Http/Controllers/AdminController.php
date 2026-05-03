@@ -91,7 +91,7 @@ class AdminController extends Controller
          ->get();
      // Tareas pendientes
      $TareasList = Tareas::where('estatus', 0)->get();
-     //dd($VentasAnuales);
+     //dd($totalVentasLastYear);
 
      // Retornar a la vista
      return view($this->f.'dashboard', [

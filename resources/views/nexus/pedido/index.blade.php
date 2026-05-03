@@ -54,11 +54,11 @@
                         </div>
                         <div class="col-md-3">
                           <label>Desde</label>
-                          <input type="date" name="desde" class="form-control">
+                          <input type="date" name="fecha_inicio" class="form-control">
                         </div>
                         <div class="col-md-3">
                           <label>Hasta</label>
-                          <input type="date" name="hasta" class="form-control">
+                          <input type="date" name="fecha_fin" class="form-control">
                         </div>
                       </div>
 
@@ -66,14 +66,15 @@
                         <div class="col-md-3">
                           <label>Estado</label>
                           <select name="estado" class="form-control">
-                            <option value="">Todos</option>
-                            <option value="ordenado">Ordenado</option>
-                            <option value="produccion">Producción</option>
-                            <option value="terminado">Terminado</option>
-                            <option value="entregado">Entregado</option>
-                            <option value="espera">Espera</option>
-                            <option value="cancelado">Cancelado</option>
-                            <option value="convertida">Convertida</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="">Todos</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="activos">Activos</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="ordenado">Ordenado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="produccion">Producción</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="terminado">Terminado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="entregado">Entregado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="espera">Espera</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="cancelado">Cancelado</option>
+                            <option {{ request('estado') == '...' ? 'selected' : '' }} value="convertida">Convertida</option>
                           </select>
                         </div>
 
@@ -146,13 +147,13 @@
                   <td>${{ number_format($pedido->saldo, 2) }}</td>
                   @switch($pedido->estado)
                   @case('ordenado')
-                  <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Ordenado </span></td>
+                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> Ordenado </span></td>
                   @break
                   @case('produccion')
-                  <td> <span class="badge badge-soft-warning"><i class="fas fa-circle"></i> Produccion </span></td>
+                  <td> <span class="badge badge-soft-info"><i class="fas fa-circle"></i> Produccion </span></td>
                   @break
                   @case('terminado')
-                  <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Terminado </span></td>
+                  <td> <span class="badge badge-soft-primary"><i class="fas fa-circle"></i> Terminado </span></td>
                   @break
                   @case('entregado')
                   <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Entregado </span></td>
@@ -167,7 +168,7 @@
                   <td> <span class="badge badge-soft-success"><i class="fas fa-circle"></i> Convertida </span></td>
                   @break
                   @default
-                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> n/a </span></td>
+                  <td> <span class="badge badge-soft-secondary"><i class="fas fa-circle"></i> N/A </span></td>
                   @endswitch
                   <td>
                     <a class="text-info" href="{{ route('pedidos.show', $pedido->id) }}"> <i class="fas fa-eye"></i> </a>&nbsp;

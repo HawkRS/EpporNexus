@@ -15,7 +15,7 @@ class Ferreteria extends Model
   protected $table = 'ferreteria';
 
   // Asumiendo que 'id' es la clave primaria por convención de Laravel
-  protected $primaryKey = 'id'; 
+  protected $primaryKey = 'id';
 
   // Campos que pueden ser asignados masivamente (Mass Assignable)
   protected $fillable = [
@@ -34,4 +34,15 @@ class Ferreteria extends Model
       'costo_unitario' => 'decimal:4',
       'precio_venta' => 'decimal:2',
   ];
+
+
+  public function actualiza($data, $request)
+  {
+    //dd($request->cantidad);
+    $data->nombre = $request['nombre'];
+    $data->cantidad = $request['cantidad'];
+    $data->costo_unitario = $request['costo_unitario'];
+    $data->save();
+    //dd($data);
+  }
 }

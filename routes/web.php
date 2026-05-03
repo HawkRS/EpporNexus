@@ -196,8 +196,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/guardar', [PedidoController::class, 'store'])->name('pedidos.store');
         Route::get('/detalle/{id}', [PedidoController::class, 'show'])->name('pedidos.show');
         Route::get('/editar/{id}', [PedidoController::class, 'edit'])->name('pedidos.edit');
-        Route::put('/actualizar/{id}', [PedidoController::class, 'update'])->name('pedidos.update'); // PUT
+        Route::put('/actualizar/{id}', [PedidoController::class, 'update'])->name('pedidos.update'); // PUDT
+        Route::get('/editar/{id}/prod/{art}', [PedidoController::class, 'prodedit'])->name('pedidosarticulo.edit'); // PUDT
+        Route::post('/actualizar/{id}/prod/{art}', [PedidoController::class, 'produpdate'])->name('pedidosarticulo.update'); // PUDT
         Route::post('/eliminar/{id}', [PedidoController::class, 'delete'])->name('pedidos.delete');
+        Route::post('/cancelar/{id}', [PedidoController::class, 'cancelar'])->name('pedidos.cancelar');
         Route::post('/{id}/pdf', [PedidoController::class, 'generarPDF'])->name('pedidos.pdf');
         Route::post('/{id}/agregar-guia', [PedidoController::class, 'addGuia'])->name('pedidos.addguia');
         Route::get('/{id}/editar-fecha', [PedidoController::class, 'editdate'])->name('pedidos.editdate');
@@ -216,6 +219,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/editar/{id}', [CotizacionesController::class, 'edit'])->name('cotizacion.edit');
         Route::put('/actualizar/{id}', [CotizacionesController::class, 'update'])->name('cotizacion.update'); // PUT
         Route::post('/eliminar/{id}', [CotizacionesController::class, 'delete'])->name('cotizacion.delete');
+        Route::post('/cancelar/{id}', [CotizacionesController::class, 'cancelar'])->name('cotizacion.cancelar');
         Route::post('/{id}/pdf', [CotizacionesController::class, 'generarPDF'])->name('cotizacion.pdf');
         Route::post('/{id}/pedido', [CotizacionesController::class, 'generarPedido'])->name('cotizacion.pedido');
     });
@@ -237,7 +241,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/guardar', [FerreteriaController::class, 'store'])->name('ferreteria.store');
         Route::get('/detalle/{id}', [FerreteriaController::class, 'show'])->name('ferreteria.show');
         Route::get('/editar/{id}', [FerreteriaController::class, 'edit'])->name('ferreteria.edit');
-        Route::put('/actualizar/{id}', [FerreteriaController::class, 'update'])->name('ferreteria.update'); // PUT
+        Route::post('/actualizar/{id}', [FerreteriaController::class, 'update'])->name('ferreteria.update'); // PUT
         Route::post('/eliminar/{id}', [FerreteriaController::class, 'delete'])->name('ferreteria.destroy');
         Route::post('/{id}/pdf', [FerreteriaController::class, 'generarPDF'])->name('ferreteria.pdf');
         Route::post('/{id}/pedido', [FerreteriaController::class, 'generarPedido'])->name('ferreteria.pedido');

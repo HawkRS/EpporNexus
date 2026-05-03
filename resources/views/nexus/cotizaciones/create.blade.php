@@ -82,12 +82,12 @@
                   <input type="hidden" name="cliente_id" value="{{ $cliente->id }}">
                   <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
                   <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                       <label class="form-group">Fecha de la cotización:</label>
                       <input class="form-control" type="date" name="fecha_pedido" required>
                     </div>
 
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                       <label class="form-group">Factura:</label>
                       <select class="form-control" name="factura" id="factura-select">
                         <option value="1">Sí</option>
@@ -95,23 +95,12 @@
                       </select>
                     </div>
 
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                       <label class="form-group">Método de entrega:</label>
                       <select class="form-control" name="metodo_entrega" required>
-                        <option value="envio">Envío</option>
-                        <option value="recoger">Recoger</option>
-                      </select>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3">
-                      <label class="form-group">Estado:</label>
-                      <select class="form-control" name="estado" id="factura-select">
-                        <option value="ordenado">Ordenado</option>
-                        <option value="produccion">En produccion</option>
-                        <option value="terminado">Terminado</option>
-                        <option value="entregado">Entregado</option>
-                        <option value="espera">Espera</option>
-                        <option value="cancelado">Cancelado</option>
+                        <option value="envio">Envio</option>
+                        <option value="recoger">Cliente recoge</option>
+                        <option value="pendiente">Por Definir</option>
                       </select>
                     </div>
                   </div>
@@ -150,4 +139,8 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+@vite(['resources/js/nexus/nuevacoti.js'])
 @endsection

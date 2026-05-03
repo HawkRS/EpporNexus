@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Ferreteria;
 
@@ -59,7 +59,9 @@ class FerreteriaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validatedData = $request->validate([
+            'codigo' => ['required', 'string', 'max:150', 'unique:ferreteria,codigo'],
             'nombre' => ['required', 'string', 'max:150', 'unique:ferreteria,nombre'],
             'categoria' => ['required', 'string', 'max:50'],
             'cantidad' => ['required', 'integer', 'min:0'],
@@ -67,6 +69,7 @@ class FerreteriaController extends Controller
             'unidad_medida' => ['required', 'string', 'max:30'],
             'precio_venta' => ['nullable', 'numeric', 'min:0'],
         ]);
+        //dd($request->all());
 
         Ferreteria::create($validatedData);
 
@@ -95,17 +98,24 @@ class FerreteriaController extends Controller
      */
     public function update(Request $request, Ferreteria $ferreteria)
     {
-      dd($request->all());
+        $articulo = Ferreteria::findOrFail($request->id);
+        if ($articulo == null) {
+          //dd($articulo == null);
+          return redirect()->route('ferreteria.index')
+                           ->with('error', 'El artículo de ferretería no ha sido encontrado en la base de datos.');
+        }
+        //dd($articulo);
+        //dd($request->id);
         $validatedData = $request->validate([
             'nombre' => ['required', 'string', 'max:150', Rule::unique('ferreteria')->ignore($articulo->id)],
-            'categoria' => ['required', 'string', 'max:50'],
+            //'categoria' => ['required', 'string', 'max:50'],
             'cantidad' => ['required', 'integer', 'min:0'],
             'costo_unitario' => ['required', 'numeric', 'min:0.01'],
-            'unidad_medida' => ['required', 'string', 'max:30'],
-            'precio_venta' => ['nullable', 'numeric', 'min:0'],
+            //'unidad_medida' => ['required', 'string', 'max:30'],
+            //'precio_venta' => ['nullable', 'numeric', 'min:0'],
         ]);
 
-        $articulo->update($validatedData);
+        $articulo->actualiza($articulo, $validatedData);
 
         return redirect()->route('ferreteria.index')
                          ->with('success', 'Artículo de ferretería actualizado exitosamente.');

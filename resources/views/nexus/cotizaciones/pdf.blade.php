@@ -238,7 +238,7 @@
     </tr>
   </table>
 
-  <h1 class="text-right fnt30 fntB fnt_dblue">COTIZACIÓN #{{ $cotizacion->folio }}</h1>
+  <h1 class="text-right fnt30 fntB fnt_dblue">COTIZACIÓN</h1>
   <table class="client">
     <tr class="bg_blue">
       <td class="bg_blue fnt_white text-uppercase fnt14"><strong>CLIENTE:</strong> {{ $cotizacion->cliente->identificador }}</td>
